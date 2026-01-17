@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
+    <title>Tombol Menu Persegi Empat</title>
+    <style>
+        /* Gaya CSS untuk layout grid */
+        .button-container {
+            display: grid; /* Menggunakan grid */
+            grid-template-columns: repeat(3, 1fr); /* 3 kolom tetap */
+            gap: 20px; /* Jarak antar elemen */
+            justify-content: center; /* Pusatkan elemen secara horizontal */
+            padding: 20px;
+            text-align: center; /* Memastikan teks berada di tengah */
+        }
+
+        /* Gaya CSS untuk setiap item tombol */
+        .button-item {
+            display: flex;
+            flex-direction: column; /* Mengatur tombol dan teks menjadi kolom */
+            align-items: center; /* Pusatkan elemen secara horizontal */
+        }
+/* Gaya CSS untuk tombol persegi empat */
+        .menu-button {
+            display: block;
+            width: 100px; /* Ukuran tombol tetap kecil */
+            height: 100px; /* Ukuran tombol tetap kecil */
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px; /* Sudut melengkung sedikit lebih kecil */
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            overflow: hidden; /* Memastikan gambar tidak melebihi batas tombol */
+        }
+
+        /* Efek hover pada tombol */
+        .menu-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        /* Gaya untuk gambar GIF */
+        .menu-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Gambar menyesuaikan ukuran tombol */
+        }
+/* Gaya untuk teks di luar tombol */
+        .menu-text {
+            font-size: 14px; /* Ukuran teks diperkecil */
+            font-weight: bold;
+            margin-top: 10px; /* Jarak antara tombol dan teks */
+            color: #333;
+        }
+
+        /* Responsive Design untuk layar handphone */
+        @media (max-width: 600px) {
+            .button-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 kolom untuk layar kecil */
+            }
+            .menu-button {
+                width: 100px; /* Ukuran tombol lebih kecil lagi */
+                height: 100px;
+            }
+            .menu-text {
+                font-size: 14px; /* Ukuran teks lebih kecil lagi */
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Kontainer untuk tombol -->
+    <div class="button-container">
+        <!-- Tombol 1: Service -->
+        <div class="button-item">
+            <a class="menu-button" href="https://www.teslasmart.my.id/p/tombol-menu-persegi-empat-gaya-css_18.html" title="Arsitektur">
+                <img alt="Arsitektur" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzaYclUyVpiQFGmfyn4HCBkuHfTS5xUDd13PH7Bbi5dYmM3Suf-sqf7rzk8QMh3Way-cxeXI0jH3cw_bmz3dfL_J7woLQZ125U1rAzkxvdmnqIRcPXjg3gAHHDewOXTiZUebSVjd1QDPDiXiOEPnRbu_2vasSmhAjhVRvS3qfvmrLpGfsMEw9Acm-XQjfA/s640/service.gif" />
+            </a>
+            <span class="menu-text">SERVICE</span>
+        </div>
+        <!-- Tombol 2: Jasa Foto -->
+        <div class="button-item">
+            <a class="menu-button" href="https://www.teslasmart.my.id/p/tombol-menu-vertikal-gaya-css-untuk_72.html" title="Jasa Foto">
+                <img alt="Jasa Foto" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2IrZ4wKaVEkwjl8JDEU3VRbXUGYcIGVbD2uFPUMIIP84BpjL9k47DyRCGLWU0BbbQIbvm_8m-hLINW0xWbSH2LSzJ9C3z6x0xIyO27Va357RMpUkoPEnuJQu4jDaidDuxPiXDS5HbB9auh6eG687Iho3YwouGTjfnVnV123tDwglF070fHFDL7rtRWv82/s320/graphic-software.gif" />
+            </a>
+        <span class="menu-text">JASA DESIGN</span>
+        </div>
+        <!-- Tombol 3: Jasa Video -->
+        <div class="button-item">
+            <a class="menu-button" href="https://www.teslasmart.my.id/p/kode-akses.html" title="Jasa Video">
+                <img alt="Jasa Video" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiqZ7f1ZSrqI2DfO17Nq3BrCY4RUjB3MIX5D3mvJOqOngTtRuMXG13-lWQntvZZDa7i7VncWczi8Zl2d38JcENjYghm_Dhw0_RwRuHAfKBEg1KeFHDYSgvhtd3uXKOdrB16gTmjj0Y-ymno-HG1Zvy_ebaK_f0T3BQyavh-Q9Ceno2mbNbUTBBOrhrcTKtI/s320/1000060836.gif" />
+            </a>
+            <span class="menu-text">KELAS AI</span>
+        </div>
+        <!-- Tombol 4: Edit Foto -->
+        <div class="button-item">
+            <a class="menu-button" href="#" title="Edit Foto">
+                <img alt="Edit Foto" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJJaiq5hZnJu12TYTUR4YYwoBa9ZihE68Z3Mv3SRaIaWSRsfYTce9JQHBBPqRmc1YoZGludwC_2w1qPxCdsTnQTMAADpHfR5VnlEPM1_ws7qd6-f2JmRgU6hJcy_n7HlxPWPEDPeI1RfzY1IYErjwJvQ7fOCWFky9kwNSO_oEpOEg4F4Aiww2GheIqft6r/s320/1000060838.gif" />
+            </a>
+        <span class="menu-text"> JASA WEBSITE</span>
+        </div>
+        <!-- Tombol 5: Edit Video -->
+        <div class="button-item">
+            <a class="menu-button" href="#" title="Edit Video">
+                <img alt="Edit Video" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEQX2jbyk-y1B5Qe2UpEK-z02bbahmt0Y5YSaK0FNEgGE-RwE-cAFDz4SDgkQUNJ_9OUAp0UoJ5zxDDU5qg8tGcuqJnkoPn4hKCOdG9KCDZLfLeL2ecR6nixFdQzzrlxe7Ooc11R-k-lw-MdGNByI4VGe-9J6lcWdJGIB2i3HUEtYQATFz-FAH28iaXYDQ/s320/pathway.gif" />
+            </a>
+            <span class="menu-text">Coming Soon</span>
+        </div>
+        <!-- Tombol 6: Logo Animasi -->
+        <div class="button-item">
+            <a class="menu-button" href="#" title="Logo Animasi">
+                <img alt="Logo Animasi" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiEQX2jbyk-y1B5Qe2UpEK-z02bbahmt0Y5YSaK0FNEgGE-RwE-cAFDz4SDgkQUNJ_9OUAp0UoJ5zxDDU5qg8tGcuqJnkoPn4hKCOdG9KCDZLfLeL2ecR6nixFdQzzrlxe7Ooc11R-k-lw-MdGNByI4VGe-9J6lcWdJGIB2i3HUEtYQATFz-FAH28iaXYDQ/s320/pathway.gif" />
+            </a>
+         <span class="menu-text">Coming Soon</span>
+        </div>
+    </div>
+</body>
+</html>
