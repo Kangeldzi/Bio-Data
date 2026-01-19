@@ -171,45 +171,16 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            min-width: 200px;
-            border-radius: 8px;
-            box-shadow: var(--shadow-hover);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            z-index: 100;
-            padding: 5px 0;
+        /* Link External Indicator */
+        .external-link-indicator {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-left: 4px;
         }
         
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .dropdown-menu li {
-            width: 100%;
-        }
-        
-        .dropdown-menu a {
-            color: var(--maroon-dark);
-            padding: 12px 20px;
-            display: block;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-            border-radius: 0;
-        }
-        
-        .dropdown-menu a:hover {
-            background: rgba(128, 0, 0, 0.05);
-            color: var(--maroon-medium);
-            padding-left: 25px;
+        /* Dropdown menu dihapus karena tidak diperlukan lagi */
+        .dropdown {
+            position: relative;
         }
         
         /* Hero Section */
@@ -1214,45 +1185,6 @@
                 justify-content: space-between;
             }
             
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                background: transparent;
-                box-shadow: none;
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                max-height: 200px;
-            }
-            
-            .dropdown-menu a {
-                color: rgba(255, 255, 255, 0.8);
-                padding: 12px 20px 12px 40px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                font-size: 0.9rem;
-            }
-            
-            .dropdown-menu a:hover {
-                background: rgba(255, 255, 255, 0.1);
-                color: white;
-            }
-            
-            .dropdown > a i.fa-chevron-down {
-                transition: transform 0.3s ease;
-            }
-            
-            .dropdown.active > a i.fa-chevron-down {
-                transform: rotate(180deg);
-            }
-            
             .pricing-cards {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 20px;
@@ -1471,19 +1403,35 @@
                 </button>
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-                    <li class="dropdown" id="profileDropdown">
-                        <a href="profil.html" class="nav-link dropdown-toggle">
-                            <i class="fas fa-user"></i> Profil <i class="fas fa-chevron-down"></i>
+                    
+                    <!-- Profil - Membuka halaman baru/tab baru -->
+                    <li>
+                        <a href="profil.html" class="nav-link" target="_blank">
+                            <i class="fas fa-user"></i> Profil 
+                            <i class="fas fa-external-link-alt external-link-indicator"></i>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> Tentang Kami</a></li>
-                        </ul>
                     </li>
-                    <li><a href="#layanan" class="nav-link"><i class="fas fa-globe"></i> Jenis Website</a></li>
+                    
+                    <!-- Jenis Website - Membuka halaman baru/tab baru -->
+                    <li>
+                        <a href="https://teslasmart.my.id/jenis-website" class="nav-link" target="_blank">
+                            <i class="fas fa-globe"></i> Jenis Website
+                            <i class="fas fa-external-link-alt external-link-indicator"></i>
+                        </a>
+                    </li>
+                    
                     <li><a href="#features" class="nav-link"><i class="fas fa-star"></i> Keunggulan</a></li>
                     <li><a href="#pricing" class="nav-link"><i class="fas fa-tags"></i> Paket Harga</a></li>
                     <li><a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="#" class="nav-link"><i class="fas fa-file-contract"></i> Syarat dan Ketentuan</a></li>
+                    
+                    <!-- Syarat dan Ketentuan - Membuka halaman baru/tab baru -->
+                    <li>
+                        <a href="https://teslasmart.my.id/syarat-ketentuan" class="nav-link" target="_blank">
+                            <i class="fas fa-file-contract"></i> Syarat dan Ketentuan
+                            <i class="fas fa-external-link-alt external-link-indicator"></i>
+                        </a>
+                    </li>
+                    
                     <li><a href="#contact" class="nav-link"><i class="fas fa-phone-alt"></i> Hubungi Kami</a></li>
                 </ul>
             </nav>
@@ -1987,7 +1935,7 @@
             
             <div class="contact-content">
                 <div class="contact-image animate-slide-left delay-1">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5TZBk5MVtwpW8wbcnp09LNzCuK8ksFhXob0gXsMRNACMKo_03Nol4SlMHOdCqrr9JYpAE1x9brh6A8dLzbnwZUNzqsVQWFBoJUt3nmScilOfZIDx_U69-dDDeRp9PgWJ6ZWXfRn5ixzxbj0MMsAiFTz4clDUDedfe-w9IRnL_yLJVezgJ5bzEB-fVoI8/s320/1000007106.png" 
+                    <img src="https://images.unsplash.com/photo-1551836026-d5c2c5af78e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
                          alt="Contact Us" class="contact-img">
                 </div>
                 
@@ -2051,12 +1999,12 @@
                     <h3>Menu Cepat</h3>
                     <ul>
                         <li><a href="#home" class="footer-nav-link">Home</a></li>
-                        <li><a href="#about" class="footer-nav-link">Tentang Kami</a></li>
-                        <li><a href="#layanan" class="footer-nav-link">Jenis Website</a></li>
+                        <li><a href="profil.html" class="footer-nav-link" target="_blank">Profil</a></li>
+                        <li><a href="https://teslasmart.my.id/jenis-website" class="footer-nav-link" target="_blank">Jenis Website</a></li>
                         <li><a href="#features" class="footer-nav-link">Keunggulan</a></li>
                         <li><a href="#pricing" class="footer-nav-link">Paket Harga</a></li>
                         <li><a href="#faq" class="footer-nav-link">FAQ</a></li>
-                        <li><a href="#terms" class="footer-nav-link">Syarat & Ketentuan</a></li>
+                        <li><a href="https://teslasmart.my.id/syarat-ketentuan" class="footer-nav-link" target="_blank">Syarat & Ketentuan</a></li>
                         <li><a href="#contact" class="footer-nav-link">Hubungi Kami</a></li>
                     </ul>
                 </div>
@@ -2086,7 +2034,6 @@
         const menuClose = document.getElementById('menuClose');
         const sidebarMenu = document.getElementById('sidebarMenu');
         const menuOverlay = document.getElementById('menuOverlay');
-        const profileDropdown = document.getElementById('profileDropdown');
         
         // Function to open menu
         function openMenu() {
@@ -2100,15 +2047,6 @@
             sidebarMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
-            
-            // Close dropdown if open
-            if (profileDropdown.classList.contains('active')) {
-                profileDropdown.classList.remove('active');
-                const dropdownIcon = profileDropdown.querySelector('.fa-chevron-down');
-                if (dropdownIcon) {
-                    dropdownIcon.style.transform = 'rotate(0deg)';
-                }
-            }
         }
         
         // Toggle mobile menu
@@ -2116,55 +2054,41 @@
         menuClose.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
         
-        // Toggle dropdown on mobile
-        if (profileDropdown) {
-            const dropdownLink = profileDropdown.querySelector('.dropdown-toggle');
-            const dropdownIcon = profileDropdown.querySelector('.fa-chevron-down');
-            
-            dropdownLink.addEventListener('click', (e) => {
-                if (window.innerWidth <= 992) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    profileDropdown.classList.toggle('active');
-                    
-                    // Rotate chevron icon
-                    if (dropdownIcon) {
-                        dropdownIcon.style.transform = profileDropdown.classList.contains('active') 
-                            ? 'rotate(180deg)' 
-                            : 'rotate(0deg)';
-                    }
-                }
-            });
-        }
-        
         // Close menu when clicking on a nav link
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 // Only close menu on mobile
                 if (window.innerWidth <= 992) {
-                    // For dropdown links, don't close menu immediately
-                    if (!link.classList.contains('dropdown-toggle')) {
-                        closeMenu();
+                    closeMenu();
+                }
+                
+                // Check if link is external (opens in new tab)
+                if (link.getAttribute('target') === '_blank') {
+                    // Don't prevent default for external links
+                    return;
+                }
+                
+                // Handle internal links
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId.startsWith('#')) {
+                    e.preventDefault();
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Add active class to nav link
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        link.classList.add('active');
                     }
                 }
             });
         });
-        
-        // Handle dropdown on desktop
-        if (profileDropdown) {
-            profileDropdown.addEventListener('mouseenter', () => {
-                if (window.innerWidth > 992) {
-                    profileDropdown.classList.add('active');
-                }
-            });
-            
-            profileDropdown.addEventListener('mouseleave', () => {
-                if (window.innerWidth > 992) {
-                    profileDropdown.classList.remove('active');
-                }
-            });
-        }
         
         // Close menu when pressing Escape key
         document.addEventListener('keydown', (e) => {
@@ -2200,7 +2124,7 @@
             });
         }
         
-        // Smooth scrolling for anchor links
+        // Smooth scrolling for internal anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
@@ -2209,7 +2133,7 @@
                     return;
                 }
                 
-                if (targetId.startsWith('#')) {
+                if (targetId.startsWith('#') && !this.getAttribute('target')) {
                     e.preventDefault();
                     
                     // Close mobile menu if open
@@ -2244,9 +2168,12 @@
                 
                 if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                     document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href') === `#${sectionId}`) {
-                            link.classList.add('active');
+                        // Only highlight internal links (not external ones)
+                        if (!link.getAttribute('target')) {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${sectionId}`) {
+                                link.classList.add('active');
+                            }
                         }
                     });
                 }
