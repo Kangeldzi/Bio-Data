@@ -75,35 +75,37 @@
         }
         
         .logo-img {
-            width: 50px;
-            height: 50px;
-            background: var(--gold-gradient);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--maroon-dark);
-            box-shadow: var(--gold-shadow);
-            animation: pulse 2s infinite;
             overflow: hidden;
             position: relative;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            animation: pulse 2s infinite, rotate 10s linear infinite, glow 3s ease-in-out infinite;
+        }
+        
+        .logo-img::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, var(--maroon-medium), var(--gold-medium), var(--maroon-dark), var(--gold-dark));
+            border-radius: 50%;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
         }
         
         .logo-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
-        }
-        
-        .logo-img.has-image img {
-            display: block;
-        }
-        
-        .logo-img.has-image .logo-text-initial {
-            display: none;
+            border-radius: 50%;
         }
         
         .logo-text {
@@ -115,6 +117,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
         }
         
         /* Sidebar Menu - Tampil Default */
@@ -165,6 +168,7 @@
         .nav-menu a:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
         .dropdown-menu {
@@ -208,7 +212,7 @@
             padding-left: 25px;
         }
         
-        /* Hero Section - Lebih Ringkas */
+        /* Hero Section */
         .hero-section {
             padding: 80px 0 40px;
             background: linear-gradient(rgba(255, 250, 250, 0.95), rgba(255, 250, 250, 0.95)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
@@ -247,7 +251,7 @@
             margin-bottom: 25px;
         }
         
-        /* Tombol Hubungi Kami - Lebih Kecil */
+        /* Tombol Hubungi Kami */
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -265,12 +269,29 @@
             border: none;
             cursor: pointer;
             min-width: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
         
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
             background: linear-gradient(135deg, #a52a2a, #8b0000, #5a0000);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
         }
         
         .hero-image {
@@ -285,6 +306,7 @@
             box-shadow: var(--shadow-hover);
             transform: perspective(800px) rotateY(-5deg);
             transition: transform 0.5s ease;
+            animation: float 6s ease-in-out infinite;
         }
         
         .hero-img:hover {
@@ -391,8 +413,8 @@
         
         .feature-icon-container {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             margin: 0 auto 20px;
         }
         
@@ -403,14 +425,14 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 2px solid transparent;
+            border: 3px solid transparent;
             background: linear-gradient(45deg, var(--maroon-medium), var(--gold-medium), var(--maroon-dark), var(--gold-dark)) border-box;
             -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
             mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            animation: rotate 3s linear infinite;
-            opacity: 0.8;
+            animation: rotate 3s linear infinite, glow 2s ease-in-out infinite alternate;
+            opacity: 0.9;
         }
         
         .feature-icon {
@@ -418,18 +440,20 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             background: var(--maroon-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             z-index: 2;
             transition: all 0.3s ease;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: pulseIcon 3s ease-in-out infinite;
         }
         
         .feature-icon i {
@@ -437,26 +461,16 @@
             z-index: 2;
         }
         
-        .feature-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-        
-        .feature-icon.has-image img {
-            display: block;
-        }
-        
-        .feature-icon.has-image i {
-            display: none;
-        }
-        
         .feature-card:hover .feature-icon {
             background: var(--gold-gradient);
             color: var(--maroon-dark);
-            transform: translate(-50%, -50%) scale(1.05);
-            box-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 0 25px rgba(218, 165, 32, 0.5);
+            animation: pulseIconHover 1s ease-in-out infinite alternate;
+        }
+        
+        .feature-card:hover .feature-icon-border {
+            animation: rotate 1.5s linear infinite, glow 1s ease-in-out infinite alternate;
         }
         
         .feature-title {
@@ -532,11 +546,21 @@
             transition: all 0.3s ease;
             overflow: hidden;
             border: 1px solid #eee;
+            animation: floatCard 6s ease-in-out infinite;
+        }
+        
+        .pricing-card:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        .pricing-card:nth-child(3) {
+            animation-delay: 2s;
         }
         
         .pricing-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-hover);
+            animation-play-state: paused;
         }
         
         .pricing-header {
@@ -736,12 +760,29 @@
             padding: 10px 20px;
             border-radius: 8px;
             background: rgba(128, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .website-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(128, 0, 0, 0.1), transparent);
+            transition: 0.5s;
         }
         
         .website-link:hover {
             color: var(--maroon-dark);
             background: rgba(128, 0, 0, 0.1);
             transform: translateY(-2px);
+        }
+        
+        .website-link:hover::before {
+            left: 100%;
         }
         
         /* Layanan Section */
@@ -960,6 +1001,7 @@
             color: white;
             font-size: 1rem;
             flex-shrink: 0;
+            animation: pulse 2s infinite;
         }
         
         /* Footer */
@@ -984,6 +1026,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
         }
         
         .footer-links h3 {
@@ -1022,12 +1065,27 @@
         
         /* Animations */
         @keyframes pulse {
-            0% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(218, 165, 32, 0.7); }
             50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+            100% { transform: scale(1); box-shadow: 0 0 0 10px rgba(218, 165, 32, 0); }
+        }
+        
+        @keyframes pulseIcon {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.05); }
+        }
+        
+        @keyframes pulseIconHover {
+            0% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 15px rgba(218, 165, 32, 0.5); }
+            100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 25px rgba(218, 165, 32, 0.8); }
         }
         
         @keyframes float {
+            0%, 100% { transform: translateY(0) perspective(800px) rotateY(-5deg); }
+            50% { transform: translateY(-10px) perspective(800px) rotateY(0deg); }
+        }
+        
+        @keyframes floatCard {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
         }
@@ -1055,6 +1113,11 @@
         @keyframes glow {
             0%, 100% { box-shadow: 0 0 10px rgba(218, 165, 32, 0.5); }
             50% { box-shadow: 0 0 20px rgba(218, 165, 32, 0.8); }
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+            100% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); }
         }
         
         @keyframes slideInRightMenu {
@@ -1089,153 +1152,6 @@
         .delay-1 { animation-delay: 0.2s; opacity: 0; }
         .delay-2 { animation-delay: 0.4s; opacity: 0; }
         .delay-3 { animation-delay: 0.6s; opacity: 0; }
-        
-        /* Admin Controls */
-        .admin-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .admin-btn {
-            background: var(--maroon-gradient);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .admin-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-        }
-        
-        .admin-panel {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 380px;
-            height: 100vh;
-            background: white;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            z-index: 10000;
-            transition: right 0.3s ease;
-            overflow-y: auto;
-        }
-        
-        .admin-panel.active {
-            right: 0;
-        }
-        
-        .admin-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--maroon-light);
-        }
-        
-        .admin-panel-header h3 {
-            color: var(--maroon-dark);
-            font-size: 1.5rem;
-        }
-        
-        .close-panel {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--maroon-medium);
-            cursor: pointer;
-        }
-        
-        .admin-section {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: #f9f9f9;
-            border-radius: 8px;
-        }
-        
-        .admin-section h4 {
-            color: var(--maroon-dark);
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.95rem;
-        }
-        
-        .btn {
-            background: var(--maroon-gradient);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(128, 0, 0, 0.2);
-        }
-        
-        .icon-preview {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--maroon-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px auto;
-            overflow: hidden;
-        }
-        
-        .icon-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-        
-        .icon-preview.has-image img {
-            display: block;
-        }
-        
-        .icon-preview.has-image i {
-            display: none;
-        }
         
         /* Responsive */
         @media (max-width: 992px) {
@@ -1368,11 +1284,6 @@
             .stats-card.active .stats-content {
                 padding: 14px 16px 16px;
             }
-            
-            .admin-panel {
-                width: 90%;
-                max-width: 350px;
-            }
         }
         
         @media (max-width: 768px) {
@@ -1422,22 +1333,17 @@
                 grid-template-columns: 1fr;
                 gap: 25px;
             }
-            
-            .admin-controls {
-                bottom: 10px;
-                right: 10px;
-            }
-            
-            .admin-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
         }
         
         @media (max-width: 480px) {
             .logo-text {
                 font-size: 1.4rem;
+            }
+            
+            .logo-img {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
             
             .hero-text h1 {
@@ -1467,14 +1373,14 @@
             }
             
             .feature-icon-container {
-                width: 70px;
-                height: 70px;
+                width: 80px;
+                height: 80px;
             }
             
             .feature-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 1.3rem;
+                width: 65px;
+                height: 65px;
+                font-size: 1.5rem;
             }
             
             .feature-title {
@@ -1545,10 +1451,10 @@
     <!-- Header dengan Logo dan Menu Sidebar -->
     <header>
         <div class="container header-container">
-            <div class="logo-container animate-slide-left" id="logoContainer">
-                <div class="logo-img" id="headerLogo">
-                    <span class="logo-text-initial">TS</span>
-                    <img src="" alt="Logo TESLASMART" id="headerLogoImage">
+            <div class="logo-container animate-slide-left">
+                <div class="logo-img">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJL_W5mGANt472MBbTq69qA4BNtDQLTnjRiPcggKLuKa9dQ-nrPWxqghiQ2UbA5U66-sekSkF7HTXRCp8V8Ab-w4iHO6EVyrLT_61LJXlWZ_pBh_B3tnonQM00POIOq6LwOrICrdENtHjhe3zxvCEyb7FgR9eNYLUZaHzYoa_frzWcOthlr8lNjPTQUcI/s320/1000104366.png" 
+                         alt="Logo TESLASMART">
                 </div>
                 <div class="logo-text">TESLASMART</div>
             </div>
@@ -1583,129 +1489,6 @@
             </nav>
         </div>
     </header>
-
-    <!-- Admin Controls -->
-    <div class="admin-controls" id="adminControls">
-        <button class="admin-btn" id="adminToggleBtn" title="Admin Panel">
-            <i class="fas fa-cog"></i>
-        </button>
-        <button class="admin-btn" id="uploadLogoBtn" title="Ubah Logo Header">
-            <i class="fas fa-image"></i>
-        </button>
-    </div>
-
-    <!-- Admin Panel -->
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-panel-header">
-            <h3>Panel Admin</h3>
-            <button class="close-panel" id="closePanelBtn">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        
-        <!-- Logo Header Settings -->
-        <div class="admin-section">
-            <h4>Logo Header</h4>
-            <div class="icon-preview" id="headerLogoPreview">
-                <i class="fas fa-image"></i>
-                <img src="" alt="Preview Logo" id="headerLogoPreviewImage">
-            </div>
-            <div class="form-group">
-                <label for="headerLogoUrl">URL Gambar Logo:</label>
-                <input type="text" id="headerLogoUrl" class="form-control" placeholder="https://example.com/logo.png">
-            </div>
-            <div class="form-group">
-                <label for="headerLogoUpload">Atau Upload Gambar:</label>
-                <input type="file" id="headerLogoUpload" class="form-control" accept="image/*">
-            </div>
-            <button class="btn" id="saveHeaderLogoBtn">Simpan Logo Header</button>
-            <button class="btn" id="resetHeaderLogoBtn" style="background: #6c757d; margin-top: 10px;">Reset ke Default</button>
-        </div>
-        
-        <!-- Feature Icons Settings -->
-        <div class="admin-section">
-            <h4>Ikon Fitur Unggulan</h4>
-            <div class="form-group">
-                <label>Pilih Fitur:</label>
-                <select id="featureSelect" class="form-control">
-                    <option value="0">CS Ramah</option>
-                    <option value="1">Full Support</option>
-                    <option value="2">Fast Respon</option>
-                    <option value="3">Free Konsultasi</option>
-                    <option value="4">SEO Friendly</option>
-                    <option value="5">Tampilan Responsive</option>
-                    <option value="6">Custom Layout</option>
-                    <option value="7">Free Maintenance</option>
-                    <option value="8">Proses Cepat</option>
-                    <option value="9">Harga Terjangkau</option>
-                    <option value="10">Revisi Sampai Sesuai</option>
-                </select>
-            </div>
-            <div class="icon-preview" id="featureIconPreview">
-                <i class="fas fa-cog"></i>
-                <img src="" alt="Preview Ikon" id="featureIconPreviewImage">
-            </div>
-            <div class="form-group">
-                <label for="featureIconUrl">URL Gambar Ikon:</label>
-                <input type="text" id="featureIconUrl" class="form-control" placeholder="https://example.com/icon.png">
-            </div>
-            <div class="form-group">
-                <label for="featureIconUpload">Atau Upload Gambar:</label>
-                <input type="file" id="featureIconUpload" class="form-control" accept="image/*">
-            </div>
-            <div class="form-group">
-                <label>Atau Pilih Ikon FontAwesome:</label>
-                <select id="fontAwesomeSelect" class="form-control">
-                    <option value="fas fa-headset">Headset (CS Ramah)</option>
-                    <option value="fas fa-hands-helping">Hands Helping (Full Support)</option>
-                    <option value="fas fa-bolt">Bolt (Fast Respon)</option>
-                    <option value="fas fa-comments-dollar">Comments Dollar (Free Konsultasi)</option>
-                    <option value="fas fa-search">Search (SEO Friendly)</option>
-                    <option value="fas fa-mobile-alt">Mobile (Responsive)</option>
-                    <option value="fas fa-paint-brush">Paint Brush (Custom Layout)</option>
-                    <option value="fas fa-tools">Tools (Maintenance)</option>
-                    <option value="fas fa-rocket">Rocket (Proses Cepat)</option>
-                    <option value="fas fa-tag">Tag (Harga Terjangkau)</option>
-                    <option value="fas fa-redo">Redo (Revisi)</option>
-                    <option value="fas fa-smile">Smile</option>
-                    <option value="fas fa-star">Star</option>
-                    <option value="fas fa-check-circle">Check Circle</option>
-                    <option value="fas fa-award">Award</option>
-                    <option value="fas fa-lightbulb">Lightbulb</option>
-                    <option value="fas fa-shield-alt">Shield</option>
-                    <option value="fas fa-clock">Clock</option>
-                    <option value="fas fa-users">Users</option>
-                    <option value="fas fa-crown">Crown</option>
-                </select>
-            </div>
-            <button class="btn" id="saveFeatureIconBtn">Simpan Ikon Fitur</button>
-            <button class="btn" id="resetFeatureIconBtn" style="background: #6c757d; margin-top: 10px;">Reset ke Default</button>
-        </div>
-        
-        <!-- Mass Update -->
-        <div class="admin-section">
-            <h4>Update Massal</h4>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 10px;">Ubah semua ikon fitur sekaligus:</p>
-            <div class="form-group">
-                <label>Pilih Set Ikon:</label>
-                <select id="iconSetSelect" class="form-control">
-                    <option value="default">Default (FontAwesome)</option>
-                    <option value="business">Business Set</option>
-                    <option value="modern">Modern Set</option>
-                    <option value="minimal">Minimal Set</option>
-                </select>
-            </div>
-            <button class="btn" id="applyIconSetBtn">Terapkan Set Ikon</button>
-        </div>
-        
-        <!-- Export/Import Settings -->
-        <div class="admin-section">
-            <h4>Backup & Restore</h4>
-            <button class="btn" id="exportSettingsBtn">Export Settings</button>
-            <button class="btn" id="importSettingsBtn" style="margin-top: 10px;">Import Settings</button>
-            <input type="file" id="importSettingsFile" accept=".json" style="display: none;">
-        </div>
-    </div>
 
     <!-- Hero Section dengan teks utama -->
     <section class="hero-section" id="home">
@@ -1831,9 +1614,8 @@
                     <div class="feature-card animate-fade-up delay-1">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon0">
-                                <i class="fas fa-headset" data-default-icon="fas fa-headset"></i>
-                                <img src="" alt="CS Ramah">
+                            <div class="feature-icon">
+                                <i class="fas fa-headset"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> CS Ramah</h3>
@@ -1844,9 +1626,8 @@
                     <div class="feature-card animate-fade-up delay-2">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon1">
-                                <i class="fas fa-hands-helping" data-default-icon="fas fa-hands-helping"></i>
-                                <img src="" alt="Full Support">
+                            <div class="feature-icon">
+                                <i class="fas fa-hands-helping"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Full Support</h3>
@@ -1857,9 +1638,8 @@
                     <div class="feature-card animate-fade-up delay-3">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon2">
-                                <i class="fas fa-bolt" data-default-icon="fas fa-bolt"></i>
-                                <img src="" alt="Fast Respon">
+                            <div class="feature-icon">
+                                <i class="fas fa-bolt"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Fast Respon</h3>
@@ -1870,9 +1650,8 @@
                     <div class="feature-card animate-fade-up delay-1">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon3">
-                                <i class="fas fa-comments-dollar" data-default-icon="fas fa-comments-dollar"></i>
-                                <img src="" alt="Free Konsultasi">
+                            <div class="feature-icon">
+                                <i class="fas fa-comments-dollar"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Free Konsultasi</h3>
@@ -1883,9 +1662,8 @@
                     <div class="feature-card animate-fade-up delay-2">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon4">
-                                <i class="fas fa-search" data-default-icon="fas fa-search"></i>
-                                <img src="" alt="SEO Friendly">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> SEO Friendly</h3>
@@ -1896,9 +1674,8 @@
                     <div class="feature-card animate-fade-up delay-3">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon5">
-                                <i class="fas fa-mobile-alt" data-default-icon="fas fa-mobile-alt"></i>
-                                <img src="" alt="Tampilan Responsive">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Tampilan Responsive</h3>
@@ -1909,9 +1686,8 @@
                     <div class="feature-card animate-fade-up delay-1">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon6">
-                                <i class="fas fa-paint-brush" data-default-icon="fas fa-paint-brush"></i>
-                                <img src="" alt="Custom Layout">
+                            <div class="feature-icon">
+                                <i class="fas fa-paint-brush"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Custom Layout</h3>
@@ -1922,9 +1698,8 @@
                     <div class="feature-card animate-fade-up delay-2">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon7">
-                                <i class="fas fa-tools" data-default-icon="fas fa-tools"></i>
-                                <img src="" alt="Free Maintenance">
+                            <div class="feature-icon">
+                                <i class="fas fa-tools"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Free Maintenance</h3>
@@ -1935,9 +1710,8 @@
                     <div class="feature-card animate-fade-up delay-3">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon8">
-                                <i class="fas fa-rocket" data-default-icon="fas fa-rocket"></i>
-                                <img src="" alt="Proses Cepat">
+                            <div class="feature-icon">
+                                <i class="fas fa-rocket"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Proses Cepat</h3>
@@ -1948,9 +1722,8 @@
                     <div class="feature-card animate-fade-up delay-1">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon9">
-                                <i class="fas fa-tag" data-default-icon="fas fa-tag"></i>
-                                <img src="" alt="Harga Terjangkau">
+                            <div class="feature-icon">
+                                <i class="fas fa-tag"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Harga Terjangkau</h3>
@@ -1961,9 +1734,8 @@
                     <div class="feature-card animate-fade-up delay-2">
                         <div class="feature-icon-container">
                             <div class="feature-icon-border"></div>
-                            <div class="feature-icon" id="featureIcon10">
-                                <i class="fas fa-redo" data-default-icon="fas fa-redo"></i>
-                                <img src="" alt="Revisi Sampai Sesuai">
+                            <div class="feature-icon">
+                                <i class="fas fa-redo"></i>
                             </div>
                         </div>
                         <h3 class="feature-title"><i class="fas fa-check-circle"></i> Revisi Sampai Sesuai</h3>
@@ -2215,7 +1987,7 @@
             
             <div class="contact-content">
                 <div class="contact-image animate-slide-left delay-1">
-                    <img src="https://images.unsplash.com/photo-1551836026-d5c2c5af78e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgPxXwXFoCi2YfhVMiNKGAW1X5J5PesEEEiISgE7-Fr7HmP4c14fjOa4Vg20x1Um6cAw6IYT3WdcA4AO_naCnS7yZ7tygKbFC6AskvGtFI9FnHCpAI1Tax-QwnZcNHO0F663JuPV0e6nTVQ3QEHH9pisGR0H8LUmUWf_PRaF10VewIZ5OslSbVFooVVlic/s320/1000007250.png" 
                          alt="Contact Us" class="contact-img">
                 </div>
                 
@@ -2316,180 +2088,6 @@
         const menuOverlay = document.getElementById('menuOverlay');
         const profileDropdown = document.getElementById('profileDropdown');
         
-        // Admin Panel Elements
-        const adminControls = document.getElementById('adminControls');
-        const adminToggleBtn = document.getElementById('adminToggleBtn');
-        const uploadLogoBtn = document.getElementById('uploadLogoBtn');
-        const adminPanel = document.getElementById('adminPanel');
-        const closePanelBtn = document.getElementById('closePanelBtn');
-        const headerLogo = document.getElementById('headerLogo');
-        const headerLogoImage = document.getElementById('headerLogoImage');
-        const headerLogoPreview = document.getElementById('headerLogoPreview');
-        const headerLogoPreviewImage = document.getElementById('headerLogoPreviewImage');
-        const headerLogoUrl = document.getElementById('headerLogoUrl');
-        const headerLogoUpload = document.getElementById('headerLogoUpload');
-        const saveHeaderLogoBtn = document.getElementById('saveHeaderLogoBtn');
-        const resetHeaderLogoBtn = document.getElementById('resetHeaderLogoBtn');
-        const featureSelect = document.getElementById('featureSelect');
-        const featureIconPreview = document.getElementById('featureIconPreview');
-        const featureIconPreviewImage = document.getElementById('featureIconPreviewImage');
-        const featureIconUrl = document.getElementById('featureIconUrl');
-        const featureIconUpload = document.getElementById('featureIconUpload');
-        const fontAwesomeSelect = document.getElementById('fontAwesomeSelect');
-        const saveFeatureIconBtn = document.getElementById('saveFeatureIconBtn');
-        const resetFeatureIconBtn = document.getElementById('resetFeatureIconBtn');
-        const iconSetSelect = document.getElementById('iconSetSelect');
-        const applyIconSetBtn = document.getElementById('applyIconSetBtn');
-        const exportSettingsBtn = document.getElementById('exportSettingsBtn');
-        const importSettingsBtn = document.getElementById('importSettingsBtn');
-        const importSettingsFile = document.getElementById('importSettingsFile');
-        
-        // Default icon settings
-        const defaultFeatureIcons = [
-            'fas fa-headset',
-            'fas fa-hands-helping',
-            'fas fa-bolt',
-            'fas fa-comments-dollar',
-            'fas fa-search',
-            'fas fa-mobile-alt',
-            'fas fa-paint-brush',
-            'fas fa-tools',
-            'fas fa-rocket',
-            'fas fa-tag',
-            'fas fa-redo'
-        ];
-        
-        // Icon sets for mass update
-        const iconSets = {
-            default: defaultFeatureIcons,
-            business: [
-                'fas fa-users',
-                'fas fa-headset',
-                'fas fa-bolt',
-                'fas fa-handshake',
-                'fas fa-chart-line',
-                'fas fa-laptop',
-                'fas fa-palette',
-                'fas fa-cogs',
-                'fas fa-rocket',
-                'fas fa-money-bill-wave',
-                'fas fa-sync'
-            ],
-            modern: [
-                'fas fa-comment-alt',
-                'fas fa-life-ring',
-                'fas fa-flash',
-                'fas fa-comments',
-                'fas fa-search-plus',
-                'fas fa-tablet-alt',
-                'fas fa-edit',
-                'fas fa-wrench',
-                'fas fa-running',
-                'fas fa-percentage',
-                'fas fa-undo'
-            ],
-            minimal: [
-                'fas fa-smile',
-                'fas fa-star',
-                'fas fa-check',
-                'fas fa-comment',
-                'fas fa-globe',
-                'fas fa-mobile',
-                'fas fa-brush',
-                'fas fa-toolbox',
-                'fas fa-fast-forward',
-                'fas fa-tag',
-                'fas fa-repeat'
-            ]
-        };
-        
-        // Initialize settings from localStorage
-        let settings = {
-            headerLogo: '',
-            featureIcons: [...defaultFeatureIcons],
-            featureImages: Array(11).fill('')
-        };
-        
-        // Load settings from localStorage
-        function loadSettings() {
-            const savedSettings = localStorage.getItem('teslasmartSettings');
-            if (savedSettings) {
-                settings = JSON.parse(savedSettings);
-                applySettings();
-            }
-        }
-        
-        // Save settings to localStorage
-        function saveSettings() {
-            localStorage.setItem('teslasmartSettings', JSON.stringify(settings));
-        }
-        
-        // Apply settings to the page
-        function applySettings() {
-            // Apply header logo
-            if (settings.headerLogo) {
-                headerLogoImage.src = settings.headerLogo;
-                headerLogo.classList.add('has-image');
-                headerLogoPreviewImage.src = settings.headerLogo;
-                headerLogoPreview.classList.add('has-image');
-                headerLogoUrl.value = settings.headerLogo;
-            } else {
-                headerLogo.classList.remove('has-image');
-                headerLogoPreview.classList.remove('has-image');
-                headerLogoUrl.value = '';
-            }
-            
-            // Apply feature icons
-            settings.featureIcons.forEach((iconClass, index) => {
-                const featureIcon = document.getElementById(`featureIcon${index}`);
-                if (featureIcon) {
-                    const iconElement = featureIcon.querySelector('i');
-                    const imgElement = featureIcon.querySelector('img');
-                    
-                    if (settings.featureImages[index]) {
-                        // Use image
-                        imgElement.src = settings.featureImages[index];
-                        featureIcon.classList.add('has-image');
-                        iconElement.style.display = 'none';
-                        imgElement.style.display = 'block';
-                    } else {
-                        // Use FontAwesome icon
-                        featureIcon.classList.remove('has-image');
-                        iconElement.className = iconClass;
-                        iconElement.setAttribute('data-default-icon', iconClass);
-                        iconElement.style.display = 'block';
-                        imgElement.style.display = 'none';
-                    }
-                }
-            });
-            
-            // Update preview when feature is selected
-            updateFeaturePreview();
-        }
-        
-        // Update feature icon preview
-        function updateFeaturePreview() {
-            const selectedIndex = parseInt(featureSelect.value);
-            const previewIcon = featureIconPreview.querySelector('i');
-            const previewImage = featureIconPreviewImage;
-            
-            if (settings.featureImages[selectedIndex]) {
-                previewImage.src = settings.featureImages[selectedIndex];
-                featureIconPreview.classList.add('has-image');
-                previewIcon.style.display = 'none';
-                previewImage.style.display = 'block';
-                featureIconUrl.value = settings.featureImages[selectedIndex];
-                fontAwesomeSelect.value = settings.featureIcons[selectedIndex];
-            } else {
-                featureIconPreview.classList.remove('has-image');
-                previewIcon.className = settings.featureIcons[selectedIndex];
-                previewIcon.style.display = 'block';
-                previewImage.style.display = 'none';
-                featureIconUrl.value = '';
-                fontAwesomeSelect.value = settings.featureIcons[selectedIndex];
-            }
-        }
-        
         // Function to open menu
         function openMenu() {
             sidebarMenu.classList.add('active');
@@ -2517,177 +2115,6 @@
         menuToggle.addEventListener('click', openMenu);
         menuClose.addEventListener('click', closeMenu);
         menuOverlay.addEventListener('click', closeMenu);
-        
-        // Toggle admin panel
-        adminToggleBtn.addEventListener('click', () => {
-            adminPanel.classList.toggle('active');
-        });
-        
-        uploadLogoBtn.addEventListener('click', () => {
-            adminPanel.classList.add('active');
-            // Scroll to header logo section
-            document.querySelector('.admin-section:first-child').scrollIntoView({ behavior: 'smooth' });
-        });
-        
-        closePanelBtn.addEventListener('click', () => {
-            adminPanel.classList.remove('active');
-        });
-        
-        // Handle header logo upload
-        headerLogoUpload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const imageUrl = event.target.result;
-                    headerLogoUrl.value = imageUrl;
-                    headerLogoPreviewImage.src = imageUrl;
-                    headerLogoPreview.classList.add('has-image');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-        
-        // Save header logo
-        saveHeaderLogoBtn.addEventListener('click', () => {
-            const logoUrl = headerLogoUrl.value.trim();
-            if (logoUrl) {
-                settings.headerLogo = logoUrl;
-                saveSettings();
-                applySettings();
-                alert('Logo header berhasil disimpan!');
-            } else {
-                alert('Silakan masukkan URL gambar atau upload gambar.');
-            }
-        });
-        
-        // Reset header logo
-        resetHeaderLogoBtn.addEventListener('click', () => {
-            settings.headerLogo = '';
-            saveSettings();
-            applySettings();
-            headerLogoUpload.value = '';
-            alert('Logo header telah direset ke default.');
-        });
-        
-        // Handle feature icon selection
-        featureSelect.addEventListener('change', updateFeaturePreview);
-        
-        // Handle feature icon upload
-        featureIconUpload.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const imageUrl = event.target.result;
-                    featureIconUrl.value = imageUrl;
-                    featureIconPreviewImage.src = imageUrl;
-                    featureIconPreview.classList.add('has-image');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-        
-        // Handle FontAwesome selection
-        fontAwesomeSelect.addEventListener('change', () => {
-            const selectedIcon = fontAwesomeSelect.value;
-            const previewIcon = featureIconPreview.querySelector('i');
-            previewIcon.className = selectedIcon;
-            featureIconPreview.classList.remove('has-image');
-            featureIconUrl.value = '';
-            featureIconUpload.value = '';
-        });
-        
-        // Save feature icon
-        saveFeatureIconBtn.addEventListener('click', () => {
-            const selectedIndex = parseInt(featureSelect.value);
-            const imageUrl = featureIconUrl.value.trim();
-            const fontAwesomeIcon = fontAwesomeSelect.value;
-            
-            if (imageUrl) {
-                // Save as image
-                settings.featureImages[selectedIndex] = imageUrl;
-                settings.featureIcons[selectedIndex] = fontAwesomeIcon; // Keep FontAwesome as fallback
-            } else {
-                // Save as FontAwesome icon
-                settings.featureImages[selectedIndex] = '';
-                settings.featureIcons[selectedIndex] = fontAwesomeIcon;
-            }
-            
-            saveSettings();
-            applySettings();
-            alert(`Ikon fitur "${featureSelect.options[featureSelect.selectedIndex].text}" berhasil disimpan!`);
-        });
-        
-        // Reset feature icon
-        resetFeatureIconBtn.addEventListener('click', () => {
-            const selectedIndex = parseInt(featureSelect.value);
-            const defaultIcon = defaultFeatureIcons[selectedIndex];
-            
-            settings.featureImages[selectedIndex] = '';
-            settings.featureIcons[selectedIndex] = defaultIcon;
-            
-            saveSettings();
-            applySettings();
-            alert(`Ikon fitur "${featureSelect.options[featureSelect.selectedIndex].text}" telah direset ke default.`);
-        });
-        
-        // Apply icon set
-        applyIconSetBtn.addEventListener('click', () => {
-            const iconSet = iconSetSelect.value;
-            const iconSetArray = iconSets[iconSet];
-            
-            if (iconSet === 'default') {
-                // Reset all to default
-                settings.featureIcons = [...defaultFeatureIcons];
-                settings.featureImages = Array(11).fill('');
-            } else {
-                // Apply new icon set
-                settings.featureIcons = [...iconSetArray];
-                settings.featureImages = Array(11).fill(''); // Clear all images
-            }
-            
-            saveSettings();
-            applySettings();
-            alert(`Set ikon "${iconSet}" berhasil diterapkan!`);
-        });
-        
-        // Export settings
-        exportSettingsBtn.addEventListener('click', () => {
-            const dataStr = JSON.stringify(settings, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = 'teslasmart-settings.json';
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-        });
-        
-        // Import settings
-        importSettingsBtn.addEventListener('click', () => {
-            importSettingsFile.click();
-        });
-        
-        importSettingsFile.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    try {
-                        const importedSettings = JSON.parse(event.target.result);
-                        settings = importedSettings;
-                        saveSettings();
-                        applySettings();
-                        alert('Settings berhasil diimport!');
-                    } catch (error) {
-                        alert('Error: File settings tidak valid.');
-                    }
-                };
-                reader.readAsText(file);
-            }
-        });
         
         // Toggle dropdown on mobile
         if (profileDropdown) {
@@ -2743,7 +2170,6 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeMenu();
-                adminPanel.classList.remove('active');
             }
         });
         
@@ -2876,9 +2302,6 @@
         
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
-            // Load settings
-            loadSettings();
-            
             // Open first stats card by default
             setTimeout(() => {
                 const firstStatsCard = document.querySelector('.stats-card');
