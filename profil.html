@@ -120,7 +120,7 @@
             animation: textGlow 2s ease-in-out infinite alternate;
         }
         
-        /* Sidebar Menu */
+        /* Sidebar Menu - Diperbaiki */
         .menu-toggle {
             display: none;
             background: none;
@@ -145,7 +145,7 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 15px;
+            gap: 8px;
         }
         
         .nav-menu li {
@@ -163,6 +163,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
         
         .nav-menu a:hover {
@@ -174,47 +175,6 @@
         .nav-menu a.active {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
-            min-width: 200px;
-            border-radius: 8px;
-            box-shadow: var(--shadow-hover);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-            z-index: 100;
-            padding: 5px 0;
-        }
-        
-        .dropdown:hover .dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .dropdown-menu li {
-            width: 100%;
-        }
-        
-        .dropdown-menu a {
-            color: var(--maroon-dark);
-            padding: 12px 20px;
-            display: block;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-            border-radius: 0;
-        }
-        
-        .dropdown-menu a:hover {
-            background: rgba(128, 0, 0, 0.05);
-            color: var(--maroon-medium);
-            padding-left: 25px;
         }
         
         /* Profil Hero Section */
@@ -254,7 +214,7 @@
         
         /* Highlight Section */
         .highlight-section {
-            padding: 60px 0 40px;
+            padding: 40px 0 25px;
         }
         
         .highlight-box {
@@ -264,7 +224,7 @@
             border-radius: 12px;
             text-align: center;
             box-shadow: var(--shadow-hover);
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             position: relative;
             overflow: hidden;
         }
@@ -299,7 +259,7 @@
         
         /* Konten Section */
         .konten-section {
-            padding: 40px 0;
+            padding: 15px 0;
         }
         
         .konten-box {
@@ -307,7 +267,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            margin-bottom: 15px;
         }
         
         .konten-box h3 {
@@ -326,9 +286,38 @@
             text-align: justify;
         }
         
+        /* Stats Card Section */
+        .stats-card-section {
+            padding: 15px 0;
+        }
+        
+        .stats-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+        
+        .stats-card h3 {
+            color: var(--maroon-dark);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold-light);
+        }
+        
+        .stats-card p {
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
         /* Layanan Section */
         .layanan-profil-section {
-            padding: 40px 0 60px;
+            padding: 15px 0 40px;
         }
         
         .layanan-title {
@@ -403,7 +392,7 @@
         
         /* Gambar Section */
         .gambar-section {
-            padding: 40px 0 80px;
+            padding: 15px 0;
         }
         
         .gambar-container {
@@ -600,7 +589,7 @@
         .delay-2 { animation-delay: 0.4s; opacity: 0; }
         .delay-3 { animation-delay: 0.6s; opacity: 0; }
         
-        /* Responsive */
+        /* Responsive - Diperbaiki untuk menu mobile */
         @media (max-width: 992px) {
             .profil-hero-content {
                 grid-template-columns: 1fr;
@@ -618,7 +607,7 @@
                 right: -100%;
                 width: 280px;
                 height: 100vh;
-                background: var(--maroon-dark);
+                background: var(--maroon-gradient);
                 flex-direction: column;
                 padding: 80px 20px 30px;
                 transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -650,46 +639,19 @@
                 align-items: center;
                 gap: 10px;
                 font-size: 1rem;
-                justify-content: space-between;
-            }
-            
-            .dropdown-menu {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                background: transparent;
-                box-shadow: none;
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease;
-            }
-            
-            .dropdown.active .dropdown-menu {
-                max-height: 200px;
-            }
-            
-            .dropdown-menu a {
-                color: rgba(255, 255, 255, 0.8);
-                padding: 12px 20px 12px 40px;
+                justify-content: flex-start;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                font-size: 0.9rem;
             }
             
-            .dropdown-menu a:hover {
-                background: rgba(255, 255, 255, 0.1);
-                color: white;
+            .nav-menu a:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateX(5px);
+                box-shadow: none;
             }
             
-            .dropdown > a i.fa-chevron-down {
-                transition: transform 0.3s ease;
-            }
-            
-            .dropdown.active > a i.fa-chevron-down {
-                transform: rotate(180deg);
+            .nav-menu a.active {
+                background: rgba(255, 255, 255, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.3);
             }
             
             .layanan-grid {
@@ -785,6 +747,11 @@
                 max-width: 300px;
             }
             
+            .nav-menu a {
+                font-size: 0.95rem;
+                padding: 14px 18px;
+            }
+            
             .layanan-icon {
                 width: 45px;
                 height: 45px;
@@ -859,11 +826,11 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="profil.html" class="nav-link active"><i class="fas fa-user"></i> Profil</a></li>
-                    <li><a href="layanan.html" class="nav-link"><i class="fas fa-globe"></i> Jenis Website</a></li>
-                    <li><a href="harga.html" class="nav-link"><i class="fas fa-tags"></i> Paket Harga</a></li>
-                    <li><a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="syarat.html" class="nav-link"><i class="fas fa-file-contract"></i> Syarat & Ketentuan</a></li>
-                    <li><a href="kontak.html" class="nav-link"><i class="fas fa-phone-alt"></i> Hubungi Kami</a></li>
+                    <li><a href="jenis-website.html" class="nav-link"><i class="fas fa-globe"></i> Jenis Website</a></li>
+                    <li><a href="#paket-harga" class="nav-link"><i class="fas fa-tags"></i> Paket Harga</a></li>
+                    <li><a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="syarat-dan-ketentuan.html" class="nav-link"><i class="fas fa-file-contract"></i> Syarat & Ketentuan</a></li>
+                    <li><a href="#hubungi-kami" class="nav-link"><i class="fas fa-phone-alt"></i> Hubungi Kami</a></li>
                 </ul>
             </nav>
         </div>
@@ -913,11 +880,45 @@
         </div>
     </section>
 
+    <!-- Gambar Section - Dipindahkan ke antara Tentang TESLASMART dan Tentang KAMI -->
+    <section class="gambar-section">
+        <div class="container">
+            <div class="gambar-container animate-fade-up delay-2">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWbUvixsNECWqzU4frd1h8XRH14zzsnBPgJzTlXWJtSVupAmX148paxETpVgLMoum5tmi9RKX-7FJRih5rbbCMhIffLB2ctqMvmMhned7jJRVXbFut7bxIa6E-5Pn9MiI2ZTohHLUvvF3dojmWSZ1AXBsz19jWEVpjdMwVU3Ml2YCGeqOzxWaMIKURBF4/s320/1000600918.png" 
+                     alt="Tim TESLASMART" class="gambar-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Card Section - TENTANG KAMI -->
+    <section class="stats-card-section">
+        <div class="container">
+            <div class="stats-card animate-fade-up delay-3">
+                <h3>Tentang Kami</h3>
+                <p>TeslaSmart adalah jasa pembuatan website toko online, Portofolio, Website Company profil, dan lain-lain, yang menggunakan System Terbarukan, kami memberikan penawaran harga yang murah serta proses yang instant, dan kami juga memberikan pilihan tampilan yang berkualitas, menarik, dan profesional dari koleksian desain website toko online kami, sehingga nantinya pengunjung anda akan betah berlama-lama untuk berbelanja di toko online anda, karena toko online anda didesain dengan pengoperasian yang simple dan mudah, karena kebanyakan mereka masih awam dalam penggunaan toko online. Kunjungi mitra kami, shoes – pemimpin dalam alas kaki modis!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Card Section - PELAYANAN -->
+    <section class="stats-card-section">
+        <div class="container">
+            <div class="stats-card animate-fade-up">
+                <h3>Layanan Kami</h3>
+                <p>Kami melayani pembuatan website Toko Online, Company Profile, Web Sekolah, Web Properti, Web Portal Berita, Komunitas dll. Bagi anda yang membutuhkan di seluruh nusantara.</p>
+                
+                <p>Dan kami akan berusaha terus untuk meningkatkan kualitas serta pelayanan kami untuk memajukan bisnis online anda kedepannya, komitmen kami adalah memajukan bisnis usaha kecil dan menengah di seluruh kawasan Indonesia.</p>
+                
+                <p>Saran dan kritik sangat kami harapkan.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Layanan Section -->
     <section class="layanan-profil-section">
         <div class="container">
-            <div class="layanan-title animate-fade-up">
-                <h3>Layanan Kami</h3>
+            <div class="layanan-title animate-fade-up delay-1">
+                <h3>LAYANAN KAMI</h3>
             </div>
             
             <div class="layanan-grid">
@@ -1013,18 +1014,8 @@
             <div class="cta-center animate-fade-up delay-3">
                 <a href="https://wa.me/6285218483129?text=Halo%20TESLASMART,%20saya%20ingin%20konsultasi%20tentang%20layanan%20yang%20ditawarkan" 
                    class="cta-button" target="_blank">
-                    <i class="fab fa-whatsapp"></i> Konsultasi Layanan
+                    <i class="fab fa-whatsapp"></i> KONSULTASI LAYANAN
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gambar Section -->
-    <section class="gambar-section">
-        <div class="container">
-            <div class="gambar-container animate-fade-up">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWbUvixsNECWqzU4frd1h8XRH14zzsnBPgJzTlXWJtSVupAmX148paxETpVgLMoum5tmi9RKX-7FJRih5rbbCMhIffLB2ctqMvmMhned7jJRVXbFut7bxIa6E-5Pn9MiI2ZTohHLUvvF3dojmWSZ1AXBsz19jWEVpjdMwVU3Ml2YCGeqOzxWaMIKURBF4/s320/1000600918.png" 
-                     alt="Tim TESLASMART" class="gambar-img">
             </div>
         </div>
     </section>
@@ -1043,10 +1034,11 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="profil.html">Profil Perusahaan</a></li>
-                        <li><a href="layanan.html">Layanan</a></li>
-                        <li><a href="harga.html">Paket Harga</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="kontak.html">Hubungi Kami</a></li>
+                        <li><a href="jenis-website.html">Jenis Website</a></li>
+                        <li><a href="#paket-harga">Paket Harga</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="syarat-dan-ketentuan.html">Syarat & Ketentuan</a></li>
+                        <li><a href="#hubungi-kami">Hubungi Kami</a></li>
                     </ul>
                 </div>
                 
@@ -1100,6 +1092,26 @@
                 // Only close menu on mobile
                 if (window.innerWidth <= 992) {
                     closeMenu();
+                }
+                
+                // Handle anchor links (scroll to section)
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Smooth scroll to target
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 992) {
+                            closeMenu();
+                        }
+                    }
                 }
             });
         });
