@@ -16,6 +16,8 @@
             --gold-light: #FFD700;
             --gold-medium: #DAA520;
             --gold-dark: #B8860B;
+            --silver-gradient: linear-gradient(135deg, #C0C0C0, #A9A9A9, #808080);
+            --bronze-gradient: linear-gradient(135deg, #CD7F32, #A0522D, #8B4513);
             --orange-gradient: linear-gradient(135deg, #FF8C00, #FFA500, #FF7F50);
             --gray-light: #f8f9fa;
             --gray-medium: #e9ecef;
@@ -49,7 +51,7 @@
             padding: 0 15px;
         }
         
-        /* Header Styles */
+        /* Header Styles - SAMA PERSIS dengan halaman utama */
         header {
             background: var(--maroon-gradient);
             color: white;
@@ -120,7 +122,7 @@
             animation: textGlow 2s ease-in-out infinite alternate;
         }
         
-        /* Sidebar Menu - Diperbaiki */
+        /* Sidebar Menu - SAMA PERSIS dengan halaman utama */
         .menu-toggle {
             display: none;
             background: none;
@@ -177,7 +179,7 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* Profil Hero Section */
+        /* Profil Hero Section - BARU */
         .profil-hero {
             padding: 80px 0 40px;
             background: linear-gradient(rgba(255, 250, 250, 0.95), rgba(255, 250, 250, 0.95)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
@@ -212,7 +214,7 @@
             transform: perspective(800px) rotateY(0deg);
         }
         
-        /* Highlight Section */
+        /* Highlight Section - BARU */
         .highlight-section {
             padding: 40px 0 25px;
         }
@@ -257,7 +259,7 @@
             opacity: 0.95;
         }
         
-        /* Konten Section */
+        /* Konten Section - BARU */
         .konten-section {
             padding: 15px 0;
         }
@@ -286,7 +288,7 @@
             text-align: justify;
         }
         
-        /* Stats Card Section */
+        /* Stats Card Section - BARU */
         .stats-card-section {
             padding: 15px 0;
         }
@@ -315,7 +317,24 @@
             text-align: justify;
         }
         
-        /* Layanan Section */
+        /* Gambar Section - BARU */
+        .gambar-section {
+            padding: 15px 0;
+        }
+        
+        .gambar-container {
+            text-align: center;
+        }
+        
+        .gambar-img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-hover);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Layanan Section - BARU */
         .layanan-profil-section {
             padding: 15px 0 40px;
         }
@@ -390,24 +409,7 @@
             font-size: 1.1rem;
         }
         
-        /* Gambar Section */
-        .gambar-section {
-            padding: 15px 0;
-        }
-        
-        .gambar-container {
-            text-align: center;
-        }
-        
-        .gambar-img {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-hover);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        /* Tombol Hubungi Kami */
+        /* Tombol Hubungi Kami - SAMA dengan halaman utama */
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -455,7 +457,7 @@
             margin-top: 40px;
         }
         
-        /* Footer */
+        /* Footer - SAMA PERSIS dengan halaman utama */
         footer {
             background: var(--maroon-dark);
             color: white;
@@ -514,7 +516,7 @@
             font-size: 0.85rem;
         }
         
-        /* Animations */
+        /* Animations - SAMA dengan halaman utama */
         @keyframes pulse {
             0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(218, 165, 32, 0.7); }
             50% { transform: scale(1.03); }
@@ -589,7 +591,7 @@
         .delay-2 { animation-delay: 0.4s; opacity: 0; }
         .delay-3 { animation-delay: 0.6s; opacity: 0; }
         
-        /* Responsive - Diperbaiki untuk menu mobile */
+        /* Responsive - SAMA dengan halaman utama */
         @media (max-width: 992px) {
             .profil-hero-content {
                 grid-template-columns: 1fr;
@@ -763,7 +765,7 @@
             }
         }
         
-        /* Overlay for mobile menu */
+        /* Overlay for mobile menu - SAMA dengan halaman utama */
         .menu-overlay {
             display: none;
             position: fixed;
@@ -781,7 +783,7 @@
             animation: fadeIn 0.3s ease;
         }
         
-        /* Close button for mobile menu */
+        /* Close button for mobile menu - SAMA dengan halaman utama */
         .menu-close {
             position: absolute;
             top: 20px;
@@ -802,7 +804,7 @@
     </style>
 </head>
 <body>
-    <!-- Header dengan Logo dan Menu Sidebar -->
+    <!-- Header dengan Logo dan Menu Sidebar - SAMA PERSIS dengan halaman utama -->
     <header>
         <div class="container header-container">
             <a href="index.html" class="logo-container animate-slide-left">
@@ -826,17 +828,17 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="profil.html" class="nav-link active"><i class="fas fa-user"></i> Profil</a></li>
-                    <li><a href="jenis-website.html" class="nav-link"><i class="fas fa-globe"></i> Jenis Website</a></li>
+                    <li><a href="jenis-website.html" class="nav-link" target="_blank"><i class="fas fa-globe"></i> Jenis Website <i class="fas fa-external-link-alt external-link-indicator"></i></a></li>
                     <li><a href="#paket-harga" class="nav-link"><i class="fas fa-tags"></i> Paket Harga</a></li>
                     <li><a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a></li>
-                    <li><a href="syarat-dan-ketentuan.html" class="nav-link"><i class="fas fa-file-contract"></i> Syarat & Ketentuan</a></li>
+                    <li><a href="syarat-dan-ketentuan.html" class="nav-link" target="_blank"><i class="fas fa-file-contract"></i> Syarat & Ketentuan <i class="fas fa-external-link-alt external-link-indicator"></i></a></li>
                     <li><a href="#hubungi-kami" class="nav-link"><i class="fas fa-phone-alt"></i> Hubungi Kami</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Profil Hero Section -->
+    <!-- Profil Hero Section - BARU -->
     <section class="profil-hero">
         <div class="container">
             <div class="profil-hero-content">
@@ -858,7 +860,7 @@
         </div>
     </section>
 
-    <!-- Highlight Section -->
+    <!-- Highlight Section - BARU -->
     <section class="highlight-section">
         <div class="container">
             <div class="highlight-box animate-fade-up">
@@ -868,7 +870,7 @@
         </div>
     </section>
 
-    <!-- Konten Section -->
+    <!-- Konten Section - BARU -->
     <section class="konten-section">
         <div class="container">
             <div class="konten-box animate-fade-up delay-1">
@@ -880,17 +882,17 @@
         </div>
     </section>
 
-    <!-- Gambar Section - Dipindahkan ke antara Tentang TESLASMART dan Tentang KAMI -->
+    <!-- Gambar Section - BARU -->
     <section class="gambar-section">
         <div class="container">
             <div class="gambar-container animate-fade-up delay-2">
-                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWbUvixsNECWqzU4frd1h8XRH14zzsnBPgJzTlXWJtSVupAmX148paxETpVgLMoum5tmi9RKX-7FJRih5rbbCMhIffLB2ctqMvmMhned7jJRVXbFut7bxIa6E-5Pn9MiI2ZTohHLUvvF3dojmWSZ1AXBsz19jWEVpjdMwVU3Ml2YCGeqOzxWaMIKURBF4/s320/1000600918.png" 
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfWIhY2URQXytDqbOpULRHV2YpVZHuLeCo8SjCq5m7vpxAwGIx9q8k5KJBLXncTX-G753cXYSpr_jX6H-W9WN9zCbdnCVrM-_zPRKQ0KB7g1FDD7Cvwd2HKQdP09U7HxdOyRW_0FgJsX2fkKW2v2xjJkmzjK4sBuSXEFh_4jEUj_NbSNHiWbkUCjyRKLc/s320/1000104357.png" 
                      alt="Tim TESLASMART" class="gambar-img">
             </div>
         </div>
     </section>
 
-    <!-- Stats Card Section - TENTANG KAMI -->
+    <!-- Stats Card Section - TENTANG KAMI - BARU -->
     <section class="stats-card-section">
         <div class="container">
             <div class="stats-card animate-fade-up delay-3">
@@ -900,7 +902,7 @@
         </div>
     </section>
 
-    <!-- Stats Card Section - PELAYANAN -->
+    <!-- Stats Card Section - PELAYANAN - BARU -->
     <section class="stats-card-section">
         <div class="container">
             <div class="stats-card animate-fade-up">
@@ -914,7 +916,7 @@
         </div>
     </section>
 
-    <!-- Layanan Section -->
+    <!-- Layanan Section - BARU -->
     <section class="layanan-profil-section">
         <div class="container">
             <div class="layanan-title animate-fade-up delay-1">
@@ -927,7 +929,7 @@
                     <div class="layanan-icon">
                         <i class="fas fa-laptop-code"></i>
                     </div>
-                    <div class="layanan-text">Jasa Pembuat Website</div>
+                    <div class="layanan-text">Jasa Pembuatan Website</div>
                 </div>
                 
                 <!-- Jasa Maintenance Web -->
@@ -959,7 +961,7 @@
                     <div class="layanan-icon">
                         <i class="fas fa-newspaper"></i>
                     </div>
-                    <div class="layanan-text">Sebar Brosur</div>
+                    <div class="layanan-text">Jasa Sebar Brosur</div>
                 </div>
                 
                 <!-- Jasa Iklan -->
@@ -983,7 +985,7 @@
                     <div class="layanan-icon">
                         <i class="fas fa-pen-fancy"></i>
                     </div>
-                    <div class="layanan-text">Jasa Penulis Artikel</div>
+                    <div class="layanan-text">Jasa Penulisan Artikel</div>
                 </div>
                 
                 <!-- Jasa Artikel SEO -->
@@ -1020,7 +1022,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer - SAMA PERSIS dengan halaman utama -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -1034,10 +1036,10 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="profil.html">Profil Perusahaan</a></li>
-                        <li><a href="jenis-website.html">Jenis Website</a></li>
+                        <li><a href="jenis-website.html" target="_blank">Jenis Website <i class="fas fa-external-link-alt external-link-indicator"></i></a></li>
                         <li><a href="#paket-harga">Paket Harga</a></li>
                         <li><a href="#faq">FAQ</a></li>
-                        <li><a href="syarat-dan-ketentuan.html">Syarat & Ketentuan</a></li>
+                        <li><a href="syarat-dan-ketentuan.html" target="_blank">Syarat & Ketentuan <i class="fas fa-external-link-alt external-link-indicator"></i></a></li>
                         <li><a href="#hubungi-kami">Hubungi Kami</a></li>
                     </ul>
                 </div>
@@ -1061,7 +1063,7 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle - SAMA dengan halaman utama
         const menuToggle = document.getElementById('menuToggle');
         const menuClose = document.getElementById('menuClose');
         const sidebarMenu = document.getElementById('sidebarMenu');
@@ -1088,29 +1090,35 @@
         
         // Close menu when clicking on a nav link
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                // Check if link is external (opens in new tab)
+                if (link.getAttribute('target') === '_blank') {
+                    // Don't prevent default for external links
+                    return;
+                }
+                
                 // Only close menu on mobile
                 if (window.innerWidth <= 992) {
                     closeMenu();
                 }
                 
-                // Handle anchor links (scroll to section)
-                const href = link.getAttribute('href');
-                if (href.startsWith('#')) {
-                    const targetId = href.substring(1);
-                    const targetElement = document.getElementById(targetId);
+                // Handle internal links
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId.startsWith('#')) {
+                    e.preventDefault();
                     
+                    const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        // Smooth scroll to target
                         window.scrollTo({
                             top: targetElement.offsetTop - 70,
                             behavior: 'smooth'
                         });
                         
-                        // Close mobile menu if open
-                        if (window.innerWidth <= 992) {
-                            closeMenu();
-                        }
+                        // Add active class to nav link
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        link.classList.add('active');
                     }
                 }
             });
@@ -1123,7 +1131,7 @@
             }
         });
         
-        // Smooth scrolling for anchor links
+        // Smooth scrolling for internal anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
@@ -1132,7 +1140,7 @@
                     return;
                 }
                 
-                if (targetId.startsWith('#')) {
+                if (targetId.startsWith('#') && !this.getAttribute('target')) {
                     e.preventDefault();
                     
                     // Close mobile menu if open
@@ -1143,6 +1151,17 @@
                         window.scrollTo({
                             top: targetElement.offsetTop - 70,
                             behavior: 'smooth'
+                        });
+                        
+                        // Add active class to nav link
+                        document.querySelectorAll('.nav-link').forEach(link => {
+                            // Only highlight internal links (not external ones)
+                            if (!link.getAttribute('target')) {
+                                link.classList.remove('active');
+                                if (link.getAttribute('href') === targetId) {
+                                    link.classList.add('active');
+                                }
+                            }
                         });
                     }
                 }
@@ -1222,6 +1241,8 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 const linkHref = link.getAttribute('href');
                 if (linkHref === currentPage || (currentPage === '' && linkHref === 'index.html')) {
+                    link.classList.add('active');
+                } else if (currentPage === 'profil.html' && linkHref === 'profil.html') {
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
