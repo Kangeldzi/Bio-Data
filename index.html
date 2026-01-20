@@ -15,68 +15,83 @@
             color: white;
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .custom-image-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-        }
-.custom-image-container {
-            width: 100%;
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
         }
         
         .custom-clickable-image {
-            width: 1024px;
-            height: 1536px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            object-position: center;
             cursor: pointer;
             display: block;
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.1);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            margin: 0 auto;
-            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);
-            filter: drop-shadow(0 0 10px rgba(157, 0, 255, 0.3));
+            border-radius: 0;
+            transition: transform 0.4s ease;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            will-change: transform;
         }
-.custom-clickable-image:hover {
-            transform: scale(1.01);
-            box-shadow: 0 0 50px rgba(0, 245, 255, 0.4),
-                        0 0 60px rgba(255, 0, 228, 0.2);
-            filter: drop-shadow(0 0 15px rgba(157, 0, 255, 0.5));
-            border-color: rgba(0, 245, 255, 0.3);
+        
+        .custom-clickable-image:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Tombol Overlay */
+        .button-overlay {
+            position: absolute;
+            bottom: 12%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 0 20px;
         }
         
         .custom-action-button {
-            display: inline-block;
-            width: 290px;
-            padding: 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 75%;
+            max-width: 280px;
+            padding: 14px 0;
             background: linear-gradient(45deg, var(--neon-blue), var(--electric-purple));
             color: white;
             text-align: center;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-family: 'Poppins', sans-serif;
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 600;
-            box-shadow: 0 5px 20px rgba(0, 245, 255, 0.3),
-                        inset 0 0 15px rgba(157, 0, 255, 0.2);
+            box-shadow: 0 6px 25px rgba(0, 245, 255, 0.4),
+                        0 0 0 1.5px rgba(157, 0, 255, 0.3),
+                        inset 0 0 15px rgba(255, 255, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            margin-top: 30px;
             position: relative;
             overflow: hidden;
             z-index: 1;
             border: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
-.custom-action-button::before {
+        
+        .custom-action-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -90,67 +105,115 @@
         }
         
         .custom-action-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4),
-                        inset 0 0 20px rgba(255, 0, 228, 0.3);
-        }
-        
-        .custom-action-button:hover::before {
-            opacity: 1;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.5),
+                        0 0 0 2px rgba(255, 0, 228, 0.4),
+                        inset 0 0 20px rgba(255, 255, 255, 0.15);
         }
         
         .custom-action-button:active {
-            transform: translateY(0);
-        }
-/* Image sharpness enhancement */
-        .custom-clickable-image {
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-            will-change: transform;
+            transform: translateY(-1px);
         }
         
-        /* Responsive adjustments */
-        @media (max-width: 1080px) {
-            .custom-clickable-image {
-                width: 100%;
-                height: auto;
-                max-height: 1536px;
+        /* Efek teks tombol */
+        .button-text {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 8px rgba(0, 245, 255, 0.9),
+                         0 0 15px rgba(157, 0, 255, 0.5);
+        }
+        
+        /* Responsive untuk handphone portrait */
+        @media (max-width: 768px) {
+            .custom-action-button {
+                width: 80%;
+                padding: 16px 0;
+                font-size: 14px;
+                max-width: 240px;
+            }
+            
+            .button-overlay {
+                bottom: 10%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .custom-action-button {
+                width: 85%;
+                padding: 14px 0;
+                font-size: 13px;
+                letter-spacing: 1px;
+                max-width: 220px;
+                border-radius: 10px;
+            }
+            
+            .button-overlay {
+                bottom: 8%;
+            }
+        }
+        
+        /* Landscape orientation */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .button-overlay {
+                bottom: 8%;
+            }
+            
+            .custom-action-button {
+                padding: 12px 0;
+                max-width: 220px;
             }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="custom-image-container">
-        <!-- High-quality image with optimized sharpness -->
-        <a href="bio-data.html" 
-target="_blank" 
-           style="display: block; text-decoration: none;">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0l6gs6Wu-xaLuhRgD9tgMHWellzbF2nTjkq1dpGxeYKjtNhVCy5IJoVsxbVwL-h23fLsPo89TYYCzyK_7uXaNxlzm9_r87PZ7h9QzoJeSkCsxLHliEWB-TBh1m-mgKTdBjTb18j3SJqakULRMyMLxCw-6_SMMtWOhiUAiTf72yPjyElMscvDMQra_pWA/s1280/1000602843.png”
-alt="Lapangan Kas Desa Ciasmara" 
+        <!-- Gambar Fullscreen -->
+        <a href="bio-data.html" target="_blank" style="display: block; text-decoration: none; width: 100%; height: 100%;">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhV0cyr8w3CPBeaPegAcqywkmBMBgt-7IhxUr4U9SGm0YXHVOBHanSq2QuUPLT4B3nQ_bHenXz023X6f-UAjeaaW8TjfAyX_ViWFenPHGyD9OR97EKmdqimcnE1MihNbR3eFGE7ELbZSuEIDdjoxSGpG-GvO3Yq6clomT6f4-6PZq2izAbuOAb4GFOTMAA/s1280/1000602876.png" 
+                 alt="Lapangan Kas Desa Ciasmara" 
                  class="custom-clickable-image">
         </a>
         
-        <!-- Futuristic action button -->
-        <a href="bio-data.html" 
-           class="custom-action-button" 
-           target="_blank">
-            <span style="text-shadow: 0 0 10px rgba(0,245,255,0.7);">KLIK DISINI</span>
-        </a>
+        <!-- Tombol -->
+        <div class="button-overlay">
+            <a href="bio-data.html" class="custom-action-button" target="_blank">
+                <!-- Teks Tombol -->
+                <span class="button-text">KLIK DISINI</span>
+            </a>
+        </div>
     </div>
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Preload high-quality image
             const img = new Image();
-            img.src = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0l6gs6Wu-xaLuhRgD9tgMHWellzbF2nTjkq1dpGxeYKjtNhVCy5IJoVsxbVwL-h23fLsPo89TYYCzyK_7uXaNxlzm9_r87PZ7h9QzoJeSkCsxLHliEWB-TBh1m-mgKTdBjTb18j3SJqakULRMyMLxCw-6_SMMtWOhiUAiTf72yPjyElMscvDMQra_pWA/s1280/1000602843.png";
+            img.src = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhV0cyr8w3CPBeaPegAcqywkmBMBgt-7IhxUr4U9SGm0YXHVOBHanSq2QuUPLT4B3nQ_bHenXz023X6f-UAjeaaW8TjfAyX_ViWFenPHGyD9OR97EKmdqimcnE1MihNbR3eFGE7ELbZSuEIDdjoxSGpG-GvO3Yq6clomT6f4-6PZq2izAbuOAb4GFOTMAA/s1280/1000602876.png";
             
-            // Verify click functionality
-            const elements = document.querySelectorAll('[href]');
-            elements.forEach(el => {
-                el.addEventListener('click', function() {
-                    console.log('Redirecting to:', this.href);
+            // Optimasi untuk mobile
+            function adjustForMobile() {
+                if (window.innerWidth <= 768) {
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+            
+            // Adjust on load and resize
+            adjustForMobile();
+            window.addEventListener('resize', adjustForMobile);
+            
+            // Add click effect
+            const buttons = document.querySelectorAll('.custom-action-button, .custom-clickable-image');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    console.log('Redirecting to bio-data.html');
+                    
+                    // Efek visual saat diklik
+                    if (this.classList.contains('custom-action-button')) {
+                        this.style.transform = 'translateY(0) scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = 'translateY(-3px) scale(1)';
+                        }, 150);
+                    }
                 });
             });
         });
