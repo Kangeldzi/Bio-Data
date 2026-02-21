@@ -22,8 +22,6 @@
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --glow: 0 0 15px rgba(0, 188, 212, 0.5);
             --modal-bg: rgba(0, 0, 0, 0.7);
-            --koperasi-color: #2e7d32;
-            --koperasi-dark: #1b5e20;
         }
 
         * {
@@ -175,10 +173,9 @@
             animation: pulse-ring 2s infinite;
         }
 
-        .profile-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .profile-photo i {
+            font-size: 70px;
+            color: var(--primary-color);
         }
 
         .name-title h1 {
@@ -188,6 +185,13 @@
             margin-bottom: 5px;
             letter-spacing: 1px;
             text-shadow: 0 0 10px rgba(0, 188, 212, 0.7);
+        }
+
+        .name-title .degree {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 5px;
         }
 
         .name-title .expert {
@@ -298,14 +302,15 @@
             font-size: 1.1rem;
         }
 
-        /* Action Buttons - Susunan Vertikal */
+        /* ACTION BUTTONS - VERTIKAL LAYOUT SESUAI PERMINTAAN */
         .action-buttons {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
             margin: 0 auto 40px auto;
-            max-width: 400px;
             width: 100%;
+            max-width: 380px;
+            padding: 0 15px;
         }
 
         .action-btn {
@@ -315,18 +320,18 @@
             background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
             color: white;
             border: none;
-            padding: 15px 25px;
-            border-radius: 10px;
+            padding: 14px 22px;
+            border-radius: 10px;           /* Border radius 10px */
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             width: 100%;
             box-shadow: var(--shadow);
             text-decoration: none;
-            text-align: left;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .action-btn::before {
@@ -344,6 +349,8 @@
         .action-btn:hover {
             transform: translateY(-3px);
             box-shadow: var(--glow), var(--shadow);
+            background: linear-gradient(135deg, var(--secondary-color), #0097a7);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .action-btn:hover::before {
@@ -351,37 +358,49 @@
         }
 
         .action-btn i {
-            font-size: 2rem;
-            margin-right: 20px;
+            font-size: 2rem;                /* Ikon 2rem di sisi kiri */
+            margin-right: 18px;
             width: 40px;
             text-align: center;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .action-btn:hover i {
+            transform: scale(1.1);
         }
 
         .action-btn-content {
             display: flex;
             flex-direction: column;
             flex: 1;
+            text-align: left;
         }
 
         .action-btn-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             line-height: 1.3;
+            margin-bottom: 2px;
         }
 
         .action-btn-desc {
             font-size: 0.8rem;
-            opacity: 0.8;
+            opacity: 0.9;
             font-weight: 400;
         }
 
         /* Tombol Koperasi dengan warna khusus */
         .action-btn-koperasi {
-            background: linear-gradient(135deg, var(--koperasi-color), var(--koperasi-dark));
+            background: linear-gradient(135deg, #2e7d32, #1b5e20) !important;
         }
 
         .action-btn-koperasi i {
             color: #ffd700;
+        }
+
+        .action-btn-koperasi:hover {
+            background: linear-gradient(135deg, #1b5e20, #2e7d32) !important;
         }
 
         /* Tagline Section */
@@ -421,6 +440,128 @@
             font-style: italic;
         }
 
+        /* Hamburger Menu Styles */
+        .hamburger-menu-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0 40px;
+            position: relative;
+        }
+
+        .hamburger-btn {
+            background: linear-gradient(135deg, var(--teal-color), var(--teal-light));
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 5px 20px rgba(44, 122, 123, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .hamburger-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(44, 122, 123, 0.4);
+            background: linear-gradient(135deg, var(--teal-light), var(--teal-color));
+        }
+
+        .hamburger-btn .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 22px;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger-btn:hover .hamburger-icon {
+            transform: rotate(90deg);
+        }
+
+        .hamburger-btn .hamburger-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn:hover .hamburger-icon span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger-btn:hover .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-btn:hover .hamburger-icon span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .hamburger-menu-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .hamburger-menu-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .hamburger-menu-item {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hamburger-menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .hamburger-menu-item:hover {
+            background-color: rgba(44, 122, 123, 0.08);
+            color: var(--teal-color);
+            padding-left: 25px;
+        }
+
+        .hamburger-menu-item i {
+            color: var(--teal-color);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .hamburger-menu-item:hover i {
+            color: var(--teal-light);
+        }
+
         /* Services Section */
         .services-section {
             margin-bottom: 60px;
@@ -457,8 +598,10 @@
         .section-title p {
             font-size: 1.2rem;
             color: var(--text-light);
+            margin-bottom: 20px;
         }
 
+        /* Updated Services Grid */
         .regulations-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -482,11 +625,27 @@
             justify-content: center;
         }
 
+        .regulation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, var(--teal-color) 0%, var(--teal-light) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         .regulation-card:hover {
             transform: translateY(-8px);
             box-shadow: 
                 0 12px 30px rgba(44, 122, 123, 0.25),
                 0 0 0 1px rgba(56, 178, 172, 0.1);
+        }
+
+        .regulation-card:hover::before {
+            opacity: 1;
         }
 
         .regulation-badge {
@@ -529,6 +688,26 @@
             color: var(--text-light);
             line-height: 1.5;
             font-size: 0.95rem;
+        }
+
+        .card-accent-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--red-accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .card-accent-dot-1 {
+            top: 10px;
+            left: 10px;
+        }
+
+        .card-accent-dot-2 {
+            bottom: 10px;
+            right: 10px;
+            animation-delay: 1s;
         }
 
         /* Gallery Section */
@@ -780,7 +959,7 @@
 
         .video-embed {
             position: relative;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             overflow: hidden;
             background: #000;
@@ -816,6 +995,17 @@
             border-left: 5px solid var(--accent-color);
             position: relative;
             overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, transparent 50%, rgba(255, 64, 129, 0.1) 50%);
+            border-radius: 0 15px 0 50px;
         }
 
         .testimonial-card:hover {
@@ -959,48 +1149,73 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
+        /* Social Media Colors */
         .tiktok { background: linear-gradient(135deg, #000000, #69C9D0, #EE1D52); }
         .facebook { background: linear-gradient(135deg, #1877F2, #0D5B9E); }
         .youtube { background: linear-gradient(135deg, #FF0000, #CC0000); }
         .instagram { background: linear-gradient(135deg, #E4405F, #405DE6, #833AB4); }
         .twitter { background: linear-gradient(135deg, #000000, #1DA1F2); }
 
-        /* WhatsApp Button */
+        /* WhatsApp Button Baru - Persegi Panjang di Tengah */
         .whatsapp-btn {
             position: fixed;
             bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            gap: 10px;
             box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
             z-index: 1000;
-            transition: all 0.3s;
-            animation: float-whatsapp 3s infinite ease-in-out;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeUpWhatsapp 0.8s ease-out 0.5s forwards;
+            min-width: 180px;
+            height: auto;
+        }
+
+        .whatsapp-btn i {
+            font-size: 1.3rem;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateX(-50%) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+            background: linear-gradient(135deg, #128C7E, #25D366);
         }
 
         .whatsapp-btn::before {
             content: '';
             position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 16px;
             background: rgba(37, 211, 102, 0.2);
             z-index: -1;
             animation: pulse-ring 2s infinite;
         }
 
-        .whatsapp-btn:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.6);
+        @keyframes fadeUpWhatsapp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
 
         /* Footer */
@@ -1078,27 +1293,42 @@
             padding: 25px;
         }
 
+        /* Tabel Data Pribadi - DIPERBAIKI untuk Mobile */
         .personal-data-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
         }
 
         .personal-data-table tr {
             border-bottom: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            padding: 12px 0;
         }
 
         .personal-data-table td {
-            padding: 12px 5px;
+            padding: 8px 0;
             vertical-align: top;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            width: 100% !important;
         }
 
         .personal-data-table td:first-child {
-            font-weight: 500;
+            font-weight: 600;
             color: var(--primary-color);
-            width: 40%;
-            min-width: 150px;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
         }
 
+        .personal-data-table td:last-child {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* List Styles */
         .skills-list, .experience-list, .organization-list {
             list-style-type: none;
         }
@@ -1138,6 +1368,11 @@
             padding: 12px 5px;
         }
 
+        .education-table tr:last-child {
+            border-bottom: none;
+        }
+
+        /* Hobbies */
         .hobbies {
             display: flex;
             flex-wrap: wrap;
@@ -1153,6 +1388,7 @@
             border: 1px solid rgba(0, 188, 212, 0.3);
         }
 
+        /* Prestasi */
         .achievement-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -1166,6 +1402,7 @@
             border-left: 4px solid var(--accent-color);
         }
 
+        /* Keterampilan Teknis */
         .programming-skills {
             margin-top: 15px;
         }
@@ -1232,15 +1469,6 @@
             }
         }
 
-        @keyframes float-whatsapp {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
         @keyframes modalFadeIn {
             from {
                 opacity: 0;
@@ -1282,12 +1510,54 @@
                 font-size: 0.9rem;
             }
             
+            .action-buttons {
+                max-width: 350px;
+                gap: 14px;
+            }
+            
+            .action-btn {
+                padding: 12px 20px;
+            }
+            
+            .action-btn i {
+                font-size: 1.8rem;
+                margin-right: 15px;
+                width: 35px;
+            }
+            
+            .action-btn-title {
+                font-size: 1rem;
+            }
+            
+            .action-btn-desc {
+                font-size: 0.75rem;
+            }
+            
             .tagline {
                 font-size: 1.5rem;
             }
             
             .main-tagline {
                 font-size: 1.2rem;
+            }
+            
+            /* Modal Data Pribadi Mobile */
+            .modal-content {
+                max-height: 90vh;
+                margin: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+            
+            .personal-data-table td:first-child {
+                font-size: 0.9rem;
+            }
+            
+            .personal-data-table td:last-child {
+                font-size: 0.85rem;
             }
             
             .regulations-list {
@@ -1328,15 +1598,23 @@
             }
             
             .whatsapp-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+                padding: 10px 20px;
+                min-width: 160px;
+                font-size: 0.9rem;
                 bottom: 20px;
-                right: 20px;
             }
             
             .section-title h2 {
                 font-size: 1.8rem;
+            }
+            
+            .hamburger-btn {
+                padding: 12px 22px;
+                font-size: 1rem;
+            }
+            
+            .hamburger-menu-dropdown {
+                min-width: 200px;
             }
         }
 
@@ -1344,6 +1622,10 @@
             .profile-photo {
                 width: 120px;
                 height: 120px;
+            }
+            
+            .profile-photo i {
+                font-size: 50px;
             }
             
             .name-title h1 {
@@ -1357,21 +1639,50 @@
             }
             
             .action-btn {
-                padding: 12px 20px;
+                padding: 10px 18px;
             }
             
             .action-btn i {
-                font-size: 1.8rem;
-                margin-right: 15px;
-                width: 35px;
+                font-size: 1.6rem;          /* Ikon sedikit diperkecil di HP */
+                margin-right: 12px;
+                width: 30px;
             }
             
             .action-btn-title {
-                font-size: 1.1rem;
+                font-size: 0.95rem;
+            }
+            
+            .action-btn-desc {
+                font-size: 0.7rem;
             }
             
             .tagline {
                 font-size: 1.3rem;
+            }
+            
+            /* Modal Data Pribadi Extra Small */
+            .modal-header {
+                padding: 18px 20px;
+            }
+            
+            .modal-header h2 {
+                font-size: 1.4rem;
+            }
+            
+            .modal-body {
+                padding: 18px;
+            }
+            
+            .personal-data-table tr {
+                padding: 10px 0;
+            }
+            
+            .personal-data-table td:first-child {
+                font-size: 0.85rem;
+            }
+            
+            .personal-data-table td:last-child {
+                font-size: 0.8rem;
             }
             
             .gallery-images {
@@ -1409,6 +1720,27 @@
                 height: 40px;
                 font-size: 1rem;
             }
+            
+            .whatsapp-btn {
+                padding: 8px 16px;
+                min-width: 150px;
+                font-size: 0.85rem;
+                bottom: 15px;
+            }
+            
+            .hamburger-btn {
+                padding: 10px 18px;
+                font-size: 0.95rem;
+            }
+            
+            .hamburger-menu-dropdown {
+                min-width: 180px;
+            }
+            
+            .hamburger-menu-item {
+                padding: 14px 18px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -1427,22 +1759,22 @@
         <div class="container">
             <div class="header-content">
                 <div class="profile-photo">                   
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjP2xBlljARlWqrD56UzhOeff-oTTrBGBIxMwhkfJF3QKNKOx8Gp5trumf5wiJqPaagHOQYsXUw4rVk_KAMGMdHth_DNmfLNpEcMX3esppVrlyaakrafLiHNiBuJKDE6BzS3p7DZGyffLcL9d4_2zgZrH-8P43UHYp27fyyd2oA2R6X-6l7kbCwMmDjACY/s320/1000576798.png" alt="Foto Profil">
+                  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjP2xBlljARlWqrD56UzhOeff-oTTrBGBIxMwhkfJF3QKNKOx8Gp5trumf5wiJqPaagHOQYsXUw4rVk_KAMGMdHth_DNmfLNpEcMX3esppVrlyaakrafLiHNiBuJKDE6BzS3p7DZGyffLcL9d4_2zgZrH-8P43UHYp27fyyd2oA2R6X-6l7kbCwMmDjACY/s320/1000576798.png" alt="Deskripsi foto" style="width:100%; height:100%; object-fit:cover;">
                 </div>
                 <div class="name-title">
                     <h1>Kang L</h1>
                     <div class="expert">DIGITAL EXPERT</div>
-                    <p>Kp. Sawah Rt. 02 Rw. 06, Ds. Gunung Menyan, Kecamatan Pamijahan, Kabupaten Bogor</p>
+                    <p>Kp. Banjar Karya. Rt. 02 Rw. 01, Desa. Ciasmara, Kecamatan Pamijahan, Kabupaten Bogor</p>
                 </div>
                 <div class="contact-info">
                     <p><i class="fas fa-phone"></i> +62 852-1848-3129</p>
-                    <p><i class="fas fa-envelope"></i> siliwangj4212@gmail.com</p>
+                    <p><i class="fas fa-envelope"></i>siliwangi4212@gmail.com</p>
                 </div>
             </div>
         </div>
     </header>
     
-    <!-- Navbar Scrollable -->
+    <!-- Navbar Scrollable (TIDAK DIUBAH) -->
     <div class="navbar-container">
         <div class="container">
             <div class="navbar">
@@ -1471,10 +1803,10 @@
         </div>
     </div>
     
-    <!-- Action Buttons - Susunan Vertikal Seperti Contoh Gambar -->
+    <!-- ACTION BUTTONS - VERTIKAL LAYOUT (SESUAI PERMINTAAN) -->
     <div class="container">
         <div class="action-buttons">
-            <!-- Tombol 1: TeslaSmart (Toko Online Saya) -->
+            <!-- Tombol 1: Toko Online Saya (TeslaSmart) -->
             <a href="https://www.teslasmart.my.id" class="action-btn" target="_blank">
                 <i class="fas fa-store"></i>
                 <div class="action-btn-content">
@@ -1483,7 +1815,7 @@
                 </div>
             </a>
             
-            <!-- Tombol 2: Profil Lengkap (CV Saya) -->
+            <!-- Tombol 2: CV Saya (Profil Lengkap) -->
             <a href="https://drive.google.com/drive/folders/1obffcqYNCLqVV9_SkSF4SCxTX5Uslzus" class="action-btn" target="_blank">
                 <i class="fas fa-id-card"></i>
                 <div class="action-btn-content">
@@ -1492,8 +1824,8 @@
                 </div>
             </a>
             
-            <!-- Tombol 3: Koperasi KUD Asmara Tani (Baru) -->
-            <a href="#" class="action-btn action-btn-koperasi" id="btn-koperasi" target="_blank">
+            <!-- Tombol 3: Koperasi KUD Asmara Tani (dengan warna khusus) -->
+            <a href="https://koperasi-asmara-tani.vercel.app/" class="action-btn action-btn-koperasi" target="_blank">
                 <i class="fas fa-hand-holding-usd"></i>
                 <div class="action-btn-content">
                     <span class="action-btn-title">KUD Asmara Tani</span>
@@ -1512,7 +1844,33 @@
         </div>
     </div>
     
-    <!-- Services Section -->
+    <!-- Hamburger Menu (TIDAK DIUBAH) -->
+    <div class="hamburger-menu-container">
+        <button class="hamburger-btn" id="hamburgerBtn">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+           Klik Bantuan Saya
+        </button>
+        <div class="hamburger-menu-dropdown" id="hamburgerDropdown">
+            <a href="konsultasi-advokasi.html" class="hamburger-menu-item" target="_blank">
+                <i class="fas fa-comments"></i>
+                Jasa Advokasi
+            </a>
+            <a href="layanan-jasa-kami.html" class="hamburger-menu-item" target="_blank">
+                <i class="fas fa-robot"></i>
+                Jasa Design 
+            </a>
+            <a href="permohonan-maaf.html" class="hamburger-menu-item" target="_blank">
+                <i class="fas fa-envelope-open-text"></i>
+                Undangan Digital
+            </a>
+        </div>
+    </div>
+    
+    <!-- Services Section (TIDAK DIUBAH) -->
     <div class="services-section">
         <div class="container">
             <div class="section-title">
@@ -1521,7 +1879,6 @@
                     <h2>LAYANAN JASA KAMI</h2>
                     <div class="line"></div>
                 </div>
-                <p>÷ JASA DIGITAL ÷</p>
             </div>
             
             <div class="regulations-list">
@@ -1573,7 +1930,7 @@
         </div>
     </div>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section (TIDAK DIUBAH) -->
     <div class="gallery-section">
         <div class="container">
             <div class="section-title">
@@ -1590,7 +1947,7 @@
                     </div>
                     <div class="gallery-images">
                         <div class="gallery-item" data-lightbox="gallery1" data-index="0">
-                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy6rXU12q40hd2SCHHZWsoDwCtSKZRjRjeTFfZkU984a-NZLOjl1KLyCtWwJtP5x586TUIJ533-QxD224kbRDN2-fYCLuaxJmWN1DybcTT96hXpw38lC1fgVJFAF3to4z8eBEemhz04JtlbdbRwDiWlygJ0vrwA9cNkj59f2HUAJ_WonIMLKm6-BsNSUk/s3016/1000007314.jpg" alt="Sertifikat SCBA">
+                            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy6rXU12q40hd2SCHHZWsoDwCtSKZRjRjeTFfZkU984a-NZLOjl1KLyCtWwJtP5x586TUIJ533-QxD224kbRDN2-fYCLuaxJmWN1DybcTT96hXpw38lC1fgVJFAF3to4z8eBEemhz04JtlbdbRwDiWlygJ0vrwA9cNkj59f2HUAJ_WonIMLKm6-BsNSUk/s3016/1000007314.jpg" alt="Sertifikat SCBA" style="width:100%; height:100%; object-fit:cover;">
                             <span class="certificate-badge">PT. REKIND</span>
                         </div>
                         <div class="gallery-item" data-lightbox="gallery1" data-index="1">
@@ -1631,7 +1988,7 @@
                             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgRsyEEXV-X3jHDECj8vZshtRe_aZ1EClgvhyphenhypheneQTmaWgLjOSaGaYoGKf_2pRyw9bOyQnISIxjmVQSU559wWbir_eprr0V1FLC3Pu30jnhQWwY9yf6MC6JS4dx5KQigXgGdj4IR-eUJ6-BXphEg1JnTl4Onp9zMlnEUDvYqsqsfRVlR_UB3ksLxXL3fclTU/s825/1000007353.jpg" alt="Penghargaan Prestasi">
                             <span class="certificate-badge">Ketua Terbaik Reuni Akbar</span>
                         </div>
-                        <div class="gallery-item" data-lightbox="gallery2" data-index="4">
+                        <div class="gallery-item" data-lightbox="gallery2" data-index="3">
                             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfaCN5DD_NSM8Yu8RlqekYmaWUMTIP1oNnz4vWcUcPf0wz34GhyDLzEvgTymuvJaucF-UHX7NVyAjtHCpIyGC44t9l2cXlGMOsKCqxqJv8D4pA2I8QDVHPacN9nURs00jQkhP99cY9pz5gy-6fn9mYwlnHR7k9lWizO16ErZvemGJA-JgxH8QdFQ005cs/s320/1000441498.jpg" alt="Penghargaan Prestasi">
                             <span class="certificate-badge">Pantarlih</span>
                         </div>
@@ -1658,7 +2015,7 @@
         </div>
     </div>
 
-    <!-- Video Section -->
+    <!-- Video Section (TIDAK DIUBAH) -->
     <div class="video-section">
         <div class="container">
             <div class="section-title">
@@ -1675,10 +2032,9 @@
                     </div>
                     <div class="video-embed">
                         <iframe src="https://www.youtube.com/embed/gGgdi3Zlwcw" 
-                                title="Profil Eldi Sugianto" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
+                         title="Video Profil Eldi Sugianto"
+                        frameborder="0" 
+                        allowfullscreen>
                         </iframe>
                     </div>
                 </div>
@@ -1691,10 +2047,9 @@
                     </div>
                     <div class="video-embed">
                         <iframe src="https://www.youtube.com/embed/6oTQkH_dmns" 
-                                title="Pengalaman Kerja" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
+                              title="Pengalaman Kerja Eldi Sugianto"
+                        frameborder="0" 
+                        allowfullscreen>
                         </iframe>
                     </div>
                 </div>
@@ -1702,7 +2057,7 @@
         </div>
     </div>
     
-    <!-- Testimonials Section -->
+    <!-- Testimonials Section (TIDAK DIUBAH) -->
     <div class="testimonials-section">
         <div class="container">
             <div class="section-title">
@@ -1759,7 +2114,7 @@
         </div>
     </div>
     
-    <!-- Social Media Section -->
+    <!-- Social Media Section (TIDAK DIUBAH) -->
     <div class="social-section">
         <div class="container">
             <h2 class="social-title">Follow Me</h2>
@@ -1793,9 +2148,10 @@
     <!-- WhatsApp Button -->
     <a href="https://wa.me/6285218483129" class="whatsapp-btn" target="_blank" title="Chat via WhatsApp">
         <i class="fab fa-whatsapp"></i>
+        WhatsApp
     </a>
     
-    <!-- Modal Windows -->
+    <!-- Modal Windows (TIDAK DIUBAH) -->
     
     <!-- Modal Data Pribadi -->
     <div id="modal-personal" class="modal">
@@ -1823,12 +2179,12 @@
                         <td>: Laki-laki</td>
                     </tr>
                     <tr>
-                        <td>Nomor Telepon</td>
-                        <td>: 0852-1848-3129</td>
+                        <td>Telepon Saudara</td>
+                        <td>: 0857-1546-6347</td>
                     </tr>
                     <tr>
                         <td>Email</td>
-                        <td>: siliwangj4212@gmail.com</td>
+                        <td>: siliwangi4212@gmail.com</td>
                     </tr>
                     <tr>
                         <td>Kewarganegaraan</td>
@@ -1963,7 +2319,7 @@
                 <ul class="skills-list">
                     <li>Microsoft Office</li>
                     <li>AutoCad</li>
-                    <li>3D Piping Design Engineering</li>
+                    <li>3D Piping Design Engineering at PT. IKPT</li>
                     <li>Corel draw</li>
                     <li>Photoshop</li>
                     <li>Pemahaman Bahasa Pemrograman</li>
@@ -1974,6 +2330,7 @@
                     <span class="tech-badge">HTML</span>
                     <span class="tech-badge">CSS</span>
                     <span class="tech-badge">PHP</span>
+                    <span class="tech-badge">JavaScript</span>
                     <span class="tech-badge">Website Developer</span>
                     <span class="tech-badge">Mobile Application</span>
                 </div>
@@ -2116,6 +2473,35 @@
             }
         }
 
+        // Hamburger Menu Functionality
+        function initHamburgerMenu() {
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const hamburgerDropdown = document.getElementById('hamburgerDropdown');
+            
+            if (!hamburgerBtn || !hamburgerDropdown) return;
+            
+            // Toggle dropdown on button click
+            hamburgerBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                hamburgerDropdown.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!hamburgerBtn.contains(e.target) && !hamburgerDropdown.contains(e.target)) {
+                    hamburgerDropdown.classList.remove('show');
+                }
+            });
+            
+            // Close dropdown when clicking on menu items
+            const menuItems = hamburgerDropdown.querySelectorAll('.hamburger-menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburgerDropdown.classList.remove('show');
+                });
+            });
+        }
+
         // Efek parallax pada shapes
         document.addEventListener('mousemove', (e) => {
             const shapes = document.querySelectorAll('.shape');
@@ -2186,11 +2572,13 @@
         const actionButtons = document.querySelectorAll('.action-btn');
         actionButtons.forEach(btn => {
             btn.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px)';
+                this.style.transform = 'translateY(-5px)';
+                this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 188, 212, 0.4)';
             });
 
             btn.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'var(--shadow)';
             });
         });
 
@@ -2205,6 +2593,32 @@
                 this.style.transform = 'translateY(0)';
             });
         });
+
+        // Efek untuk WhatsApp button
+        const whatsappBtn = document.querySelector('.whatsapp-btn');
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(37, 211, 102, 0.6)';
+            });
+
+            whatsappBtn.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 5px 20px rgba(37, 211, 102, 0.4)';
+            });
+        }
+
+        // Efek untuk hamburger button
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        if (hamburgerBtn) {
+            hamburgerBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+
+            hamburgerBtn.addEventListener('mouseleave', function() {
+                if (!document.getElementById('hamburgerDropdown').classList.contains('show')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        }
 
         // Modal functions
         function openModal(modalId) {
@@ -2259,6 +2673,12 @@
                     closeLightbox();
                 }
                 
+                // Close hamburger dropdown if open
+                const hamburgerDropdown = document.getElementById('hamburgerDropdown');
+                if (hamburgerDropdown && hamburgerDropdown.classList.contains('show')) {
+                    hamburgerDropdown.classList.remove('show');
+                }
+                
                 // Close modals if open
                 document.querySelectorAll('.modal').forEach(modal => {
                     if (modal.style.display === 'flex') {
@@ -2273,6 +2693,9 @@
             // Initialize lightbox
             initLightbox();
             
+            // Initialize hamburger menu
+            initHamburgerMenu();
+            
             // Animasi untuk elemen utama
             const elements = [
                 ...document.querySelectorAll('.regulation-card'),
@@ -2280,10 +2703,13 @@
                 ...document.querySelectorAll('.social-icon'),
                 ...document.querySelectorAll('.action-btn'),
                 ...document.querySelectorAll('.gallery-card'),
-                ...document.querySelectorAll('.video-card')
+                ...document.querySelectorAll('.video-card'),
+                document.getElementById('hamburgerBtn')
             ];
             
             elements.forEach((el, index) => {
+                if (!el) return;
+                
                 el.style.opacity = '0';
                 el.style.transform = 'translateY(20px)';
                 
