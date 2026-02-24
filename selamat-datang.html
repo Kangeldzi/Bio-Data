@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Kelas AI · TeslaSmart</title>
+    <!-- Font Awesome 6 (ikon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #0a0f1e; /* dasar gelap */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== 3. Efek Parallak Dinamis: Percikan/Gelembung Cahaya ===== */
+        .light-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 220, 100, 0.6) 0%, rgba(120, 180, 255, 0.3) 50%, transparent 80%);
+            border-radius: 50%;
+            filter: blur(8px) brightness(1.3);
+            animation: floatParticle linear infinite;
+            opacity: 0.5;
+            width: 200px;
+            height: 200px;
+        }
+
+        /* variasi ukuran, warna, dan kecepatan gelembung */
+        .particle:nth-child(1) { width: 300px; height: 300px; background: radial-gradient(circle, #ffb86c80, #ff6ec470, transparent); left: -100px; top: 10%; animation-duration: 18s; opacity: 0.3; }
+        .particle:nth-child(2) { width: 450px; height: 450px; background: radial-gradient(circle, #5f9eff80, #9f7aff60, transparent); right: -200px; bottom: 0%; animation-duration: 25s; opacity: 0.25; }
+        .particle:nth-child(3) { width: 200px; height: 200px; background: radial-gradient(circle, #6dd5ff, #3b9eff, transparent); left: 20%; top: 70%; animation-duration: 14s; opacity: 0.35; }
+        .particle:nth-child(4) { width: 350px; height: 350px; background: radial-gradient(circle, #c084fc, #ff98e9, transparent); right: 15%; top: 30%; animation-duration: 22s; opacity: 0.2; }
+        .particle:nth-child(5) { width: 280px; height: 280px; background: radial-gradient(circle, #ffd966, #ff956b, transparent); left: 5%; bottom: 10%; animation-duration: 19s; opacity: 0.3; }
+        .particle:nth-child(6) { width: 400px; height: 400px; background: radial-gradient(circle, #a0e9ff, #6d77ff, transparent); left: 70%; top: 60%; animation-duration: 28s; opacity: 0.2; }
+
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -40px) scale(1.1); }
+            66% { transform: translate(-20px, 30px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            z-index: 20;  /* di atas partikel */
+        }
+
+        /* ----- 1. Judul diubah jadi <h3> dengan ukuran lebih kecil ----- */
+        .header-text h3 {
+            font-size: clamp(1.4rem, 5vw, 2rem);  /* lebih kecil dari sebelumnya */
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffe99c, #ffb3c6, #aad0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.01em;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(255,215,100,0.3);
+        }
+
+        .header-text .sub {
+            font-size: 1.1rem;
+            color: #b7d0ff;  /* 5. diperjelas warna */
+            background: rgba(15, 30, 55, 0.6);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+            border-radius: 40px;
+            border: 1px solid #6b8cff60;
+            margin-top: 0.2rem;
+            font-weight: 500;
+            box-shadow: 0 8px 20px -10px #00000080;
+        }
+
+        /* ===== 6. Gambar baru di bawah judul ===== */
+        .new-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0 1.8rem;
+        }
+
+        .new-image img {
+            max-width: 280px;
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 25px 40px -10px #000000dd, 0 0 0 1px rgba(0, 200, 255, 0.3) inset;
+            animation: imgFloat 5s ease-in-out infinite;
+            transition: transform 0.3s ease;
+            background: #0b1428;
+            border: 1px solid #3b6eff40;
+        }
+
+        .new-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 50px -8px #0099ff;
+        }
+
+        @keyframes imgFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px) scale(1.02); filter: brightness(1.1); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 5. Variasi warna pada teks di halaman utama (dipertegas) */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin: 1.2rem 0 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #f5e56b, #ffad84, #91d0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px #ffbe5c70;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 130px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #f5b342, #708dff, transparent);
+            margin: 0.7rem auto 0;
+            border-radius: 4px;
+        }
+
+        /* menu container */
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+            max-width: 380px;
+            width: 100%;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* style action button */
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(18, 30, 55, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(90, 160, 255, 0.3);
+            border-radius: 10px;
+            padding: 14px 22px;
+            text-decoration: none;
+            color: white;
+            box-shadow: 0 20px 30px -12px #000000cc, 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+            transition: all 0.25s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #7ad0ff;
+            box-shadow: 0 25px 40px -10px #3c8aff;
+            background: rgba(28, 48, 85, 0.95);
+        }
+
+        .menu-item:active {
+            transform: scale(0.98);
+        }
+
+        /* ikon */
+        .menu-icon {
+            font-size: 2rem;
+            min-width: 2.2rem;
+            text-align: center;
+            filter: drop-shadow(0 0 8px currentColor);
+            transition: 0.2s;
+        }
+
+        .menu-item:hover .menu-icon {
+            filter: drop-shadow(0 0 15px #fff5b0);
+        }
+
+        /* ===== 4. Ikon khusus untuk Kelas AI #001 (diganti) ===== */
+        .menu-item[data-class="001"] .menu-icon i {
+            content: "\f03d";  /* fa-video sudah benar, tapi kita pertegas dengan ikon lain yang lebih cocok: kamera video */
+            /* menggunakan fa-video sudah cukup, tapi jika ingin beda bisa pakai fa-camera-retro */
+        }
+        /* kita terapkan langsung di HTML dengan kelas spesifik nanti */
+
+        /* teks dalam tombol */
+        .menu-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #ffffff;  /* putih solid, dipertegas */
+            letter-spacing: -0.01em;
+            margin-bottom: 2px;
+            text-shadow: 0 2px 5px #00000080; /* sedikit bayangan agar jelas */
+        }
+
+        .menu-desc {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #d2e0ff; /* lebih terang */
+            text-shadow: 0 1px 3px black;
+        }
+
+        .menu-desc i {
+            font-size: 0.7rem;
+            color: #ffdb7c;
+        }
+
+        /* ===== 5. Variasi warna teks pada setiap baris ===== */
+        .menu-item:nth-child(1) .menu-title { color: #ffb978; text-shadow: 0 0 8px #ff9f4b; }
+        .menu-item:nth-child(2) .menu-title { color: #a5d6ff; text-shadow: 0 0 8px #4f9eff; }
+        .menu-item:nth-child(3) .menu-title { color: #c5a6ff; text-shadow: 0 0 8px #9d6eff; }
+        .menu-item:nth-child(4) .menu-title { color: #8ff0b0; text-shadow: 0 0 8px #3ad86a; }
+        .menu-item:nth-child(5) .menu-title { color: #ffb3c6; text-shadow: 0 0 8px #ff809d; }
+        .menu-item:nth-child(6) .menu-title { color: #f5d372; text-shadow: 0 0 8px #f5b342; }
+
+        .menu-item:nth-child(1) .menu-desc { color: #ffe0b0; }
+        .menu-item:nth-child(2) .menu-desc { color: #c5e0ff; }
+        .menu-item:nth-child(3) .menu-desc { color: #ddcdff; }
+        .menu-item:nth-child(4) .menu-desc { color: #c0f5cf; }
+        .menu-item:nth-child(5) .menu-desc { color: #ffd6df; }
+        .menu-item:nth-child(6) .menu-desc { color: #ffecb3; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .menu-item {
+                padding: 10px 18px;
+                gap: 0.8rem;
+            }
+            .menu-icon {
+                font-size: 1.6rem;
+                min-width: 1.8rem;
+            }
+            .menu-title {
+                font-size: 1.1rem;
+            }
+            .menu-desc {
+                font-size: 0.75rem;
+            }
+            .header-text h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Footer dengan warna jelas */
+        .footer {
+            text-align: center;
+            padding: 1.2rem 0.5rem;
+            margin-top: 2rem;
+            color: #b0d0ff;
+            font-size: 0.95rem;
+            border-top: 1px dashed #3f6790;
+            background: rgba(0, 10, 25, 0.5);
+            backdrop-filter: blur(6px);
+            border-radius: 60px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- 3. Lapisan partikel cahaya dinamis (parallak) -->
+    <div class="light-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <!-- 1. Header dengan H3 (judul lebih kecil) -->
+        <div class="header-text">
+            <h3>SELAMAT DATANG DI KELAS BELAJAR AI</h3>
+            <div class="sub">Kelas Pembelajaran Sistem AI</div>
+        </div>
+
+        <!-- 6. Gambar baru dari link yang diberikan + animasi -->
+        <div class="new-image">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png"
+                 alt="AI Animation Era"
+                 title="The New Era of AI Animation">
+        </div>
+
+        <!-- Teks "Silahkan Pilih Kelas" dengan warna gradien tajam -->
+        <div class="section-title">Silahkan Pilih Kelas</div>
+
+        <!-- 6 Tombol menu dengan ikon yang sesuai dan variasi warna -->
+        <div class="menu-buttons">
+            <!-- Kelas AI #001 (ikon diganti lebih spesifik: video/kamera) -->
+            <a href="#" target="_blank" class="menu-item" data-class="001" rel="noopener">
+                <span class="menu-icon"><i class="fas fa-video"></i></span>  <!-- ikon kamera video -->
+                <div class="menu-text">
+                    <span class="menu-title">Kelas AI #001</span>
+                    <span class="menu-desc"><i class="fa-regular fa-circle-check"></i> Membuat Video Karakter Kita Sendiri</span>
+                </div>
+            </a>
+            <!-- Kelas AI #002 (3D) -->
+            <a href="#" target="_blank" class="menu-item" rel="noopener">
+                <span class="menu-icon"><i class="fas fa-cube"></i></span>
+                <div class="menu-text">
+                    <span class="menu-title">Kelas AI #002</span>
+                    <span class="menu-desc"><i class="fa-regular fa-circle-check"></i> Membuat Video Karakter 3D Animasi, Cartoon, Clay Konsisten</span>
+                </div>
+            </a>
+            <!-- Kelas AI #003 (Toko Online) -->
+            <a href="#" target="_blank" class="menu-item" rel="noopener">
+                <span class="menu-icon"><i class="fas fa-store"></i></span>
+                <div class="menu-text">
+                    <span class="menu-title">Kelas AI #003</span>
+                    <span class="menu-desc"><i class="fa-regular fa-circle-check"></i> Membuat Aplikasi Toko Online</span>
+                </div>
+            </a>
+            <!-- Kelas AI #004 (Website) -->
+            <a href="#" target="_blank" class="menu-item" rel="noopener">
+                <span class="menu-icon"><i class="fas fa-laptop-code"></i></span>
+                <div class="menu-text">
+                    <span class="menu-title">Kelas AI #004</span>
+                    <span class="menu-desc"><i class="fa-regular fa-circle-check"></i> Jasa Pembuatan Website</span>
+                </div>
+            </a>
+            <!-- Kelas AI #005 (Design) -->
+            <a href="#" target="_blank" class="menu-item" rel="noopener">
+                <span class="menu-icon"><i class="fas fa-pen-ruler"></i></span>
+                <div class="menu-text">
+                    <span class="menu-title">Kelas AI #005</span>
+                    <span class="menu-desc"><i class="fa-regular fa-circle-check"></i> Jasa Design</span>
+                </div>
+            </a>
+            <!-- Kelas AI #006 (Video Promosi) -->
+            <a href="#" target="_blank" class="menu-item" rel="noopener">
+                <span class="menu-icon"><i class="fas fa-film"></i></span>
+                <div class="menu-text">
+                    <span class="menu-title">Kelas AI #006</span>
+                    <span class="menu-desc"><i class="fa-regular fa-circle-check"></i> Jasa Pembuatan Video Promosi & Iklan</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <span>© 2026 TeslaSmart - Digital Teknologi</span>
+        </div>
+    </div>
+</body>
+</html>
