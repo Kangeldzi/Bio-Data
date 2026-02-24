@@ -733,7 +733,7 @@
             text-decoration: underline;
         }
 
-        /* Modal setelah berhasil - DITAMBAHKAN SCROLL */
+        /* Modal setelah berhasil - dengan scroll untuk mobile */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -754,7 +754,7 @@
             top: auto;
             left: auto;
             transform: none;
-            margin: 40px auto;
+            margin: 30px auto;
             background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(30, 30, 60, 0.95));
             border-radius: 25px;
             padding: 40px;
@@ -876,6 +876,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            z-index: 10;
         }
 
         .close-modal:hover {
@@ -1016,11 +1017,11 @@
         @keyframes modalAppear {
             from { 
                 opacity: 0; 
-                transform: scale(0.9); 
+                transform: translateY(-30px) scale(0.9); 
             }
             to { 
                 opacity: 1; 
-                transform: scale(1); 
+                transform: translateY(0) scale(1); 
             }
         }
 
@@ -1051,7 +1052,6 @@
             
             .modal-content {
                 padding: 30px 20px;
-                width: 95%;
             }
             
             .payment-item {
@@ -1213,7 +1213,7 @@
             <div class="login-modal-header">
                 <i class="fas fa-user-circle"></i>
                 <h2>Login Member</h2>
-                <p>Masuk ke akun Anda untuk mengakses kelas</p>
+                <p>Masukkan password Anda!</p>
             </div>
             <div class="login-input-group">
                 <i class="fas fa-envelope"></i>
@@ -1221,7 +1221,7 @@
             </div>
             <div class="login-input-group">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="loginPassword" class="login-input" placeholder="Password" required>
+                <input type="password" id="loginPassword" class="login-input" placeholder="masukkan password anda" required>
             </div>
             <button class="login-submit" onclick="handleLogin()">
                 <i class="fas fa-sign-in-alt"></i> Login
@@ -1313,9 +1313,9 @@
 
                 <!-- 5. Password dengan toggle icon (BARU) -->
                 <div class="form-group">
-                    <label class="form-label">Masukkan password Anda.!</label>
+                    <label class="form-label">Password</label>
                     <div class="password-wrapper">
-                        <input type="password" id="password" name="password" placeholder="masukan password anda" required class="form-input">
+                        <input type="password" id="password" name="password" placeholder="masukkan password anda" required class="form-input">
                         <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
                     </div>
                 </div>
@@ -1426,10 +1426,6 @@
                 account: ''
             }
         };
-
-        // Role Admin (contoh default)
-        const adminEmail = "eldisugih@gmail.com";
-        const adminPassword = "Syukuran_1";
 
         // Fungsi untuk memilih metode pembayaran
         let selectedPayment = 'bank-bri';
@@ -1806,18 +1802,31 @@ ________________________________
                 return;
             }
 
-            // Cek login (contoh sederhana)
-            if (email === adminEmail && password === adminPassword) {
-                showAlert('Login Admin berhasil!', 'success');
-            } else {
-                showAlert('Login Member berhasil! Selamat datang kembali.', 'success');
+            // Validasi untuk Admin
+            if (email === 'eldisugih@gmail.com' && password === 'Syukuran_1') {
+                showAlert('Login Admin berhasil! Mengalihkan ke halaman utama...', 'success');
+                closeLoginModal();
+                setTimeout(() => {
+                    window.location.href = 'kelas-ai.html';
+                }, 1500);
+                return;
             }
             
-            closeLoginModal();
-            
-            // Reset form
-            document.getElementById('loginEmail').value = '';
-            document.getElementById('loginPassword').value = '';
+            // Validasi untuk Member (email dan password bebas, minimal 6 karakter)
+            if (password.length >= 6) {
+                showAlert('Login Member berhasil! Mengalihkan ke halaman utama...', 'success');
+                closeLoginModal();
+                
+                // Reset form login
+                document.getElementById('loginEmail').value = '';
+                document.getElementById('loginPassword').value = '';
+                
+                setTimeout(() => {
+                    window.location.href = 'kelas-ai.html';
+                }, 1500);
+            } else {
+                showAlert('Password minimal 6 karakter!', 'error');
+            }
         }
         
         // Buat partikel animasi
@@ -1864,7 +1873,7 @@ ________________________________
             // Update real-time display pertama kali
             updateRealTimeDisplay();
             
-            // Set interval untuk update setiap 20 detik (ubah dari 5 detik ke 20 detik)
+            // Set interval untuk update setiap 20 detik
             setInterval(updateRealTimeDisplay, 20000);
             
             // Tambahkan style untuk animasi alert
