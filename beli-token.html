@@ -118,6 +118,81 @@
             line-height: 1.6;
         }
 
+        /* Stats Card Login baru */
+        .login-card {
+            background: rgba(30, 30, 60, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(76, 201, 240, 0.3);
+            border-color: #4cc9f0;
+        }
+
+        .login-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(76, 201, 240, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #4cc9f0;
+            border: 2px solid rgba(76, 201, 240, 0.5);
+        }
+
+        .login-text h3 {
+            font-size: 20px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .login-text p {
+            color: #b0b0ff;
+            font-size: 14px;
+        }
+
+        .login-button {
+            background: linear-gradient(90deg, #4cc9f0, #4361ee);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(76, 201, 240, 0.4);
+        }
+
+        .login-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(76, 201, 240, 0.6);
+            background: linear-gradient(90deg, #4361ee, #4cc9f0);
+        }
+
         /* REVISI: Stats Card kembali ke tampilan awal */
         .section {
             background: rgba(20, 20, 40, 0.7);
@@ -229,6 +304,39 @@
 
         .form-input:hover {
             border-color: #4cc9f0;
+        }
+
+        /* Password input dengan toggle icon */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper input {
+            padding-right: 50px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4cc9f0;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            background: rgba(30, 30, 60, 0.7);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .toggle-password:hover {
+            color: #f72585;
+            background: rgba(76, 201, 240, 0.2);
         }
 
         /* REVISI: Payment methods dengan background putih transparan */
@@ -416,39 +524,7 @@
             font-weight: 800;
         }
 
-        /* Coupon section */
-        .coupon-section {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .coupon-title {
-            font-size: 20px;
-            color: #4cc9f0;
-            margin-bottom: 15px;
-        }
-
-        .coupon-input {
-            width: 100%;
-            max-width: 400px;
-            padding: 15px 25px;
-            background: rgba(30, 30, 60, 0.7);
-            border: 2px solid rgba(247, 37, 133, 0.3);
-            border-radius: 50px;
-            color: #fff;
-            font-size: 16px;
-            text-align: center;
-            transition: all 0.3s ease;
-            margin: 0 auto;
-            display: block;
-        }
-
-        .coupon-input:focus {
-            border-color: #f72585;
-            box-shadow: 0 0 0 3px rgba(247, 37, 133, 0.3);
-        }
-
-        /* Tombol Beli Sekarang */
+        /* Tombol Beli Sekarang dengan ikon panah lebih tegas */
         .buy-button {
             width: 100%;
             padding: 20px;
@@ -496,6 +572,165 @@
 
         .buy-button:hover::before {
             left: 100%;
+        }
+
+        /* Ikon panah lebih tegas */
+        .arrow-icon {
+            font-size: 28px;
+            font-weight: 900;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: arrowPulse 1.5s infinite;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        /* Modal Login */
+        .login-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .login-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.98), rgba(30, 30, 60, 0.98));
+            border-radius: 25px;
+            padding: 40px;
+            width: 90%;
+            max-width: 420px;
+            border: 2px solid rgba(76, 201, 240, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(76, 201, 240, 0.3);
+            animation: modalAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .login-modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-modal-header i {
+            font-size: 60px;
+            color: #4cc9f0;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(76, 201, 240, 0.7);
+        }
+
+        .login-modal-header h2 {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .login-modal-header p {
+            color: #b0b0ff;
+            font-size: 14px;
+        }
+
+        .login-input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .login-input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4cc9f0;
+            font-size: 18px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 15px 20px 15px 45px;
+            background: rgba(30, 30, 60, 0.7);
+            border: 2px solid rgba(76, 201, 240, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .login-input:focus {
+            border-color: #4cc9f0;
+            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.3);
+            background: rgba(30, 30, 60, 0.9);
+        }
+
+        .login-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #4cc9f0, #4361ee);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 5px 20px rgba(76, 201, 240, 0.4);
+        }
+
+        .login-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(76, 201, 240, 0.6);
+            background: linear-gradient(90deg, #4361ee, #4cc9f0);
+        }
+
+        .login-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(247, 37, 133, 0.2);
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .login-close:hover {
+            background: rgba(247, 37, 133, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8888cc;
+            font-size: 14px;
+        }
+
+        .login-footer a {
+            color: #4cc9f0;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
         }
 
         /* Modal setelah berhasil */
@@ -825,6 +1060,20 @@
                 height: 60px;
                 padding: 10px;
             }
+
+            .login-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .login-info {
+                flex-direction: column;
+            }
+
+            .login-button {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         /* Partikel efek */
@@ -952,6 +1201,34 @@
         </div>
     </div>
 
+    <!-- Modal Login -->
+    <div id="loginModal" class="login-modal-overlay">
+        <div class="login-modal-content">
+            <button class="login-close" onclick="closeLoginModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="login-modal-header">
+                <i class="fas fa-user-circle"></i>
+                <h2>Login Member</h2>
+                <p>Masuk ke akun Anda untuk mengakses kelas</p>
+            </div>
+            <div class="login-input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="loginEmail" class="login-input" placeholder="Alamat Email" required>
+            </div>
+            <div class="login-input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="loginPassword" class="login-input" placeholder="Password" required>
+            </div>
+            <button class="login-submit" onclick="handleLogin()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <div class="login-footer">
+                Belum punya akun? <a onclick="closeLoginModalAndScrollToForm()">Daftar sekarang</a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Header dengan gambar -->
         <div class="header">
@@ -970,7 +1247,7 @@
 
         <!-- Yang Anda Dapatkan -->
         <div class="section">
-            <h2 class="section-title"><i class="fas fa-gift"></i> Yang Anda Dapatkan:</h2>
+            <h2 class="section-title"><i class="fas fa-gift"></i> Yang Anda Dapatkan :</h2>
             <ul class="benefits-list">
                 <li class="benefit-item">
                     <div class="benefit-icon"><i class="fas fa-infinity"></i></div>
@@ -982,14 +1259,30 @@
                 </li>
                 <li class="benefit-item">
                     <div class="benefit-icon"><i class="fas fa-users"></i></div>
-                    <div class="benefit-text">Gabung komunitas Gambar AI</div>
+                    <div class="benefit-text">Gabung Komunitas Kelas AI</div>
                 </li>
             </ul>
         </div>
 
-        <!-- Data Penerima dengan urutan baru -->
-        <div class="section">
-            <h2 class="section-title"><i class="fas fa-user-circle"></i> Data Penerima:</h2>
+        <!-- Stats Card Login - Baru ditambahkan -->
+        <div class="login-card">
+            <div class="login-info">
+                <div class="login-icon">
+                    <i class="fas fa-user-lock"></i>
+                </div>
+                <div class="login-text">
+                    <h3>Sudah mempunyai akun?</h3>
+                    <p>Login untuk melanjutkan belajar</p>
+                </div>
+            </div>
+            <button class="login-button" onclick="openLoginModal()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </div>
+
+        <!-- Data Member Kelas dengan urutan baru -->
+        <div class="section" id="dataMemberSection">
+            <h2 class="section-title"><i class="fas fa-user-circle"></i> Data Member Kelas :</h2>
             <form id="orderForm">
                 <!-- 1. Nama Lengkap -->
                 <div class="form-group">
@@ -997,23 +1290,38 @@
                     <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap Anda" required class="form-input">
                 </div>
                 
-                <!-- 2. Alamat Lengkap (mengganti Email) -->
+                <!-- 2. Alamat Lengkap -->
                 <div class="form-group">
                     <label class="form-label">Alamat Lengkap</label>
                     <input type="text" id="alamat" name="alamat" placeholder="Masukkan alamat lengkap Anda" required class="form-input">
                 </div>
                 
-                <!-- 3. WhatsApp dipindah ke urutan ketiga -->
+                <!-- 3. Nomor WhatsApp -->
                 <div class="form-group">
                     <label class="form-label">Nomor WhatsApp</label>
                     <input type="text" id="whatsapp" name="whatsapp" placeholder="Contoh: 081234567890" required class="form-input">
                 </div>
+
+                <!-- 4. Alamat Email (BARU) -->
+                <div class="form-group">
+                    <label class="form-label">Alamat Email</label>
+                    <input type="email" id="email" name="email" placeholder="Masukkan alamat email Anda" required class="form-input">
+                </div>
+
+                <!-- 5. Password dengan toggle icon (BARU) -->
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Buat password untuk akun Anda" required class="form-input">
+                        <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                </div>
             </form>
         </div>
 
-        <!-- REVISI: Metode Pembayaran dengan background putih transparan -->
+        <!-- REVISI : Metode Pembayaran dengan background putih transparan -->
         <div class="section">
-            <h2 class="section-title"><i class="fas fa-credit-card"></i> Metode Pembayaran:</h2>
+            <h2 class="section-title"><i class="fas fa-credit-card"></i> Metode Pembayaran :</h2>
             <ul class="payment-methods">
                 <li class="payment-item" onclick="selectPayment(this, 'bank-bri')">
                     <input class="payment-radio" type="radio" name="payment" value="bank-bri" required>
@@ -1047,40 +1355,52 @@
                     </div>
                     <div class="payment-details">
                         <div class="payment-name">TeslaSmart</div>
-                        <div class="payment-number">******</div>
+                        <div class="payment-number">Belum Tersedia</div>
                     </div>                
                 </li>
             </ul>
         </div>
 
-        <!-- Rincian Pesanan -->
+        <!-- Rincian Pesanan dengan Real-time Kode Unik & Invoice -->
         <div class="order-summary">
             <div class="order-title"><i class="fas fa-receipt"></i> RINCIAN PESANAN:</div>
             <div class="order-row">
-                <div class="order-label">Kelas Gambar AI - Selamanya</div>
+                <div class="order-label">Kelas AI Selamanya</div>
                 <div class="order-value">
-                    <span class="order-discount">Rp300.000</span> Rp150.000
+                    <span class="order-discount">Rp300.000</span> Rp155.000
                 </div>
             </div>
-            <div class="order-row">
-                <div class="order-label">Kode Unik</div>
-                <div class="order-value">Rp500</div>
+            <div class="order-row" id="kodeUnikRow">
+                <div class="order-label">
+                    Kode Unik 
+                    <span style="font-size: 12px; color: #4cc9f0; margin-left: 5px;">
+                        <i class="fas fa-sync-alt fa-spin"></i> Real-time
+                    </span>
+                </div>
+                <div class="order-value" id="kodeUnikDisplay">Rp500</div>
             </div>
             <div class="order-row" style="border-bottom: none; padding-bottom: 0;">
                 <div class="order-label">Total</div>
-                <div class="order-value order-total">Rp150.500</div>
+                <div class="order-value order-total" id="totalDisplay">Rp155.500</div>
+            </div>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(76, 201, 240, 0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="color: #b0b0ff; font-size: 14px;">
+                        <i class="fas fa-file-invoice"></i> No. Invoice
+                    </div>
+                    <div style="color: #4cc9f0; font-weight: 600; font-size: 16px;" id="invoiceDisplay">
+                        INV-123456
+                    </div>
+                </div>
+                <div style="color: #8888cc; font-size: 12px; margin-top: 5px; text-align: right;">
+                    <i class="fas fa-clock"></i> Update setiap 50 detik
+                </div>
             </div>
         </div>
 
-        <!-- Kupon -->
-        <div class="coupon-section">
-            <h3 class="coupon-title">GUNAKAN KODE KUPON:</h3>
-            <input type="text" id="coupon" name="coupon" placeholder="Masukkan kode kupon di sini" class="coupon-input">
-        </div>
-
-        <!-- Tombol Beli Sekarang mengirim pesan ke WhatsApp -->
+        <!-- Tombol Bayar Paket Kelas dengan ikon panah lebih tegas -->
         <button onclick="sendOrderToWhatsApp()" class="buy-button">
-            <i class="fas fa-shopping-cart"></i> Beli Sekarang →
+            <i class="fas fa-shopping-cart"></i> Bayar Paket Kelas <span class="arrow-icon">➡️</span>
         </button>
     </div>
 
@@ -1099,7 +1419,7 @@
             },
             'bca-virtual-account': {
                 name: 'BCA Virtual Account',
-                number: 'Coming Soon',
+                number: 'Belum Tersedia',
                 account: ''
             }
         };
@@ -1124,6 +1444,63 @@
             setTimeout(() => {
                 element.style.transform = '';
             }, 200);
+        }
+
+        // Fungsi untuk toggle visibility password
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        // Fungsi untuk generate kode unik (100-999)
+        function generateKodeUnik() {
+            return Math.floor(Math.random() * 900) + 100;
+        }
+
+        // Fungsi untuk generate nomor invoice
+        function generateInvoice() {
+            const date = new Date();
+            const year = date.getFullYear().toString().slice(-2);
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const random = Math.floor(Math.random() * 9000 + 1000); // 4 digit random
+            return `INV-${year}${month}${day}-${random}`;
+        }
+
+        // Fungsi untuk update tampilan kode unik dan invoice
+        function updateRealTimeDisplay() {
+            // Update kode unik
+            const kodeUnik = generateKodeUnik();
+            const total = 155000 + kodeUnik;
+            
+            // Format ke Rupiah
+            const kodeUnikFormat = `Rp${kodeUnik.toLocaleString('id-ID')}`;
+            const totalFormat = `Rp${total.toLocaleString('id-ID')}`;
+            
+            // Update elemen kode unik dan total
+            document.getElementById('kodeUnikDisplay').textContent = kodeUnikFormat;
+            document.getElementById('totalDisplay').textContent = totalFormat;
+            
+            // Update invoice
+            document.getElementById('invoiceDisplay').textContent = generateInvoice();
+            
+            // Animasi highlight pada row kode unik
+            const kodeUnikRow = document.getElementById('kodeUnikRow');
+            kodeUnikRow.style.transition = 'background-color 0.3s ease';
+            kodeUnikRow.style.backgroundColor = 'rgba(76, 201, 240, 0.2)';
+            setTimeout(() => {
+                kodeUnikRow.style.backgroundColor = '';
+            }, 300);
         }
         
         // Timer countdown untuk modal
@@ -1152,16 +1529,22 @@
             return timerInterval;
         }
         
-        // Fungsi untuk mengirim pesan ke WhatsApp
+        // Fungsi untuk mengirim pesan ke WhatsApp dengan format baru
         function sendOrderToWhatsApp() {
             // Ambil nilai dari form
             const nama = document.getElementById('nama').value.trim();
             const alamat = document.getElementById('alamat').value.trim();
             const whatsapp = document.getElementById('whatsapp').value.trim();
-            const coupon = document.getElementById('coupon').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            // Ambil kode unik dan invoice dari display (real-time)
+            const kodeUnikText = document.getElementById('kodeUnikDisplay').textContent;
+            const kodeUnik = parseInt(kodeUnikText.replace(/[^0-9]/g, ''));
+            const invoiceNumber = document.getElementById('invoiceDisplay').textContent;
             
             // Validasi form
-            if (!nama || !alamat || !whatsapp) {
+            if (!nama || !alamat || !whatsapp || !email || !password) {
                 showAlert('Mohon lengkapi semua data yang diperlukan!', 'error');
                 return;
             }
@@ -1171,14 +1554,23 @@
                 showAlert('Nomor WhatsApp tidak valid!', 'error');
                 return;
             }
+
+            // Validasi email sederhana
+            if (!email.includes('@') || !email.includes('.')) {
+                showAlert('Alamat email tidak valid!', 'error');
+                return;
+            }
+
+            // Validasi password minimal 6 karakter
+            if (password.length < 6) {
+                showAlert('Password minimal 6 karakter!', 'error');
+                return;
+            }
             
             // Tentukan metode pembayaran yang dipilih
             const paymentMethod = paymentMethods[selectedPayment];
             
-            // Generate kode unik acak
-            const kodeUnik = Math.floor(Math.random() * 900) + 100; // 100-999
-            
-            // Format pesan WhatsApp
+            // Format pesan WhatsApp dengan field baru (email & password)
             const message = `*┅═•❃✽༊°°🍀🌻🍀°°༊✽❃•═┅*
 *════ ◎•❀•◎﷽◎•❀•◎ ════*
 
@@ -1192,15 +1584,20 @@
 
 *Nama Lengkap* : ${nama}
 *Alamat Lengkap* : ${alamat}
-*Nomor HP* : ${whatsapp}
+*Nomor WhatsApp* : ${whatsapp}
+*Alamat Email* : ${email}
+*Password* : ${password}
 
 ==========================
 *RINCIAN PESANAN*
+*No. Invoice* : ${invoiceNumber}
 
-*Kelas Gambar AI* : Rp. 150.000
+*Kelas Gambar AI* : 
+(Masukan Kelas Yang Anda Pilih.! Contoh : Kelas AI #001)
+*Total Pembayaran* : Rp. 155.000
 *Kode Unik* : Rp. ${kodeUnik}
 ________________________________
-*Total* : Rp. ${150000 + kodeUnik}
+*Total* : Rp. ${155000 + kodeUnik}
 ________________________________
 *Pembayaran* : ${paymentMethod.name} - ${paymentMethod.number} ${paymentMethod.account ? paymentMethod.account : ''} 
 
@@ -1222,9 +1619,11 @@ ________________________________
                 nama: nama,
                 alamat: alamat,
                 whatsapp: whatsapp,
+                email: email,
+                password: password,
                 payment: paymentMethod.name,
-                total: 150000 + kodeUnik,
-                orderNumber: `INV-${Date.now().toString().slice(-6)}`
+                total: 155000 + kodeUnik,
+                orderNumber: invoiceNumber
             }));
             
             // Simulasi loading
@@ -1359,6 +1758,55 @@ ________________________________
                 if (alert.parentNode) alert.remove();
             }, 3000);
         }
+
+        // Fungsi untuk membuka modal login
+        function openLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fungsi untuk menutup modal login
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Fungsi untuk menutup modal login dan scroll ke form pendaftaran
+        function closeLoginModalAndScrollToForm() {
+            closeLoginModal();
+            
+            // Scroll ke section Data Member Kelas
+            const formSection = document.getElementById('dataMemberSection');
+            formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Beri efek highlight pada form
+            formSection.style.transition = 'box-shadow 0.5s ease';
+            formSection.style.boxShadow = '0 0 30px rgba(76, 201, 240, 0.8)';
+            setTimeout(() => {
+                formSection.style.boxShadow = '';
+            }, 1000);
+        }
+
+        // Fungsi untuk handle login
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!email || !password) {
+                showAlert('Email dan password harus diisi!', 'error');
+                return;
+            }
+
+            // Simulasi proses login
+            showAlert('Login berhasil! Selamat datang kembali.', 'success');
+            closeLoginModal();
+            
+            // Reset form
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        }
         
         // Buat partikel animasi
         function createParticles() {
@@ -1401,6 +1849,12 @@ ________________________________
             // Auto select first payment method
             document.querySelector('.payment-item').click();
             
+            // Update real-time display pertama kali
+            updateRealTimeDisplay();
+            
+            // Set interval untuk update setiap 5 detik
+            setInterval(updateRealTimeDisplay, 50000);
+            
             // Tambahkan style untuk animasi alert
             const style = document.createElement('style');
             style.textContent = `
@@ -1422,14 +1876,19 @@ ________________________________
                     closeModal('paymentModal');
                     closeModal('proofModal');
                     closeModal('statusModal');
+                    closeLoginModal();
                 }
             });
             
             // Close modal ketika klik di luar konten
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
+            document.querySelectorAll('.modal-overlay, .login-modal-overlay').forEach(modal => {
                 modal.addEventListener('click', function(e) {
                     if (e.target === this) {
-                        closeModal(this.id);
+                        if (this.id === 'loginModal') {
+                            closeLoginModal();
+                        } else {
+                            closeModal(this.id);
+                        }
                     }
                 });
             });
