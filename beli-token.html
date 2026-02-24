@@ -524,7 +524,7 @@
             font-weight: 800;
         }
 
-        /* Tombol Beli Sekarang dengan ikon panah lebih tegas */
+        /* Tombol Bayar Paket Kelas dengan ikon panah lebih tegas */
         .buy-button {
             width: 100%;
             padding: 20px;
@@ -733,7 +733,7 @@
             text-decoration: underline;
         }
 
-        /* Modal setelah berhasil */
+        /* Modal setelah berhasil - DITAMBAHKAN SCROLL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -745,17 +745,20 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             animation: fadeIn 0.5s ease;
+            overflow-y: auto;
+            padding: 20px;
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: none;
+            margin: 40px auto;
             background: linear-gradient(135deg, rgba(20, 20, 40, 0.95), rgba(30, 30, 60, 0.95));
             border-radius: 25px;
             padding: 40px;
-            width: 90%;
+            width: 100%;
             max-width: 500px;
             border: 2px solid rgba(76, 201, 240, 0.3);
             box-shadow: 
@@ -1013,11 +1016,11 @@
         @keyframes modalAppear {
             from { 
                 opacity: 0; 
-                transform: translate(-50%, -40%) scale(0.9); 
+                transform: scale(0.9); 
             }
             to { 
                 opacity: 1; 
-                transform: translate(-50%, -50%) scale(1); 
+                transform: scale(1); 
             }
         }
 
@@ -1310,9 +1313,9 @@
 
                 <!-- 5. Password dengan toggle icon (BARU) -->
                 <div class="form-group">
-                    <label class="form-label">Password</label>
+                    <label class="form-label">Masukkan password Anda.!</label>
                     <div class="password-wrapper">
-                        <input type="password" id="password" name="password" placeholder="Buat password untuk akun Anda" required class="form-input">
+                        <input type="password" id="password" name="password" placeholder="masukan password anda" required class="form-input">
                         <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
                     </div>
                 </div>
@@ -1393,7 +1396,7 @@
                     </div>
                 </div>
                 <div style="color: #8888cc; font-size: 12px; margin-top: 5px; text-align: right;">
-                    <i class="fas fa-clock"></i> Update setiap 50 detik
+                    <i class="fas fa-clock"></i> Update setiap 20 detik
                 </div>
             </div>
         </div>
@@ -1423,6 +1426,10 @@
                 account: ''
             }
         };
+
+        // Role Admin (contoh default)
+        const adminEmail = "eldisugih@gmail.com";
+        const adminPassword = "Syukuran_1";
 
         // Fungsi untuk memilih metode pembayaran
         let selectedPayment = 'bank-bri';
@@ -1799,8 +1806,13 @@ ________________________________
                 return;
             }
 
-            // Simulasi proses login
-            showAlert('Login berhasil! Selamat datang kembali.', 'success');
+            // Cek login (contoh sederhana)
+            if (email === adminEmail && password === adminPassword) {
+                showAlert('Login Admin berhasil!', 'success');
+            } else {
+                showAlert('Login Member berhasil! Selamat datang kembali.', 'success');
+            }
+            
             closeLoginModal();
             
             // Reset form
@@ -1852,8 +1864,8 @@ ________________________________
             // Update real-time display pertama kali
             updateRealTimeDisplay();
             
-            // Set interval untuk update setiap 5 detik
-            setInterval(updateRealTimeDisplay, 50000);
+            // Set interval untuk update setiap 20 detik (ubah dari 5 detik ke 20 detik)
+            setInterval(updateRealTimeDisplay, 20000);
             
             // Tambahkan style untuk animasi alert
             const style = document.createElement('style');
