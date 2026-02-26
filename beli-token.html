@@ -1427,8 +1427,15 @@
             }
         };
 
-        // Daftar token yang valid
-        const validTokens = ['014212', '024212', '034212', '044212', '054212'];
+        // Daftar token dan halaman tujuan
+        const tokenDestinations = {
+            '014212': 'kelas-ai.html',
+            '024212': 'kasih-praktis.html',
+            '034212': 'toko-online.html',
+            '044212': 'jasa-website.html',
+            '054212': 'jasa-design.html',
+            '064212': 'video-promosi.html'
+        };
 
         // Fungsi untuk memilih metode pembayaran
         let selectedPayment = 'bank-bri';
@@ -1806,8 +1813,13 @@ ________________________________
             }
 
             // Validasi token
-            if (validTokens.includes(token)) {
-                showAlert('Token valid! Mengalihkan ke halaman utama...', 'success');
+            if (tokenDestinations.hasOwnProperty(token)) {
+                const destinationPage = tokenDestinations[token];
+                
+                // Tampilkan pesan sukses
+                showAlert(`Token valid! Mengalihkan ke halaman tujuan...`, 'success');
+                
+                // Tutup modal login
                 closeLoginModal();
                 
                 // Reset input token
@@ -1816,8 +1828,9 @@ ________________________________
                 // Simpan token yang digunakan ke session
                 sessionStorage.setItem('validToken', token);
                 
+                // Redirect ke halaman tujuan setelah 1.5 detik
                 setTimeout(() => {
-                    window.location.href = 'kelas-ai.html';
+                    window.open(destinationPage, '_blank');
                 }, 1500);
             } else {
                 showAlert('Token tidak valid! Silakan periksa kembali token Anda.', 'error');
