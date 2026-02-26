@@ -627,9 +627,9 @@
             <div class="modal-icon">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
-            <div class="modal-title">PASSWORD TIDAK VALID!</div>
+            <div class="modal-title">TOKEN TIDAK VALID!</div>
             <div class="modal-text">
-                Password yang Anda masukkan tidak valid. Silakan periksa kembali atau beli token baru.
+                Token yang Anda masukkan tidak valid. Silakan periksa kembali atau beli token baru.
             </div>
             <button class="modal-button" onclick="closeModal('errorModal')">
                 <i class="fas fa-redo"></i> Coba Lagi
@@ -637,18 +637,18 @@
         </div>
     </div>
 
-    <!-- Modal Success -->
+    <!-- Modal Success (akan diisi dinamis) -->
     <div id="successModal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-icon" style="color: #4cc9f0;">
                 <i class="fas fa-check-circle"></i>
             </div>
-            <div class="modal-title">PASSWORD DITERIMA!</div>
-            <div class="modal-text">
-                Password valid! Anda akan diarahkan ke kelas AI dalam beberapa detik...
+            <div class="modal-title" id="successModalTitle">TOKEN DITERIMA!</div>
+            <div class="modal-text" id="successModalText">
+                Token valid! Anda akan diarahkan ke halaman tujuan dalam beberapa detik...
             </div>
-            <div class="modal-button" style="background: linear-gradient(135deg, #38b000, #2d9140);">
-                <i class="fas fa-spinner fa-spin"></i> Memuat Kelas...
+            <div class="modal-button" id="successModalButton" style="background: linear-gradient(135deg, #38b000, #2d9140);">
+                <i class="fas fa-spinner fa-spin"></i> Mengarahkan...
             </div>
         </div>
     </div>
@@ -682,7 +682,7 @@
 
         <!-- Teks penjelasan -->
         <div class="instruction-text">
-            "Masukan Token Kelas AI.!"
+            "MASUKAN TOKEN AKSES MATERI.!"
         </div>
 
         <!-- Container token -->
@@ -700,9 +700,9 @@
 
             <!-- Tombol aksi -->
             <div class="button-container">
-                <!-- REVISI: Tombol MASUK KELAS AI membuka halaman baru -->
-                <button onclick="masukKelasAI()" class="action-button enter-button">
-                    <i class="fas fa-door-open"></i> MASUK KELAS AI
+                <!-- REVISI: Tombol AKSES MATERI membuka halaman sesuai token -->
+                <button onclick="aksesMateri()" class="action-button enter-button">
+                    <i class="fas fa-door-open"></i> MASUK KELAS
                 </button>
                 
                 <!-- REVISI: Tombol BELI TOKEN membuka halaman baru -->
@@ -722,6 +722,16 @@
     </div>
 
     <script>
+        // Daftar token dan halaman tujuan
+        const tokenDestinations = {
+            '014212': 'kelas-ai.html',
+            '024212': 'kasih-praktis.html',
+            '034212': 'toko-online.html',
+            '044212': 'jasa-website.html',
+            '054212': 'jasa-design.html',
+            '064212': 'video-promosi.html'
+        };
+
         // Fungsi untuk membuat partikel
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
@@ -759,39 +769,41 @@
             }
         }
 
-        // REVISI: Fungsi untuk masuk kelas AI dengan validasi token
-        function masukKelasAI() {
-            const kode = document.getElementById('kodeInput').value.trim();
+        // Fungsi utama untuk akses materi berdasarkan token
+        function aksesMateri() {
+            const token = document.getElementById('kodeInput').value.trim();
             
             // Validasi input kosong
-            if (!kode) {
+            if (!token) {
                 showErrorAnimation();
                 showAlert('Silakan masukkan token terlebih dahulu!', 'warning');
                 return;
             }
             
             // Validasi panjang token
-            if (kode.length !== 6) {
+            if (token.length !== 6) {
                 showErrorAnimation();
                 showAlert('Token harus terdiri dari 6 digit!', 'warning');
                 return;
             }
             
-            // Token yang valid: 014212
-            if (kode === '014212') {
+            // Cek apakah token ada dalam daftar
+            if (tokenDestinations.hasOwnProperty(token)) {
+                const destinationPage = tokenDestinations[token];
+                
                 // Animasi loading tombol
                 const enterBtn = document.querySelector('.enter-button');
                 const originalText = enterBtn.innerHTML;
-                enterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membuka...';
+                enterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
                 enterBtn.disabled = true;
                 
-                // Tampilkan modal sukses
-                showSuccessModal();
+                // Tampilkan modal sukses dengan pesan khusus
+                showSuccessModal(token, destinationPage);
                 
                 // Redirect setelah 2 detik
                 setTimeout(() => {
-                    // REVISI: Buka halaman baru
-                    window.open('kelas-ai.html', '_blank');
+                    // Buka halaman tujuan di tab baru
+                    window.open(destinationPage, '_blank');
                     
                     // Reset tombol
                     enterBtn.innerHTML = originalText;
@@ -801,12 +813,12 @@
                     closeModal('successModal');
                 }, 2000);
             } else {
-                // Tampilkan modal error
+                // Token tidak valid
                 showErrorModal();
             }
         }
 
-        // REVISI: Fungsi untuk beli token langsung buka halaman baru
+        // Fungsi untuk beli token
         function beliToken() {
             // Animasi tombol
             const buyBtn = document.querySelector('.buy-button');
@@ -819,12 +831,11 @@
             
             // Buka halaman baru setelah 500ms
             setTimeout(() => {
-                // REVISI: Buka halaman baru
                 window.open('beli-token.html', '_blank');
                 
                 // Reset tombol
                 buyBtn.style.transform = '';
-                buyBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> BELI TOKEN';
+                buyBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> BAYAR PAKET KELAS';
                 buyBtn.disabled = false;
             }, 500);
         }
@@ -845,9 +856,19 @@
             }, 500);
         }
 
-        // Fungsi untuk menampilkan modal success
-        function showSuccessModal() {
+        // Fungsi untuk menampilkan modal success dengan informasi token
+        function showSuccessModal(token, destination) {
             const modal = document.getElementById('successModal');
+            const titleEl = document.getElementById('successModalTitle');
+            const textEl = document.getElementById('successModalText');
+            
+            // Dapatkan nama halaman dari destination untuk ditampilkan
+            let pageName = destination.replace('.html', '').replace(/-/g, ' ');
+            pageName = pageName.charAt(0).toUpperCase() + pageName.slice(1);
+            
+            titleEl.textContent = 'TOKEN DITERIMA!';
+            textEl.textContent = `Token ${token} valid! Anda akan diarahkan ke halaman "${pageName}" dalam beberapa detik...`;
+            
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
@@ -982,7 +1003,7 @@
                     input.value = input.value.slice(0, 6);
                 }
                 
-                // Animasi ketika input terisi
+                // Animasi ketika input terisi penuh
                 if (input.value.length === 6) {
                     input.classList.add('valid');
                     setTimeout(() => {
@@ -994,7 +1015,7 @@
             // Submit dengan Enter key
             document.getElementById('kodeInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    masukKelasAI();
+                    aksesMateri();
                 }
             });
             
