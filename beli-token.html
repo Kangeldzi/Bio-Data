@@ -587,7 +587,7 @@
             50% { transform: translateX(5px); }
         }
 
-        /* Modal Login */
+        /* Modal Login dengan Token */
         .login-modal-overlay {
             display: none;
             position: fixed;
@@ -674,7 +674,7 @@
         .login-submit {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(90deg, #4cc9f0, #4361ee);
+            background: linear-gradient(90deg, #f72585, #4cc9f0);
             border: none;
             border-radius: 12px;
             color: white;
@@ -682,14 +682,18 @@
             font-size: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
-            box-shadow: 0 5px 20px rgba(76, 201, 240, 0.4);
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(247, 37, 133, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .login-submit:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(76, 201, 240, 0.6);
-            background: linear-gradient(90deg, #4361ee, #4cc9f0);
+            box-shadow: 0 10px 30px rgba(247, 37, 133, 0.6);
+            background: linear-gradient(90deg, #4cc9f0, #f72585);
         }
 
         .login-close {
@@ -1204,30 +1208,26 @@
         </div>
     </div>
 
-    <!-- Modal Login -->
+    <!-- Modal Login dengan Token -->
     <div id="loginModal" class="login-modal-overlay">
         <div class="login-modal-content">
             <button class="login-close" onclick="closeLoginModal()">
                 <i class="fas fa-times"></i>
             </button>
             <div class="login-modal-header">
-                <i class="fas fa-user-circle"></i>
-                <h2>Login Member</h2>
-                <p>Masukkan password Anda!</p>
+                <i class="fas fa-key"></i>
+                <h2>Masuk Kelas AI</h2>
+                <p>Masukkan Token Kelas AI Anda!</p>
             </div>
             <div class="login-input-group">
-                <i class="fas fa-envelope"></i>
-                <input type="email" id="loginEmail" class="login-input" placeholder="Alamat Email" required>
+                <i class="fas fa-ticket-alt"></i>
+                <input type="text" id="tokenInput" class="login-input" placeholder="Masukan Token Kelas AI" maxlength="6" required>
             </div>
-            <div class="login-input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="loginPassword" class="login-input" placeholder="masukkan password anda" required>
-            </div>
-            <button class="login-submit" onclick="handleLogin()">
-                <i class="fas fa-sign-in-alt"></i> Login
+            <button class="login-submit" onclick="handleTokenLogin()">
+                <i class="fas fa-sign-in-alt"></i> Masuk Kelas AI
             </button>
             <div class="login-footer">
-                Belum punya akun? <a onclick="closeLoginModalAndScrollToForm()">Daftar sekarang</a>
+                Belum punya token? <a onclick="closeLoginModalAndScrollToForm()">Daftar sekarang</a>
             </div>
         </div>
     </div>
@@ -1267,19 +1267,19 @@
             </ul>
         </div>
 
-        <!-- Stats Card Login - Baru ditambahkan -->
+        <!-- Stats Card Token - Baru ditambahkan -->
         <div class="login-card">
             <div class="login-info">
                 <div class="login-icon">
-                    <i class="fas fa-user-lock"></i>
+                    <i class="fas fa-ticket-alt"></i>
                 </div>
                 <div class="login-text">
-                    <h3>Sudah mempunyai akun?</h3>
-                    <p>Login untuk melanjutkan belajar</p>
+                    <h3>Sudah mempunyai token?</h3>
+                    <p>Masukkan token untuk mengakses kelas</p>
                 </div>
             </div>
             <button class="login-button" onclick="openLoginModal()">
-                <i class="fas fa-sign-in-alt"></i> Login
+                <i class="fas fa-key"></i> Masuk Kelas
             </button>
         </div>
 
@@ -1426,6 +1426,9 @@
                 account: ''
             }
         };
+
+        // Daftar token yang valid
+        const validTokens = ['014212', '024212', '034212', '044212', '054212'];
 
         // Fungsi untuk memilih metode pembayaran
         let selectedPayment = 'bank-bri';
@@ -1767,6 +1770,7 @@ ________________________________
             const modal = document.getElementById('loginModal');
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+            document.getElementById('tokenInput').value = ''; // Reset input token
         }
 
         // Fungsi untuk menutup modal login
@@ -1792,40 +1796,31 @@ ________________________________
             }, 1000);
         }
 
-        // Fungsi untuk handle login
-        function handleLogin() {
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
+        // Fungsi untuk handle login dengan token
+        function handleTokenLogin() {
+            const token = document.getElementById('tokenInput').value.trim();
 
-            if (!email || !password) {
-                showAlert('Email dan password harus diisi!', 'error');
+            if (!token) {
+                showAlert('Token harus diisi!', 'error');
                 return;
             }
 
-            // Validasi untuk Admin
-            if (email === 'eldisugih@gmail.com' && password === 'Syukuran_1') {
-                showAlert('Login Admin berhasil! Mengalihkan ke halaman utama...', 'success');
-                closeLoginModal();
-                setTimeout(() => {
-                    window.location.href = 'kelas-ai.html';
-                }, 1500);
-                return;
-            }
-            
-            // Validasi untuk Member (email dan password bebas, minimal 6 karakter)
-            if (password.length >= 6) {
-                showAlert('Login Member berhasil! Mengalihkan ke halaman utama...', 'success');
+            // Validasi token
+            if (validTokens.includes(token)) {
+                showAlert('Token valid! Mengalihkan ke halaman utama...', 'success');
                 closeLoginModal();
                 
-                // Reset form login
-                document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
+                // Reset input token
+                document.getElementById('tokenInput').value = '';
+                
+                // Simpan token yang digunakan ke session
+                sessionStorage.setItem('validToken', token);
                 
                 setTimeout(() => {
                     window.location.href = 'kelas-ai.html';
                 }, 1500);
             } else {
-                showAlert('Password minimal 6 karakter!', 'error');
+                showAlert('Token tidak valid! Silakan periksa kembali token Anda.', 'error');
             }
         }
         
