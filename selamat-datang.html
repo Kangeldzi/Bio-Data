@@ -288,6 +288,28 @@
             border-radius: 60px;
             font-weight: 500;
         }
+
+        /* --- PERBAIKAN UTAMA: Membuat stat card (Kelas Pembelajaran Prompt AI) berada di tengah --- */
+        /* header-text adalah container judul, sub judul, dan gambar baru */
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;      /* ← kunci: semua konten header rata tengah horizontal */
+            text-align: center;       /* teks dalam header ikut tengah */
+            width: 100%;
+        }
+
+        /* pastikan sub judul juga center */
+        .header-text .sub {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* container gambar sudah di-center oleh flex parent-nya, 
+           tapi kita pastikan alignment parent (new-image) juga center */
+        .new-image {
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -302,10 +324,11 @@
     </div>
 
     <div class="container">
-        <!-- 1. Header dengan H3 (judul lebih kecil) -->
+        <!-- 1. Header dengan H3 (judul lebih kecil) 
+             SELURUH BAGIAN INI (header-text) sekarang sudah center -->
         <div class="header-text">
             <h3>SELAMAT DATANG DI KELAS BELAJAR AI</h3>
-            <div class="sub">Kelas Pembelajaran Prompt AI</div>
+            <div class="sub">Kelas Pembelajaran Prompt AI</div>  <!-- card yang diminta di tengah -->
         </div>
 
         <!-- 6. Gambar baru dari link yang diberikan + animasi -->
