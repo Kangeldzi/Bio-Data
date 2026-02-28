@@ -285,7 +285,7 @@
             margin-bottom: 8px;
         }
 
-        /* Tombol Lihat Detail (Produk) - Kembali ke ukuran semula */
+        /* Tombol Lihat Detail (Produk) */
         .detail-button-product {
             background: #2d4379;
             border: 1px solid #5f9eff;
@@ -307,7 +307,7 @@
             box-shadow: 0 5px 15px #0055ff80;
         }
 
-        /* Tombol Lihat Demo (Video) - Ukuran kecil, radius 7px, center */
+        /* Tombol Lihat Demo (Video) */
         .detail-button-video {
             background: #2d4379;
             border: 1px solid #5f9eff;
@@ -597,12 +597,12 @@
 
         <div class="section-title">Silahkan Pilih Kelas</div>
         <div class="menu-buttons">
-            <a href="input-token.html" class="menu-item"><span class="menu-icon"><i class="fas fa-video"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #001</span><span class="menu-desc">Membuat Video Karakter</span></div></a>
-            <a href="input-token.html" class="menu-item"><span class="menu-icon"><i class="fas fa-cube"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #002</span><span class="menu-desc">3D Animasi Karakter</span></div></a>
-            <a href="harga-toko-online.html" class="menu-item"><span class="menu-icon"><i class="fas fa-store"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #003</span><span class="menu-desc">Aplikasi Toko Online</span></div></a>
-            <a href="harga-jasa-website.html" class="menu-item"><span class="menu-icon"><i class="fas fa-laptop-code"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #004</span><span class="menu-desc">Website Profesional</span></div></a>
-            <a href="jasa-design.html" class="menu-item"><span class="menu-icon"><i class="fas fa-pen-ruler"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #005</span><span class="menu-desc">Design & Pengetikan</span></div></a>
-            <a href="promosi-iklan.html" class="menu-item"><span class="menu-icon"><i class="fas fa-film"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #006</span><span class="menu-desc">Video Promosi & Iklan</span></div></a>
+            <a href="#" class="menu-item"><span class="menu-icon"><i class="fas fa-video"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #001</span><span class="menu-desc">Membuat Video Karakter</span></div></a>
+            <a href="#" class="menu-item"><span class="menu-icon"><i class="fas fa-cube"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #002</span><span class="menu-desc">3D Animasi Karakter</span></div></a>
+            <a href="#" class="menu-item"><span class="menu-icon"><i class="fas fa-store"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #003</span><span class="menu-desc">Aplikasi Toko Online</span></div></a>
+            <a href="#" class="menu-item"><span class="menu-icon"><i class="fas fa-laptop-code"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #004</span><span class="menu-desc">Website Profesional</span></div></a>
+            <a href="#" class="menu-item"><span class="menu-icon"><i class="fas fa-pen-ruler"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #005</span><span class="menu-desc">Design & Pengetikan</span></div></a>
+            <a href="#" class="menu-item"><span class="menu-icon"><i class="fas fa-film"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #006</span><span class="menu-desc">Video Promosi & Iklan</span></div></a>
         </div>
 
         <!-- KATALOG PRODUK -->
@@ -610,8 +610,8 @@
         <div class="product-grid" id="productGrid"></div>
 
         <!-- Tombol Pesan Sekarang -->
-        <a href="input-token.html" target="_blank" class="send-wa-btn" id="pesanSekarangProduk" style="margin: 1rem 0; background:#25D366; text-decoration:none;">🛒 Pesan Sekarang (Belanja)</a>
-        <a href="input-token.html" target="_blank" class="send-wa-btn wa-paket-btn" id="pesanSekarangPaket" style="margin-bottom: 2rem; text-decoration:none;">📚 Pesan Sekarang (Paket Belajar)</a>
+        <a href="beli-token.html" target="_blank" class="send-wa-btn" id="pesanSekarangProduk" style="margin: 1rem 0; background:#25D366; text-decoration:none;">🛒 Pesan Sekarang (Belanja)</a>
+        <a href="beli-token.html" target="_blank" class="send-wa-btn wa-paket-btn" id="pesanSekarangPaket" style="margin-bottom: 2rem; text-decoration:none;">📚 Pesan Sekarang (Paket Belajar)</a>
 
         <!-- Video Grid -->
         <div class="section-title">Video Demo</div>
@@ -643,27 +643,92 @@
             
             <div class="total-price">Total: <span id="totalPriceModal"></span></div>
             
-            <a href="input-token.html" target="_blank" class="send-wa-btn" id="sendWAFromModal" style="text-decoration:none;">📲 Pesan Sekarang</a>
+            <!-- Tombol Pesan Sekarang di modal - link akan diisi oleh JavaScript -->
+            <a href="#" target="_blank" class="send-wa-btn" id="sendWAFromModal" style="text-decoration:none;">📲 Pesan Sekarang</a>
             <button class="close-modal" onclick="closeDetailModal()">Tutup</button>
         </div>
     </div>
 
     <script>
-        // Data produk (harga Canva Pro = 30.000)
+        // Data produk dengan link tujuan masing-masing
         const products = [
-            { name: "Canva Pro", label: "BEST SELLER", old: "Rp 50.000/bulan", current: "Rp 30.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYf180uqqYyEI6vkbORlM2FOvzDwE4_AM9IWjfUDQGwoMv9vBEMFFzMbsOmruxYsabX4XpnMgewlzJP2yB40Bt-TvWR-mtUt40yH9M4QVRuS4O84eqlP4f8jKMrwZbdDmPI3ZnkbUfuZPANhDl1dauUpGKrHENrvvCXvdbxUmAtVh3t1TSoNgcQ6rbLXg/s320/1000667673.png" },
-            { name: "Canva Edu", label: "DISKON 50%", old: "Rp 100.000/tahun", current: "Rp 50.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHLFQwF_FMkrpGfrYNZeoYHd_W3SxWXozQnUUReMkU3rvPJZPgl1kUMP_rwcoymteU94OuhdvWT9BwZXiSA3GIJ_mPhOtRbrXxsIPTHcUoMXTfdZ4QCe6wf57V3O6E-IFbUw48kTR5KgVrQST1D_p3LSr47R4fY5coSCQZ5Y_c1REyEq9tOWDwtCGpltI/s320/1000667672.png" },
-            { name: "Undangan Digital", label: "FLASH SALE", old: "Rp 250.000", current: "Rp 150.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYxdpzUB1AZyqbVihyG0fzfClUN5c_XuBRsJo7n5jgokY6bPI0EP49LLZ2shMc3XOkt4aFL_ZXMsYUI8H7vjhfwfGUi3DwbY8H1gHb6BcQJIoH4NkTLmLvQdKqDH0f5o63Zx7j6N-g9V0YuhSDv9P4MpU7m8LoQk5WXmGDD-Rk-09DAUNHA8WS1lcpXtQ/s320/1000001533.jpg" },
-            { name: "Kelas AI #001", label: "TERLARIS", old: "Rp 300.000", current: "Rp 155.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png" },
-            { name: "Kelas AI #002", label: "POPULER", old: "Rp 300.000", current: "Rp 155.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHLFQwF_FMkrpGfrYNZeoYHd_W3SxWXozQnUUReMkU3rvPJZPgl1kUMP_rwcoymteU94OuhdvWT9BwZXiSA3GIJ_mPhOtRbrXxsIPTHcUoMXTfdZ4QCe6wf57V3O6E-IFbUw48kTR5KgVrQST1D_p3LSr47R4fY5coSCQZ5Y_c1REyEq9tOWDwtCGpltI/s320/1000667672.png" },
-            { name: "Kelas AI #003", label: "PREMIUM", old: "Rp 300.000", current: "Rp 155.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYxdpzUB1AZyqbVihyG0fzfClUN5c_XuBRsJo7n5jgokY6bPI0EP49LLZ2shMc3XOkt4aFL_ZXMsYUI8H7vjhfwfGUi3DwbY8H1gHb6BcQJIoH4NkTLmLvQdKqDH0f5o63Zx7j6N-g9V0YuhSDv9P4MpU7m8LoQk5WXmGDD-Rk-09DAUNHA8WS1lcpXtQ/s320/1000001533.jpg" },
-            { name: "Kelas AI #004", label: "TERLARIS", old: "Rp 3.000.000", current: "Rp 1.500.000", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png" },
-            { name: "Kelas AI #005", label: "EKONOMIS", old: "Bervariasi", current: "Rp 150.000/Project", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHLFQwF_FMkrpGfrYNZeoYHd_W3SxWXozQnUUReMkU3rvPJZPgl1kUMP_rwcoymteU94OuhdvWT9BwZXiSA3GIJ_mPhOtRbrXxsIPTHcUoMXTfdZ4QCe6wf57V3O6E-IFbUw48kTR5KgVrQST1D_p3LSr47R4fY5coSCQZ5Y_c1REyEq9tOWDwtCGpltI/s320/1000667672.png" }
+            { 
+                name: "Canva Pro", 
+                label: "BEST SELLER", 
+                old: "Rp 50.000/bulan", 
+                current: "Rp 30.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYf180uqqYyEI6vkbORlM2FOvzDwE4_AM9IWjfUDQGwoMv9vBEMFFzMbsOmruxYsabX4XpnMgewlzJP2yB40Bt-TvWR-mtUt40yH9M4QVRuS4O84eqlP4f8jKMrwZbdDmPI3ZnkbUfuZPANhDl1dauUpGKrHENrvvCXvdbxUmAtVh3t1TSoNgcQ6rbLXg/s320/1000667673.png",
+                link: "canva-pro.html"
+            },
+            { 
+                name: "Canva Edu", 
+                label: "DISKON 50%", 
+                old: "Rp 100.000/tahun", 
+                current: "Rp 50.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHLFQwF_FMkrpGfrYNZeoYHd_W3SxWXozQnUUReMkU3rvPJZPgl1kUMP_rwcoymteU94OuhdvWT9BwZXiSA3GIJ_mPhOtRbrXxsIPTHcUoMXTfdZ4QCe6wf57V3O6E-IFbUw48kTR5KgVrQST1D_p3LSr47R4fY5coSCQZ5Y_c1REyEq9tOWDwtCGpltI/s320/1000667672.png",
+                link: "canva-edu.html"
+            },
+            { 
+                name: "Undangan Digital", 
+                label: "FLASH SALE", 
+                old: "Rp 250.000", 
+                current: "Rp 150.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYxdpzUB1AZyqbVihyG0fzfClUN5c_XuBRsJo7n5jgokY6bPI0EP49LLZ2shMc3XOkt4aFL_ZXMsYUI8H7vjhfwfGUi3DwbY8H1gHb6BcQJIoH4NkTLmLvQdKqDH0f5o63Zx7j6N-g9V0YuhSDv9P4MpU7m8LoQk5WXmGDD-Rk-09DAUNHA8WS1lcpXtQ/s320/1000001533.jpg",
+                link: "undangan-digital.html"
+            },
+            { 
+                name: "Kelas AI #001", 
+                label: "TERLARIS", 
+                old: "Rp 300.000", 
+                current: "Rp 155.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                link: "beli-token.html" // default
+            },
+            { 
+                name: "Kelas AI #002", 
+                label: "POPULER", 
+                old: "Rp 300.000", 
+                current: "Rp 155.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHLFQwF_FMkrpGfrYNZeoYHd_W3SxWXozQnUUReMkU3rvPJZPgl1kUMP_rwcoymteU94OuhdvWT9BwZXiSA3GIJ_mPhOtRbrXxsIPTHcUoMXTfdZ4QCe6wf57V3O6E-IFbUw48kTR5KgVrQST1D_p3LSr47R4fY5coSCQZ5Y_c1REyEq9tOWDwtCGpltI/s320/1000667672.png",
+                link: "beli-token.html" // default
+            },
+            { 
+                name: "Kelas AI #003", 
+                label: "Aplikasi Toko Online", 
+                old: "Rp 300.000", 
+                current: "Rp 155.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                link: "harga-toko-online.html"
+            },
+            { 
+                name: "Kelas AI #004", 
+                label: "Website Profesional", 
+                old: "Rp 3.000.000", 
+                current: "Rp 1.500.000", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                link: "harga-jasa-website.html"
+            },
+            { 
+                name: "Kelas AI #005", 
+                label: "Jasa Design", 
+                old: "Bervariasi", 
+                current: "Rp 150.000/Project", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                link: "jasa-design.html"
+            },
+            { 
+                name: "Kelas AI #006", 
+                label: "Video Promosi", 
+                old: "Bervariasi", 
+                current: "Rp 200.000/Video", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                link: "promosi-iklan.html"
+            }
         ];
 
         // Render produk (8 produk)
         const grid = document.getElementById('productGrid');
-        products.forEach((p, idx) => {
+        products.slice(0, 8).forEach((p, idx) => {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.setAttribute('onclick', `openDetailModal(${idx})`);
@@ -695,11 +760,14 @@
         // Modal detail logic
         let currentProduct = null;
         let qty = 1;
+        const modalLink = document.getElementById('sendWAFromModal');
 
         function openDetailModal(index) {
             currentProduct = products[index];
             qty = 1;
             updateModalDisplay();
+            // Set link tombol sesuai produk
+            modalLink.href = currentProduct.link;
             document.getElementById('modalDetail').style.display = 'flex';
         }
 
@@ -716,6 +784,7 @@
             let priceNum = parseInt(currentProduct.current.replace(/[^0-9]/g, '')) || 0;
             if (currentProduct.current.includes('Bervariasi')) priceNum = 150000;
             if (currentProduct.current.includes('Project')) priceNum = 150000;
+            if (currentProduct.current.includes('Video')) priceNum = 200000;
             const total = priceNum * qty;
             document.getElementById('totalPriceModal').innerText = `Rp ${total.toLocaleString('id-ID')}`;
         }
@@ -728,6 +797,7 @@
         }
 
         window.closeDetailModal = closeDetailModal;
+        window.openDetailModal = openDetailModal;
     </script>
 </body>
 </html>
