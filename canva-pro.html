@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelas Gambar AI - Formulir Pendaftaran</title>
+    <title>Canva Pro - Formulir Pendaftaran</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -522,6 +522,36 @@
             font-size: 24px;
             color: #4cc9f0;
             font-weight: 800;
+        }
+
+        /* Harga opsi */
+        .price-options {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        
+        .price-option {
+            text-align: right;
+        }
+        
+        .price-option small {
+            display: block;
+            font-size: 12px;
+            color: #b0b0ff;
+        }
+        
+        .price-original {
+            color: #f72585;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+        
+        .price-discount {
+            color: #4cc9f0;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         /* Tombol Bayar Paket Kelas dengan ikon panah lebih tegas */
@@ -1126,7 +1156,7 @@
             <div class="modal-timer" id="paymentTimer">23:59:59</div>
             <div class="modal-image">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_9HFK8p8RpM9H8FOT85R4kMKoMADI6MuUrTDYSLagxptTVHzJ9qVzEI8pUaheYpZyOh8nOIKuoYzee_SyNRqFUzRz8TfGlFEr0qD-iKafMyts6gWd8ThsElYbhjzY_dE8O_DflGwnvl8kjpeUJlYh_YSVmiSSZk6xWF19x15nbu3L_gAvTbkmfMg-OtjU/s320/1000055945.jpg" 
-                     alt="Pembayaran Kelas AI">
+                     alt="Pembayaran Canva Pro">
             </div>
             <div class="modal-buttons">
                 <button class="modal-button send-proof" onclick="openProofModal()">
@@ -1216,15 +1246,15 @@
             </button>
             <div class="login-modal-header">
                 <i class="fas fa-key"></i>
-                <h2>Masuk Kelas AI</h2>
-                <p>Masukkan Token Kelas AI Anda!</p>
+                <h2>Masuk Canva Pro</h2>
+                <p>Masukkan Token Canva Pro Anda!</p>
             </div>
             <div class="login-input-group">
                 <i class="fas fa-ticket-alt"></i>
-                <input type="text" id="tokenInput" class="login-input" placeholder="Masukan Token Kelas AI" maxlength="6" required>
+                <input type="text" id="tokenInput" class="login-input" placeholder="Masukan Token Canva Pro" maxlength="6" required>
             </div>
             <button class="login-submit" onclick="handleTokenLogin()">
-                <i class="fas fa-sign-in-alt"></i> Masuk Kelas AI
+                <i class="fas fa-sign-in-alt"></i> Masuk Canva Pro
             </button>
             <div class="login-footer">
                 Belum punya token? <a onclick="closeLoginModalAndScrollToForm()">Daftar sekarang</a>
@@ -1237,7 +1267,7 @@
         <div class="header">
             <div class="header-image">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_9HFK8p8RpM9H8FOT85R4kMKoMADI6MuUrTDYSLagxptTVHzJ9qVzEI8pUaheYpZyOh8nOIKuoYzee_SyNRqFUzRz8TfGlFEr0qD-iKafMyts6gWd8ThsElYbhjzY_dE8O_DflGwnvl8kjpeUJlYh_YSVmiSSZk6xWF19x15nbu3L_gAvTbkmfMg-OtjU/s320/1000055945.jpg" 
-                     alt="Gambar AI" />
+                     alt="Canva Pro" />
             </div>
             
             <div class="important-notice">
@@ -1254,15 +1284,15 @@
             <ul class="benefits-list">
                 <li class="benefit-item">
                     <div class="benefit-icon"><i class="fas fa-infinity"></i></div>
-                    <div class="benefit-text">Akses kelas selamanya</div>
+                    <div class="benefit-text">Akses Canva Pro</div>
                 </li>
                 <li class="benefit-item">
                     <div class="benefit-icon"><i class="fas fa-sync-alt"></i></div>
-                    <div class="benefit-text">Materi Update tiap minggu</div>
+                    <div class="benefit-text">Update fitur premium</div>
                 </li>
                 <li class="benefit-item">
                     <div class="benefit-icon"><i class="fas fa-users"></i></div>
-                    <div class="benefit-text">Gabung Komunitas Kelas AI</div>
+                    <div class="benefit-text">Layanan 24/7</div>
                 </li>
             </ul>
         </div>
@@ -1275,17 +1305,17 @@
                 </div>
                 <div class="login-text">
                     <h3>Sudah mempunyai token?</h3>
-                    <p>Masukkan token untuk mengakses kelas</p>
+                    <p>Masukkan token untuk mengakses Canva Pro</p>
                 </div>
             </div>
             <button class="login-button" onclick="openLoginModal()">
-                <i class="fas fa-key"></i> Masuk Kelas
+                <i class="fas fa-key"></i> Masuk Canva Pro
             </button>
         </div>
 
         <!-- Data Member Kelas dengan urutan baru -->
         <div class="section" id="dataMemberSection">
-            <h2 class="section-title"><i class="fas fa-user-circle"></i> Data Member Kelas :</h2>
+            <h2 class="section-title"><i class="fas fa-user-circle"></i> Data Member :</h2>
             <form id="orderForm">
                 <!-- 1. Nama Lengkap -->
                 <div class="form-group">
@@ -1366,11 +1396,20 @@
 
         <!-- Rincian Pesanan dengan Real-time Kode Unik & Invoice -->
         <div class="order-summary">
-            <div class="order-title"><i class="fas fa-receipt"></i> RINCIAN PESANAN:</div>
+            <div class="order-title"><i class="fas fa-receipt"></i> RINCIAN PESANAN :</div>
             <div class="order-row">
-                <div class="order-label">Kelas AI Selamanya</div>
+                <div class="order-label">Canva Pro</div>
                 <div class="order-value">
-                    <span class="order-discount">Rp300.000</span> Rp155.000
+                    <div class="price-options">
+                        <div class="price-option">
+                            <small>Harga Normal</small>
+                            <span class="price-original">Rp50.000</span>
+                        </div>
+                        <div class="price-option">
+                            <small>Harga Promo</small>
+                            <span class="price-discount">Rp30.000</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="order-row" id="kodeUnikRow">
@@ -1380,11 +1419,11 @@
                         <i class="fas fa-sync-alt fa-spin"></i> Real-time
                     </span>
                 </div>
-                <div class="order-value" id="kodeUnikDisplay">Rp500</div>
+                <div class="order-value" id="kodeUnikDisplay">Rp491</div>
             </div>
             <div class="order-row" style="border-bottom: none; padding-bottom: 0;">
                 <div class="order-label">Total</div>
-                <div class="order-value order-total" id="totalDisplay">Rp155.500</div>
+                <div class="order-value order-total" id="totalDisplay">Rp30.491</div>
             </div>
             <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed rgba(76, 201, 240, 0.3);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1403,7 +1442,7 @@
 
         <!-- Tombol Bayar Paket Kelas dengan ikon panah lebih tegas -->
         <button onclick="sendOrderToWhatsApp()" class="buy-button">
-            <i class="fas fa-shopping-cart"></i> Bayar Paket Kelas <span class="arrow-icon">➡️</span>
+            <i class="fas fa-shopping-cart"></i> Bayar Paket Canva Pro <span class="arrow-icon">➡️</span>
         </button>
     </div>
 
@@ -1429,12 +1468,12 @@
 
         // Daftar token dan halaman tujuan
         const tokenDestinations = {
-            '014212': 'kelas-ai.html',
-            '024212': 'kasih-praktis.html',
-            '034212': 'toko-online.html',
-            '044212': 'jasa-website.html',
-            '054212': 'jasa-design.html',
-            '064212': 'video-promosi.html'
+            '014212': 'canva-pro-dashboard.html',
+            '024212': 'canva-pro-premium.html',
+            '034212': 'canva-pro-business.html',
+            '044212': 'canva-pro-team.html',
+            '054212': 'canva-pro-enterprise.html',
+            '064212': 'canva-pro-education.html'
         };
 
         // Fungsi untuk memilih metode pembayaran
@@ -1494,7 +1533,7 @@
         function updateRealTimeDisplay() {
             // Update kode unik
             const kodeUnik = generateKodeUnik();
-            const total = 155000 + kodeUnik;
+            const total = 30000 + kodeUnik; // Harga promo Rp30.000 + kode unik
             
             // Format ke Rupiah
             const kodeUnikFormat = `Rp${kodeUnik.toLocaleString('id-ID')}`;
@@ -1583,7 +1622,7 @@
             // Tentukan metode pembayaran yang dipilih
             const paymentMethod = paymentMethods[selectedPayment];
             
-            // Format pesan WhatsApp dengan field baru (email & password)
+            // Format pesan WhatsApp dengan field baru (email & password) dan Canva Pro
             const message = `*┅═•❃✽༊°°🍀🌻🍀°°༊✽❃•═┅*
 *════ ◎•❀•◎﷽◎•❀•◎ ════*
 
@@ -1591,7 +1630,7 @@
 
 
 ==========================
-*Halo Kang L, saya berminat untuk mengikuti Kelas AI*
+*Halo Kak, saya berminat untuk berlangganan Canva Pro*
 ==========================
 *DATA ANGGOTA*
 
@@ -1605,12 +1644,13 @@
 *RINCIAN PESANAN*
 *No. Invoice* : ${invoiceNumber}
 
-*Kelas Gambar AI* : 
-(Masukan Kelas Yang Anda Pilih.! Contoh : Kelas AI #001)
-*Total Pembayaran* : Rp. 155.000
+*Canva Pro* : 
+Harga Normal: Rp50.000/bulan
+Harga Promo: Rp30.000/bulan
+
 *Kode Unik* : Rp. ${kodeUnik}
 ________________________________
-*Total* : Rp. ${155000 + kodeUnik}
+*Total* : Rp. ${30000 + kodeUnik}
 ________________________________
 *Pembayaran* : ${paymentMethod.name} - ${paymentMethod.number} ${paymentMethod.account ? paymentMethod.account : ''} 
 
@@ -1635,7 +1675,7 @@ ________________________________
                 email: email,
                 password: password,
                 payment: paymentMethod.name,
-                total: 155000 + kodeUnik,
+                total: 30000 + kodeUnik,
                 orderNumber: invoiceNumber
             }));
             
