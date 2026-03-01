@@ -2,798 +2,2073 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Kelas AI + Katalog · TeslaSmart</title>
-    <!-- Font Awesome 6 (ikon) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TeslaSmart - Toko Online</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-        }
-
-        body {
-            background: #0a0f1e;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        .light-particles {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(255, 220, 100, 0.6) 0%, rgba(120, 180, 255, 0.3) 50%, transparent 80%);
-            border-radius: 50%;
-            filter: blur(8px) brightness(1.3);
-            animation: floatParticle linear infinite;
-            opacity: 0.5;
-        }
-
-        .particle:nth-child(1) { width: 300px; height: 300px; background: radial-gradient(circle, #ffb86c80, #ff6ec470, transparent); left: -100px; top: 10%; animation-duration: 18s; opacity: 0.3; }
-        .particle:nth-child(2) { width: 450px; height: 450px; background: radial-gradient(circle, #5f9eff80, #9f7aff60, transparent); right: -200px; bottom: 0%; animation-duration: 25s; opacity: 0.25; }
-        .particle:nth-child(3) { width: 200px; height: 200px; background: radial-gradient(circle, #6dd5ff, #3b9eff, transparent); left: 20%; top: 70%; animation-duration: 14s; opacity: 0.35; }
-        .particle:nth-child(4) { width: 350px; height: 350px; background: radial-gradient(circle, #c084fc, #ff98e9, transparent); right: 15%; top: 30%; animation-duration: 22s; opacity: 0.2; }
-        .particle:nth-child(5) { width: 280px; height: 280px; background: radial-gradient(circle, #ffd966, #ff956b, transparent); left: 5%; bottom: 10%; animation-duration: 19s; opacity: 0.3; }
-        .particle:nth-child(6) { width: 400px; height: 400px; background: radial-gradient(circle, #a0e9ff, #6d77ff, transparent); left: 70%; top: 60%; animation-duration: 28s; opacity: 0.2; }
-
-        @keyframes floatParticle {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -40px) scale(1.1); }
-            66% { transform: translate(-20px, 30px) scale(0.9); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
-        .container {
-            max-width: 1000px;
-            width: 100%;
-            position: relative;
-            z-index: 20;
-        }
-
-        .header-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%;
-        }
-
-        .header-text h3 {
-            font-size: clamp(1.4rem, 5vw, 2rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffe99c, #ffb3c6, #aad0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .header-text .sub {
-            font-size: 1.1rem;
-            color: #b7d0ff;
-            background: rgba(15, 30, 55, 0.6);
-            backdrop-filter: blur(4px);
-            display: inline-block;
-            padding: 0.3rem 1.8rem;
-            border-radius: 40px;
-            border: 1px solid #6b8cff60;
-            font-weight: 500;
-        }
-
-        .new-image {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 1.5rem 0 1.8rem;
-        }
-
-        .new-image img {
-            max-width: 280px;
-            width: 100%;
-            height: auto;
-            border-radius: 24px;
-            box-shadow: 0 25px 40px -10px #000000dd;
-            animation: imgFloat 5s ease-in-out infinite;
-            border: 1px solid #3b6eff40;
-        }
-
-        @keyframes imgFloat {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px) scale(1.02); filter: brightness(1.1); }
-            100% { transform: translateY(0px); }
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin: 1.2rem 0 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(145deg, #f5e56b, #ffad84, #91d0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 130px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #f5b342, #708dff, transparent);
-            margin: 0.7rem auto 0;
-            border-radius: 4px;
-        }
-
-        /* Menu Utama */
-        .menu-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1.1rem;
-            max-width: 380px;
-            width: 100%;
-            margin: 0 auto 2.5rem;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            background: rgba(18, 30, 55, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(90, 160, 255, 0.3);
-            border-radius: 10px;
-            padding: 14px 22px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.25s ease;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            border-color: #7ad0ff;
-            box-shadow: 0 25px 40px -10px #3c8aff;
-        }
-
-        .menu-icon {
-            font-size: 2rem;
-            min-width: 2.2rem;
-            text-align: center;
-        }
-
-        .menu-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .menu-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .menu-desc {
-            font-size: 0.8rem;
-            color: #d2e0ff;
-        }
-
-        /* GRID PRODUK */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .product-card {
-            background: rgba(20, 30, 55, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(80, 160, 255, 0.25);
-            border-radius: 24px;
-            padding: 1rem 1rem 1.2rem;
-            box-shadow: 0 30px 40px -20px #000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             transition: all 0.3s ease;
+        }
+
+        /* Mode Terang (Light) */
+        body.light-mode {
+            background-color: #f5f5f5;
+            color: #1c1c1c;
+        }
+
+        body.light-mode .stats-card,
+        body.light-mode .product-card,
+        body.light-mode .modal-content,
+        body.light-mode .category-btn,
+        body.light-mode .footer-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Mode Gelap (Dark) */
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-mode .time-header {
+            background-color: #1a1a1a;
+        }
+
+        body.dark-mode .stats-card {
+            background-color: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            color: #fff;
+        }
+
+        body.dark-mode .product-card,
+        body.dark-mode .modal-content,
+        body.dark-mode .category-btn,
+        body.dark-mode .footer-card {
+            background-color: rgba(30, 30, 30, 0.95);
+            color: #fff;
+            border-color: #333;
+        }
+
+        body.dark-mode .store-address,
+        body.dark-mode .product-desc,
+        body.dark-mode .map-footer,
+        body.dark-mode .modal-label,
+        body.dark-mode .input-label {
+            color: #ccc;
+        }
+
+        body.dark-mode .modal-input {
+            background-color: #333;
+            border-color: #444;
+            color: white;
+        }
+
+        body.dark-mode .modal-input::placeholder {
+            color: #888;
+        }
+
+        /* Background gradasi untuk halaman */
+        body.light-mode::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body.dark-mode::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1a3a5a, #1a4a3a);
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header Waktu - KONSISTEN TIDAK DIUBAH */
+        .time-header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 12px 16px;
+            font-size: 14px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .time-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-separator {
+            width: 1px;
+            height: 20px;
+            background-color: rgba(255,255,255,0.5);
+            margin: 0 4px;
+        }
+
+        .time-date {
+            background-color: #00bcd4;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 13px;
+            box-shadow: 0 2px 5px rgba(0,188,212,0.3);
+        }
+
+        .time-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        .theme-toggle span {
+            font-size: 14px;
+        }
+
+        /* Container */
+        .container {
+            padding: 16px;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Stats Card - Glass Effect */
+        .stats-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            color: #1c1c1c;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            box-shadow: 0 15px 40px rgba(79, 172, 254, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Header Toko dengan Logo BARU */
+        .store-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .store-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .store-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .store-logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+        }
+
+        .store-title-wrapper {
+            flex: 1;
+        }
+
+        .store-title {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #1c1c1c;
+        }
+
+        body.dark-mode .store-title {
+            color: white;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            width: 18px;
+            height: 18px;
+            background-color: #2196F3;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-left: 6px;
+            box-shadow: 0 2px 5px rgba(33,150,243,0.4);
+        }
+
+        .store-address {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        body.dark-mode .store-address {
+            color: #ccc;
+        }
+
+        /* Google Maps - URL BARU */
+        .map-container {
+            margin: 16px 0;
+        }
+
+        .real-map {
+            width: 100%;
+            height: 150px;
+            border: 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .real-map:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            transform: scale(1.01);
+        }
+
+        .map-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        body.dark-mode .map-footer {
+            color: #ccc;
+        }
+
+        /* Action Buttons - Follow Us dengan counter like */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn-wa {
+            background-color: #25D366;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+            border: none;
             cursor: pointer;
         }
 
+        .btn-wa:hover {
+            background-color: #20b859;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-follow {
+            background-color: #1877f2;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(24, 119, 242, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-follow:hover {
+            background-color: #0a5fd7;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
+        }
+
+        .follow-count {
+            background-color: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        /* Promo Slideshow */
+        .promo-slideshow {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .promo-slideshow:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-dots {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            background-color: rgba(255,255,255,0.8);
+            transform: scale(1.2);
+        }
+
+        .dot.active {
+            background-color: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Horizontal Scroll Kategori - TANPA MOKAS */
+        .category-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 12px 0;
+            margin-bottom: 16px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            display: inline-block;
+            background-color: white;
+            padding: 12px 24px;
+            margin-right: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            color: #1c1c1c;
+        }
+
+        body.dark-mode .category-btn {
+            background-color: #1e1e1e;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .product-card {
+            background: rgba(30, 30, 30, 0.9);
+        }
+
         .product-card:hover {
-            transform: translateY(-8px);
-            border-color: #ffd966aa;
-            box-shadow: 0 30px 50px -10px #0099ff;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(79, 172, 254, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background-color: #e31837;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(227,24,55,0.3);
         }
 
         .product-image {
             width: 100%;
             aspect-ratio: 1/1;
-            border-radius: 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
             overflow: hidden;
-            margin-bottom: 12px;
-            background: #0f1a2b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: all 0.5s ease;
         }
 
-        .product-label {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: linear-gradient(145deg, #ffb347, #ff6a88);
-            color: #0d0f1a;
-            font-weight: 800;
-            font-size: 0.7rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 40px;
-            z-index: 4;
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
         }
 
-        .product-name-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 0 0 8px 0;
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
-        .product-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #fff6b0;
-        }
-
-        .bag-icon {
-            font-size: 0.9rem;
-            color: #ffe28c;
-            background: #1f334e;
-            width: 26px;
-            height: 26px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ffb86c;
-        }
-
-        .price-old {
-            font-size: 0.9rem;
-            color: #aab7d4;
-            text-decoration: line-through #ff7c7c 2px;
-        }
-
-        .price-current {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #ffecaa;
+        .product-desc {
+            font-size: 11px;
+            color: #666;
             margin-bottom: 8px;
         }
 
-        /* Tombol Lihat Detail (Produk) */
-        .detail-button-product {
-            background: #2d4379;
-            border: 1px solid #5f9eff;
+        body.dark-mode .product-desc {
+            color: #aaa;
+        }
+
+        .price-container {
+            margin-bottom: 8px;
+        }
+
+        .original-price {
+            font-size: 11px;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 6px;
+        }
+
+        .discount-badge {
+            font-size: 10px;
+            background-color: #e31837;
             color: white;
-            font-weight: 600;
-            padding: 8px 0;
-            border-radius: 40px;
-            text-align: center;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: 0.2s;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .current-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #e31837;
             margin-top: 4px;
-            width: 100%;
-            border: 1px solid #5f9eff;
         }
 
-        .detail-button-product:hover {
-            background: #3f5ca0;
-            box-shadow: 0 5px 15px #0055ff80;
-        }
-
-        /* Tombol Lihat Demo (Video) */
-        .detail-button-video {
-            background: #2d4379;
-            border: 1px solid #5f9eff;
+        /* Tombol Produk Lainnya */
+        .btn-more-products {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
             color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 0.75rem;
-            padding: 5px 0;
-            border-radius: 7px;
-            text-align: center;
+            font-size: 14px;
+            width: 100%;
             cursor: pointer;
-            transition: 0.2s;
-            margin: 8px auto 0;
-            width: 80%;
-            display: block;
-            text-decoration: none;
-            border: 1px solid #5f9eff;
-        }
-
-        .detail-button-video:hover {
-            background: #3f5ca0;
-            box-shadow: 0 5px 15px #0055ff80;
-        }
-
-        /* MODAL DETAIL PRODUK */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(12px);
-            z-index: 10000;
-            display: none;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-            overflow-y: auto;
+            gap: 8px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(79,172,254,0.3);
+            transition: all 0.3s ease;
         }
 
-        .modal-card {
-            max-width: 480px;
+        .btn-more-products:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(79,172,254,0.4);
+        }
+
+        .btn-more-products.hidden {
+            display: none;
+        }
+
+        /* Footer Card */
+        .footer-card {
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px 20px 0 0;
+            padding: 16px;
+            margin: 20px 0 0;
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .footer-card {
+            background: rgba(30, 30, 30, 0.95);
+        }
+
+        .footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .footer-left {
+            display: flex;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .footer-btn-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
             width: 100%;
-            background: linear-gradient(145deg, #1a2742, #101a30);
-            border-radius: 40px;
-            padding: 1.8rem 1.5rem;
-            border: 2px solid rgba(95, 158, 255, 0.6);
-            box-shadow: 0 40px 70px #000000ee, 0 0 0 2px #ffd966 inset;
+            height: 54px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .footer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .footer-btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-tiktok {
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .btn-tiktok:hover {
+            background-color: #f0f0f0;
+            border-color: #333;
+        }
+
+        .btn-shopee {
+            background-color: #ee4d2d;
             color: white;
-            animation: modalPop 0.3s ease;
-            margin: auto;
-            max-height: 95vh;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #ffd966 #1f2a44;
         }
 
-        .modal-card::-webkit-scrollbar {
-            width: 5px;
-        }
-        .modal-card::-webkit-scrollbar-track {
-            background: #1f2a44;
-            border-radius: 10px;
-        }
-        .modal-card::-webkit-scrollbar-thumb {
-            background: #ffd966;
-            border-radius: 10px;
+        .btn-shopee:hover {
+            background-color: #d63e1f;
         }
 
-        @keyframes modalPop {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .footer-btn-content {
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .modal-image {
+        .footer-small {
+            font-size: 9px;
+            color: #666;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .btn-tiktok .footer-small {
+            color: #666;
+        }
+
+        .btn-shopee .footer-small {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .btn-shopee .footer-btn-content span {
+            color: white;
+        }
+
+        .btn-backtop {
+            background-color: #1a1a1a;
+            color: white;
+            width: 36px;
+            height: 54px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-backtop:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-backtop:active {
+            transform: translateY(0);
+        }
+
+        /* ========== MODAL PRODUK DENGAN SLIDESHOW ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
             width: 100%;
-            border-radius: 28px;
-            margin-bottom: 1.2rem;
-            border: 3px solid #ffd966;
-            box-shadow: 0 20px 30px -10px #000;
+            max-width: 420px;
+            padding: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        body.dark-mode .modal-content {
+            background: rgba(20, 20, 20, 0.98);
+            color: white;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 1rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 12px;
         }
 
-        .modal-product-name {
-            font-size: 1.8rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #ffd966, #ffb3c6, #aad0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.2;
+        body.dark-mode .modal-header {
+            border-bottom-color: #333;
         }
 
-        .modal-label {
-            background: #ff6a88;
-            padding: 0.3rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 15px #ff3b5c;
-            white-space: nowrap;
-        }
-
-        .modal-price-section {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 30px;
-            padding: 1rem;
-            margin: 1rem 0;
-            border: 1px dashed #ffd966;
-        }
-
-        .modal-price-old {
-            font-size: 1.1rem;
-            color: #ccc;
-            text-decoration: line-through #ff7c7c 2px;
-            margin-right: 10px;
-        }
-
-        .modal-price-current {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #ffecaa;
-            text-shadow: 0 0 15px #ffb347;
-            line-height: 1.2;
-        }
-
-        .qty-control {
+        .modal-header-left {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            background: #1d2a44;
-            padding: 0.6rem 1rem;
-            border-radius: 60px;
-            margin: 1.5rem 0;
-            border: 1px solid #5f9eff;
+            gap: 12px;
+            flex: 1;
         }
 
-        .qty-btn {
-            background: #2d4379;
-            border: none;
-            color: white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            font-weight: bold;
-            cursor: pointer;
-            border: 1px solid #ffd966;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-        }
-
-        .qty-btn:hover {
-            background: #3f5ca0;
-            transform: scale(1.05);
-        }
-
-        .qty-number {
-            font-size: 2rem;
-            font-weight: 700;
-            min-width: 50px;
-            text-align: center;
-            color: #ffd966;
-        }
-
-        .total-price {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: #fff;
-            background: #0f1a2b;
-            padding: 0.8rem;
-            border-radius: 40px;
-            text-align: center;
-            margin: 1rem 0;
-            border: 1px solid #5f9eff;
-        }
-
-        .send-wa-btn {
-            background: linear-gradient(145deg, #2e7d32, #1f5a23);
-            border: none;
-            color: white;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
+        /* Slideshow di modal */
+        .modal-product-slideshow {
+            position: relative;
             width: 100%;
-            cursor: pointer;
-            border: 1px solid #a5d6a5;
-            margin: 8px 0;
-            transition: 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            margin-bottom: 15px;
         }
 
-        .send-wa-btn:hover {
-            transform: scale(1.02);
-            filter: brightness(1.2);
-        }
-
-        .close-modal {
-            background: #4a3b6e;
-            border: 1px solid #b7a6ff;
-            padding: 12px;
-            border-radius: 60px;
-            margin-top: 10px;
-            cursor: pointer;
+        .modal-slide-container {
+            position: relative;
             width: 100%;
-            font-weight: 600;
-            color: white;
-            transition: 0.2s;
-        }
-
-        .close-modal:hover {
-            background: #5f4c8a;
-        }
-
-        .wa-paket-btn {
-            background: #075e54;
-            border-radius: 10px;
-        }
-
-        /* Video grid */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .video-card {
-            background: #0f1a2bcc;
-            backdrop-filter: blur(8px);
-            border-radius: 28px;
-            padding: 0.8rem;
-            border: 1px solid #6fa3ff;
-        }
-
-        .video-frame {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 18px;
+            height: 200px;
+            border-radius: 16px;
             overflow: hidden;
         }
 
-        .video-frame iframe {
+        .modal-slide {
+            position: absolute;
             width: 100%;
             height: 100%;
-            border: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background-size: cover;
+            background-position: center;
         }
 
-        .footer {
+        .modal-slide.active {
+            opacity: 1;
+        }
+
+        .modal-slide-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .modal-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-dot.active {
+            background-color: #4facfe;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .modal-slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .modal-slide-prev {
+            left: 10px;
+        }
+
+        .modal-slide-next {
+            right: 10px;
+        }
+
+        .product-image-medium {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-shrink: 0;
+        }
+
+        .product-image-medium img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-icon-bag {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            background-color: #ffc107;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(255,193,7,0.3);
+            flex-shrink: 0;
+        }
+
+        .platform-icon {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+        }
+
+        .modal-product-name {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.3;
+            flex: 1;
+        }
+
+        .modal-close {
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .modal-close:hover {
+            color: #e31837;
+            transform: rotate(90deg);
+        }
+
+        /* Info Diskon */
+        .modal-discount-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            background-color: #f8f8f8;
+            padding: 12px 15px;
+            border-radius: 12px;
+        }
+
+        body.dark-mode .modal-discount-info {
+            background-color: #2a2a2a;
+        }
+
+        .discount-badge-large {
+            background-color: #e31837;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 15px;
+            box-shadow: 0 3px 6px rgba(227,24,55,0.3);
+        }
+
+        .price-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .original-price-large {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .current-price-large {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e31837;
+        }
+
+        /* Deskripsi */
+        .modal-description {
+            margin-bottom: 20px;
+        }
+
+        .modal-description h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        body.dark-mode .modal-description h4 {
+            color: #fff;
+        }
+
+        .modal-description p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #666;
+            background-color: #f8f8f8;
+            padding: 12px 15px;
+            border-radius: 12px;
+        }
+
+        body.dark-mode .modal-description p {
+            background-color: #2a2a2a;
+            color: #ccc;
+        }
+
+        /* Form Pemesanan */
+        .order-form {
+            margin-bottom: 20px;
+        }
+
+        .order-form h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        body.dark-mode .order-form h4 {
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79,172,254,0.2);
+        }
+
+        body.dark-mode .modal-input {
+            background-color: #333;
+            border-color: #444;
+            color: white;
+        }
+
+        body.dark-mode .modal-input::placeholder {
+            color: #888;
+        }
+
+        /* Quantity Selector */
+        .quantity-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .quantity-section {
+            border-color: #333;
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .qty-btn-modal {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            background: none;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn-modal:hover {
+            background-color: #4facfe;
+            color: white;
+            border-color: #4facfe;
+            transform: scale(1.05);
+        }
+
+        body.dark-mode .qty-btn-modal {
+            border-color: #444;
+            color: white;
+            background-color: #333;
+        }
+
+        .qty-input-modal {
+            width: 50px;
             text-align: center;
-            padding: 1.2rem;
-            color: #b0d0ff;
-            border-top: 1px dashed #3f6790;
-            background: rgba(0, 10, 25, 0.5);
-            backdrop-filter: blur(6px);
-            border-radius: 60px;
-            margin-top: 2rem;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+        }
+
+        body.dark-mode .qty-input-modal {
+            color: white;
+            background: transparent;
+        }
+
+        .qty-input-modal:focus {
+            outline: none;
+        }
+
+        /* Total Harga */
+        .total-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .total-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        body.dark-mode .total-label {
+            color: #ccc;
+        }
+
+        .total-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e31837;
+        }
+
+        /* Tombol Beli */
+        .btn-beli-modal {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(37,211,102,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-beli-modal:hover {
+            background-color: #20b859;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(37,211,102,0.4);
+        }
+
+        .btn-beli-modal:active {
+            transform: translateY(0);
+        }
+
+        /* Spacer */
+        .footer-spacer {
+            height: 20px;
         }
     </style>
 </head>
-<body>
-    <div class="light-particles">
-        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
-        <div class="particle"></div><div class="particle"></div><div class="particle"></div>
+<body class="light-mode">
+    <!-- Header dengan Waktu (KONSISTEN) -->
+    <div class="time-header">
+        <div class="time-left">
+            <span id="liveTime">00:00:00</span>
+            <span class="time-separator"></span>
+            <span class="time-date" id="liveDate">Sabtu, 28 Feb 2026</span>
+        </div>
+        <div class="time-right">
+            <button class="theme-toggle" onclick="toggleTheme()">
+                <span id="themeIcon">☀️</span>
+                <span id="themeText">Light</span>
+            </button>
+        </div>
     </div>
 
     <div class="container">
-        <div class="header-text">
-            <h3>SELAMAT DATANG DI KELAS BELAJAR AI</h3>
-            <div class="sub">Kelas Pembelajaran Prompt AI</div>
-        </div>
-        <div class="new-image">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png">
+        <!-- Stats Card TeslaSmart -->
+        <div class="stats-card">
+            <div class="store-header">
+                <div class="store-logo">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiFfiSs6PYvU-L8NcOwn4c8LAYUSDu_MWAJLKaGxGUuwcaiRNrz_GB_O-3wBcCFLiGL2HNBKcQDvtmTRFXTlINEW3CTFfFHNQFEM1Rksc9caVAVvdxDS4it9zb6R9qhdzAjNnwHMdCFRZZ92JuRX7pchYf0aKngwYCYN59kEUc9wGf8-4aJA9NE05aqFlA/s3000/1000104355.png" alt="TeslaSmart Logo">
+                </div>
+                <div class="store-title-wrapper">
+                    <div class="store-title">
+                        TeslaSmart
+                        <span class="verified-badge">✓</span>
+                    </div>
+                    <div class="store-address">
+                        Jl. KH. Abdul Hamid Km 15 Desa Ciasmara<br>
+                        Kecamatan Pamijahan Kabupaten Bogor Kode POS 16810
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Maps dengan URL BARU -->
+            <div class="map-container">
+                <iframe 
+                    class="real-map"
+                    src="https://maps.google.com/maps?width=600&height=250&hl=en&q=Kantor%20KUD%20Asmara%20Tani%20Desa%20Ciasmara%20Kecamatan%20Pamijahan&t=k&z=14&ie=UTF8&iwloc=B&output=embed"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+                <div class="map-footer">
+                    <span>📍 Kantor KUD Asmara Tani</span>
+                    <span>Lihat rute</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons dengan Follow Counter -->
+            <div class="action-buttons">
+                <button class="btn-wa" onclick="openWAModal()">
+                    <span>📱</span> WhatsApp
+                </button>
+                <button class="btn-follow" onclick="incrementFollow()">
+                    <span>❤️</span> Follow Us
+                    <span class="follow-count" id="followCount">1.2K</span>
+                </button>
+            </div>
         </div>
 
-        <div class="section-title">Silahkan Pilih Kelas</div>
-        <div class="menu-buttons">
-            <a href="input-token.html" class="menu-item"><span class="menu-icon"><i class="fas fa-video"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #001</span><span class="menu-desc">Membuat Video Karakter</span></div></a>
-            <a href="input-token.html" class="menu-item"><span class="menu-icon"><i class="fas fa-cube"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #002</span><span class="menu-desc">3D Animasi Karakter</span></div></a>
-            <a href="harga-toko-online.html" class="menu-item"><span class="menu-icon"><i class="fas fa-store"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #003</span><span class="menu-desc">Aplikasi Toko Online</span></div></a>
-            <a href="harga-jasa-website.html" class="menu-item"><span class="menu-icon"><i class="fas fa-laptop-code"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #004</span><span class="menu-desc">Website Profesional</span></div></a>
-            <a href="jasa-design.html" class="menu-item"><span class="menu-icon"><i class="fas fa-pen-ruler"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #005</span><span class="menu-desc">Design & Pengetikan</span></div></a>
-            <a href="promosi-iklan.html" class="menu-item"><span class="menu-icon"><i class="fas fa-film"></i></span><div class="menu-text"><span class="menu-title">Kelas AI #006</span><span class="menu-desc">Video Promosi & Iklan</span></div></a>
+        <!-- Promo Slideshow -->
+        <div class="promo-slideshow">
+            <div class="slide-container" id="slideContainer">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1607083206869-4c7672e72a8a?w=1080&auto=format')"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1080&auto=format')"></div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1498049794561-7780e7231661?w=1080&auto=format')"></div>
+            </div>
+            <div class="slide-dots" id="slideDots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
         </div>
 
-        <!-- KATALOG PRODUK -->
-        <div class="section-title">Katalog Produk & Kelas AI</div>
+        <!-- Horizontal Scroll Kategori -->
+        <div class="category-scroll" id="categoryScroll">
+            <button class="category-btn active" onclick="filterProducts('all')">Semua</button>
+            <button class="category-btn" onclick="filterProducts('Sembako')">🛒 Sembako</button>
+            <button class="category-btn" onclick="filterProducts('Pakaian')">👕 Pakaian</button>
+            <button class="category-btn" onclick="filterProducts('Makanan')">🍜 Makanan</button>
+            <button class="category-btn" onclick="filterProducts('Jasa')">🔧 Jasa</button>
+            <button class="category-btn" onclick="filterProducts('Elektronik')">📱 Elektronik</button>
+            <button class="category-btn" onclick="filterProducts('Pulsa')">📞 Pulsa/Quota</button>
+            <button class="category-btn" onclick="filterProducts('Properti')">🏠 Properti</button>
+            <button class="category-btn" onclick="filterProducts('Kendaraan')">🚗 Kendaraan</button>
+        </div>
+
+        <!-- Product Grid -->
         <div class="product-grid" id="productGrid"></div>
 
-        <!-- Video Grid -->
-        <div class="section-title">Video Demo</div>
-        <div class="video-grid" id="videoGrid"></div>
+        <!-- Tombol Produk Lainnya -->
+        <button class="btn-more-products" id="btnMoreProducts" onclick="showAllProducts()">
+            <span>⬇️</span> Produk Lainnya
+        </button>
 
-        <div class="footer">© 2026 TeslaSmart - Digital Teknologi</div>
+        <!-- Spacer -->
+        <div class="footer-spacer"></div>
     </div>
 
-    <!-- MODAL DETAIL PRODUK -->
-    <div id="modalDetail" class="modal-overlay" onclick="if(event.target===this) closeDetailModal()">
-        <div class="modal-card" id="modalDetailCard">
-            <img id="modalDetailImg" class="modal-image" src="" alt="product">
-            
+    <!-- Footer Card dengan LINK TIKTOK DAN SHOPEE BARU -->
+    <div class="footer-card">
+        <div class="footer-row">
+            <div class="footer-left">
+                <div class="footer-btn-wrapper">
+                    <a class="footer-btn btn-tiktok" href="https://www.tiktok.com/@teslasmart.online?_r=1&_t=ZS-94Ivv3hLiSe" target="_blank">
+                        <div class="footer-btn-content">
+                            <span>🎵</span> TikTok Shop
+                        </div>
+                        <div class="footer-small">by Tokopedia</div>
+                    </a>
+                </div>
+                <div class="footer-btn-wrapper">
+                    <a class="footer-btn btn-shopee" href="#" target="_blank" onclick="alert('Link Shopee belum diisi. Silakan tambahkan link Shopee Anda.')">
+                        <div class="footer-btn-content">
+                            <span>🛒</span> Shopee
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <button class="btn-backtop" onclick="scrollToTop()">
+                ↑
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL PRODUK DENGAN SLIDESHOW -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-product-name" id="modalDetailName"></span>
-                <span class="modal-label" id="modalDetailLabel"></span>
+                <div class="modal-header-left">
+                    <div class="product-image-medium" id="modalProductImage">
+                        <img src="" alt="Product" id="modalProductImgSrc">
+                    </div>
+                    <div class="product-icon-bag">
+                        🛍️
+                        <span class="platform-icon" id="platformIcon">🛒</span>
+                    </div>
+                    <span class="modal-product-name" id="modalProductName">Nama Produk</span>
+                </div>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
             </div>
             
-            <div class="modal-price-section">
-                <span class="modal-price-old" id="modalDetailOld"></span> <br>
-                <span class="modal-price-current" id="modalDetailCurrent"></span>
+            <div id="modalContent">
+                <!-- Konten akan diisi oleh JavaScript -->
             </div>
-            
-            <div class="qty-control">
-                <button class="qty-btn" id="decrQty">−</button>
-                <span class="qty-number" id="qtyDisplay">1</span>
-                <button class="qty-btn" id="incrQty">+</button>
-            </div>
-            
-            <div class="total-price">Total: <span id="totalPriceModal"></span></div>
-            
-            <!-- Tombol Pesan Sekarang di modal - link akan diisi oleh JavaScript -->
-            <a href="#" target="_blank" class="send-wa-btn" id="sendWAFromModal" style="text-decoration:none;">📲 Pesan Sekarang</a>
-            <button class="close-modal" onclick="closeDetailModal()">Tutup</button>
         </div>
     </div>
 
     <script>
-        // Data produk dengan link tujuan masing-masing
-        const products = [
+        // ===== PRODUK BARU (URUTAN PALING ATAS) =====
+        const newProducts = [
             { 
+                id: 16, 
                 name: "Canva Pro", 
-                label: "BEST SELLER", 
-                old: "Rp 50.000/bulan", 
-                current: "Rp 30.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiYf180uqqYyEI6vkbORlM2FOvzDwE4_AM9IWjfUDQGwoMv9vBEMFFzMbsOmruxYsabX4XpnMgewlzJP2yB40Bt-TvWR-mtUt40yH9M4QVRuS4O84eqlP4f8jKMrwZbdDmPI3ZnkbUfuZPANhDl1dauUpGKrHENrvvCXvdbxUmAtVh3t1TSoNgcQ6rbLXg/s320/1000667673.png",
-                link: "canva-pro.html"
+                fullDesc: "Paket Canva Pro Rp. 30.000/Bulan. Fitur premium unlimited, akses semua template premium, background removal, dan fitur eksklusif lainnya.", 
+                price: 30000, 
+                originalPrice: 50000, 
+                discount: 40, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2r3hKikQ11KbPXxTDMWPcTPemToNjr4Y-K0YbiVxpDhEEBDha3e5Oa6BSBwSd1i0cvcdcuqKjOfGZvCDVqhSzFhkF9MrdujApO5otNBP_HrBIzaq_ZDGP42hJN2UvFrYkt3JysrOgP53GaKpi4PHT_G12IBUdzja1hQ9y4mytAbP9FZHXmJM_nEkGqEk/s320/1000667673.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2r3hKikQ11KbPXxTDMWPcTPemToNjr4Y-K0YbiVxpDhEEBDha3e5Oa6BSBwSd1i0cvcdcuqKjOfGZvCDVqhSzFhkF9MrdujApO5otNBP_HrBIzaq_ZDGP42hJN2UvFrYkt3JysrOgP53GaKpi4PHT_G12IBUdzja1hQ9y4mytAbP9FZHXmJM_nEkGqEk/s320/1000667673.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2r3hKikQ11KbPXxTDMWPcTPemToNjr4Y-K0YbiVxpDhEEBDha3e5Oa6BSBwSd1i0cvcdcuqKjOfGZvCDVqhSzFhkF9MrdujApO5otNBP_HrBIzaq_ZDGP42hJN2UvFrYkt3JysrOgP53GaKpi4PHT_G12IBUdzja1hQ9y4mytAbP9FZHXmJM_nEkGqEk/s320/1000667673.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2r3hKikQ11KbPXxTDMWPcTPemToNjr4Y-K0YbiVxpDhEEBDha3e5Oa6BSBwSd1i0cvcdcuqKjOfGZvCDVqhSzFhkF9MrdujApO5otNBP_HrBIzaq_ZDGP42hJN2UvFrYkt3JysrOgP53GaKpi4PHT_G12IBUdzja1hQ9y4mytAbP9FZHXmJM_nEkGqEk/s320/1000667673.png"
+                ],
+                badge: "Pro", 
+                category: "Jasa",
+                platform: "🎵"
             },
             { 
+                id: 15, 
                 name: "Canva Edu", 
-                label: "DISKON 50%", 
-                old: "Rp 100.000/tahun", 
-                current: "Rp 50.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHLFQwF_FMkrpGfrYNZeoYHd_W3SxWXozQnUUReMkU3rvPJZPgl1kUMP_rwcoymteU94OuhdvWT9BwZXiSA3GIJ_mPhOtRbrXxsIPTHcUoMXTfdZ4QCe6wf57V3O6E-IFbUw48kTR5KgVrQST1D_p3LSr47R4fY5coSCQZ5Y_c1REyEq9tOWDwtCGpltI/s320/1000667672.png",
-                link: "canva-edu.html"
+                fullDesc: "Paket Canva Edu Rp. 50.000/Tahun. Akses premium untuk pendidikan, cocok untuk siswa, mahasiswa, dan tenaga pendidik.", 
+                price: 50000, 
+                originalPrice: 100000, 
+                discount: 50, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGNVMUmLMfUUoQ2ml8qBvaGiDTsqo1gc0HaF4pF5wtW1HBjJRs4HIidBRWApeVq7tubuJ73UPEhGCwsHRhpHSopvg527mupuRvNRf3z4Jd2UxN_rqKWyE0LVpYtP6E7Gek2AWihKUoHfwsnC96v7lntoriKxLyNKCWhUl7PUuYO-nmp9_W1B1__XGfX80/s320/1000667672.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGNVMUmLMfUUoQ2ml8qBvaGiDTsqo1gc0HaF4pF5wtW1HBjJRs4HIidBRWApeVq7tubuJ73UPEhGCwsHRhpHSopvg527mupuRvNRf3z4Jd2UxN_rqKWyE0LVpYtP6E7Gek2AWihKUoHfwsnC96v7lntoriKxLyNKCWhUl7PUuYO-nmp9_W1B1__XGfX80/s320/1000667672.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGNVMUmLMfUUoQ2ml8qBvaGiDTsqo1gc0HaF4pF5wtW1HBjJRs4HIidBRWApeVq7tubuJ73UPEhGCwsHRhpHSopvg527mupuRvNRf3z4Jd2UxN_rqKWyE0LVpYtP6E7Gek2AWihKUoHfwsnC96v7lntoriKxLyNKCWhUl7PUuYO-nmp9_W1B1__XGfX80/s320/1000667672.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGNVMUmLMfUUoQ2ml8qBvaGiDTsqo1gc0HaF4pF5wtW1HBjJRs4HIidBRWApeVq7tubuJ73UPEhGCwsHRhpHSopvg527mupuRvNRf3z4Jd2UxN_rqKWyE0LVpYtP6E7Gek2AWihKUoHfwsnC96v7lntoriKxLyNKCWhUl7PUuYO-nmp9_W1B1__XGfX80/s320/1000667672.png"
+                ],
+                badge: "Edu", 
+                category: "Jasa",
+                platform: "🛒"
             },
             { 
+                id: 14, 
                 name: "Undangan Digital", 
-                label: "FLASH SALE", 
-                old: "Rp 250.000", 
-                current: "Rp 150.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYxdpzUB1AZyqbVihyG0fzfClUN5c_XuBRsJo7n5jgokY6bPI0EP49LLZ2shMc3XOkt4aFL_ZXMsYUI8H7vjhfwfGUi3DwbY8H1gHb6BcQJIoH4NkTLmLvQdKqDH0f5o63Zx7j6N-g9V0YuhSDv9P4MpU7m8LoQk5WXmGDD-Rk-09DAUNHA8WS1lcpXtQ/s320/1000001533.jpg",
-                link: "undangan-digital.html"
+                fullDesc: "Menerima Jasa Pembuatan Berbagai macam bentuk dan Tema Undangan Digital. Desain menarik, revisi gratis 2x.", 
+                price: 150000, 
+                originalPrice: 250000, 
+                discount: 40, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKlBToVbIHCeM_QPEeA8IuCJRMbsFxuRGrhZxtfp6pPRu6UUwIJzHGfPk-X5njiXwtEsetpOzeqU6H2YxOysdTZ3z-C5xMBCtaKxNTWzMLWKGrJiz7ckiu5254vgOnrK_J4c_Zt0p582IxhMWeS98tjEo_GX1zs6Q00JssqgLbQ9v4chGd2ishURfkzBs/s320/1000001533.jpg",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKlBToVbIHCeM_QPEeA8IuCJRMbsFxuRGrhZxtfp6pPRu6UUwIJzHGfPk-X5njiXwtEsetpOzeqU6H2YxOysdTZ3z-C5xMBCtaKxNTWzMLWKGrJiz7ckiu5254vgOnrK_J4c_Zt0p582IxhMWeS98tjEo_GX1zs6Q00JssqgLbQ9v4chGd2ishURfkzBs/s320/1000001533.jpg",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKlBToVbIHCeM_QPEeA8IuCJRMbsFxuRGrhZxtfp6pPRu6UUwIJzHGfPk-X5njiXwtEsetpOzeqU6H2YxOysdTZ3z-C5xMBCtaKxNTWzMLWKGrJiz7ckiu5254vgOnrK_J4c_Zt0p582IxhMWeS98tjEo_GX1zs6Q00JssqgLbQ9v4chGd2ishURfkzBs/s320/1000001533.jpg",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKlBToVbIHCeM_QPEeA8IuCJRMbsFxuRGrhZxtfp6pPRu6UUwIJzHGfPk-X5njiXwtEsetpOzeqU6H2YxOysdTZ3z-C5xMBCtaKxNTWzMLWKGrJiz7ckiu5254vgOnrK_J4c_Zt0p582IxhMWeS98tjEo_GX1zs6Q00JssqgLbQ9v4chGd2ishURfkzBs/s320/1000001533.jpg"
+                ],
+                badge: "Jasa", 
+                category: "Jasa",
+                platform: "📱"
             },
             { 
-                name: "Video Karakter", 
-                label: "TERLARIS", 
-                old: "Rp 300.000", 
-                current: "Rp 155.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
-                link: "beli-token.html" // default
+                id: 13, 
+                name: "Video Karakter Konsisten", 
+                fullDesc: "Membuka Jasa Kelas Membuat Video Karakter Konsisten. Belajar membuat video dengan karakter AI yang konsisten untuk konten media sosial.", 
+                price: 155000, 
+                originalPrice: 300000, 
+                discount: 48, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png"
+                ],
+                badge: "New", 
+                category: "Jasa",
+                platform: "🎵"
             },
             { 
+                id: 12, 
                 name: "3D Animasi Cartoon", 
-                label: "POPULER", 
-                old: "Rp 300.000", 
-                current: "Rp 155.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
-                link: "beli-token.html" // default
+                fullDesc: "Membuka Jasa Kelas Membuat 3D Animasi Karakter. Pelajari teknik animasi 3D dari dasar hingga mahir.", 
+                price: 155000, 
+                originalPrice: 300000, 
+                discount: 48, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png"
+                ],
+                badge: "New", 
+                category: "Jasa",
+                platform: "📱"
             },
             { 
-                name: "Apps Toko Online", 
-                label: "Aplikasi Toko Online", 
-                old: "Rp 300.000", 
-                current: "Rp 155.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
-                link: "harga-toko-online.html"
+                id: 11, 
+                name: "Toko Online Apps", 
+                fullDesc: "Jasa Membuat Aplikasi Toko Online (Belum termasuk Domain + Hosting). Fitur lengkap, admin panel, laporan penjualan.", 
+                price: 155000, 
+                originalPrice: 300000, 
+                discount: 48, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggg5tG5qJh7uGCQHzqiokN9oK9lXbwDJBqKXndwEuiuCizvoStfLam27X2SAABr3JlE24ogMmhhxf4vtydu2wmJSSOqorQxOLOMQRAJjBC_OZ0fNu8A-4OzKEWzwolqGxthJqrNkOzWryZVXMN-6sUVLOGQD8z5ulYIzOzPeVhbJ4TmsLqp84E34BE4eY/s1024/1000666671.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggg5tG5qJh7uGCQHzqiokN9oK9lXbwDJBqKXndwEuiuCizvoStfLam27X2SAABr3JlE24ogMmhhxf4vtydu2wmJSSOqorQxOLOMQRAJjBC_OZ0fNu8A-4OzKEWzwolqGxthJqrNkOzWryZVXMN-6sUVLOGQD8z5ulYIzOzPeVhbJ4TmsLqp84E34BE4eY/s1024/1000666671.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggg5tG5qJh7uGCQHzqiokN9oK9lXbwDJBqKXndwEuiuCizvoStfLam27X2SAABr3JlE24ogMmhhxf4vtydu2wmJSSOqorQxOLOMQRAJjBC_OZ0fNu8A-4OzKEWzwolqGxthJqrNkOzWryZVXMN-6sUVLOGQD8z5ulYIzOzPeVhbJ4TmsLqp84E34BE4eY/s1024/1000666671.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggg5tG5qJh7uGCQHzqiokN9oK9lXbwDJBqKXndwEuiuCizvoStfLam27X2SAABr3JlE24ogMmhhxf4vtydu2wmJSSOqorQxOLOMQRAJjBC_OZ0fNu8A-4OzKEWzwolqGxthJqrNkOzWryZVXMN-6sUVLOGQD8z5ulYIzOzPeVhbJ4TmsLqp84E34BE4eY/s1024/1000666671.png"
+                ],
+                badge: "Hot", 
+                category: "Jasa",
+                platform: "🎵"
             },
             { 
-                name: "Jasa Website", 
-                label: "Website Profesional", 
-                old: "Rp 3.000.000", 
-                current: "Rp 1.500.000", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
-                link: "harga-jasa-website.html"
+                id: 10, 
+                name: "Website Profesional", 
+                fullDesc: "Membuka Jasa Pembuatan Website Profesional. Sudah include Domain + Hosting 1 Tahun. Desain modern, responsive, SEO friendly.", 
+                price: 1500000, 
+                originalPrice: 3000000, 
+                discount: 50, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png"
+                ],
+                badge: "Best Seller", 
+                category: "Jasa",
+                platform: "🛒"
             },
             { 
-                name: "Jasa Design & Pengetikan", 
-                label: "Jasa Design", 
-                old: "Bervariasi", 
-                current: "Rp 150.000/Project", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
-                link: "jasa-design.html"
+                id: 9, 
+                name: "Design & Pengetikan", 
+                fullDesc: "Membuka Jasa Design & Pengetikan Berkas. Harga bervariasi tergantung tingkat kesulitan. Melayani berbagai kebutuhan dokumen.", 
+                price: 150000, 
+                originalPrice: 0, 
+                discount: 0, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png"
+                ],
+                badge: "Jasa", 
+                category: "Jasa",
+                platform: "📱"
             },
             { 
+                id: 8, 
                 name: "Video Promosi & Iklan", 
-                label: "Video Promosi", 
-                old: "Bervariasi", 
-                current: "Rp 200.000/Video", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
-                link: "promosi-iklan.html"
+                fullDesc: "Membuka Jasa Pembuatan Video Promosi & Iklan. Harga bervariasi tergantung tingkat kesulitan. Cocok untuk promosi produk UMKM.", 
+                price: 200000, 
+                originalPrice: 0, 
+                discount: 0, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGtw2V1ax7yHV_0viUDFj_uQbBKt0imUzUEc18qKWm-sPfYVyC5RgJdMzcj9G-fS834HaU0Fo5MHvkkT-0djfNtUHfNiDW8A1hvKgUmG1xT2n1jK6P58I-90E97K0JSFLJR7tJuqwIHLPqFkyPY1woOZlAnoQoth-Wor5f8iG4GRL1kYWnSnFge7ObbvY/s320/1000662215.png"
+                ],
+                badge: "Jasa", 
+                category: "Jasa",
+                platform: "🎵"
+            },
+            { 
+                id: 7, 
+                name: "Mobil Carry Futura", 
+                fullDesc: "Jual mobil bekas Suzuki Carry Futura Plat F Bogor, Pajak Hidup, Surat-surat Komplit. Kondisi mesin sehat, body mulus, siap pakai untuk angkutan.", 
+                price: 50000000, 
+                originalPrice: 102000000, 
+                discount: 51, 
+                image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_4dHqSR_7GPFBtvB5TLM99a9siocKxiGyErU4xYIIkbMlp2ifOhJt4k6XgLkrT-H0mTjZIcOpKjqGrwxlcESFTtxQaEPlRxADsA5sDXtBQariHGjoQB4YhzsvfXq35sRFIodLW0cHJLsT8j1PSNsJPCdYJ0Jg34JfNjQRvP9JqGWwPXYvX_9_cVUkmAQ/s1600/1000663689.jpg",
+                images: [
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_4dHqSR_7GPFBtvB5TLM99a9siocKxiGyErU4xYIIkbMlp2ifOhJt4k6XgLkrT-H0mTjZIcOpKjqGrwxlcESFTtxQaEPlRxADsA5sDXtBQariHGjoQB4YhzsvfXq35sRFIodLW0cHJLsT8j1PSNsJPCdYJ0Jg34JfNjQRvP9JqGWwPXYvX_9_cVUkmAQ/s1600/1000663689.jpg",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_4dHqSR_7GPFBtvB5TLM99a9siocKxiGyErU4xYIIkbMlp2ifOhJt4k6XgLkrT-H0mTjZIcOpKjqGrwxlcESFTtxQaEPlRxADsA5sDXtBQariHGjoQB4YhzsvfXq35sRFIodLW0cHJLsT8j1PSNsJPCdYJ0Jg34JfNjQRvP9JqGWwPXYvX_9_cVUkmAQ/s1600/1000663689.jpg",
+                    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj_4dHqSR_7GPFBtvB5TLM99a9siocKxiGyErU4xYIIkbMlp2ifOhJt4k6XgLkrT-H0mTjZIcOpKjqGrwxlcESFTtxQaEPlRxADsA5sDXtBQariHGjoQB4YhzsvfXq35sRFIodLW0cHJLsT8j1PSNsJPCdYJ0Jg34JfNjQRvP9JqGWwPXYvX_9_cVUkmAQ/s1600/1000663689.jpg"
+                ],
+                badge: "Super Deal", 
+                category: "Kendaraan",
+                platform: "🛒"
             }
         ];
 
-        // Render produk (8 produk)
-        const grid = document.getElementById('productGrid');
-        products.slice(0, 8).forEach((p, idx) => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.setAttribute('onclick', `openDetailModal(${idx})`);
-            card.innerHTML = `
-                <div class="product-label">${p.label || 'Promo'}</div>
-                <div class="product-image"><img src="${p.img}" alt="${p.name}"></div>
-                <div class="product-name-row">
-                    <span class="product-name">${p.name}</span>
-                    <span class="bag-icon"><i class="fas fa-shopping-cart"></i></span>
+        // ===== PRODUK LAMA (URUTAN DI BAWAH) =====
+        const oldProducts = [
+            { 
+                id: 1, 
+                name: "Beras Premium 5kg", 
+                fullDesc: "Beras premium kualitas terbaik dengan tekstur pulen dan wangi alami. Cocok untuk konsumsi sehari-hari. Berasal dari petani lokal pilihan.", 
+                price: 75000, 
+                originalPrice: 85000, 
+                discount: 12, 
+                image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format", 
+                images: [
+                    "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&auto=format"
+                ],
+                badge: "Promo", 
+                category: "Sembako",
+                platform: "🛒"
+            },
+            { 
+                id: 2, 
+                name: "Kemeja Pria", 
+                fullDesc: "Kemeja pria bahan katun premium, nyaman dipakai sehari-hari. Tersedia berbagai ukuran S, M, L, XL. Model modern dan trendy.", 
+                price: 125000, 
+                originalPrice: 175000, 
+                discount: 28, 
+                image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format",
+                images: [
+                    "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&auto=format"
+                ],
+                badge: "Best", 
+                category: "Pakaian",
+                platform: "🎵"
+            },
+            { 
+                id: 3, 
+                name: "Mie Instan", 
+                fullDesc: "Paket 1 dus mie instan isi 40 pcs. Berbagai varian rasa tersedia. Cocok untuk stok makanan darurat atau usaha kecil.", 
+                price: 110000, 
+                originalPrice: 135000, 
+                discount: 18, 
+                image: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&auto=format",
+                images: [
+                    "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&auto=format"
+                ],
+                badge: "Promo", 
+                category: "Makanan",
+                platform: "📱"
+            },
+            { 
+                id: 4, 
+                name: "Laptop ASUS", 
+                fullDesc: "Laptop ASUS Intel Core i5, RAM 8GB, SSD 512GB. Layar 14 inch FHD. Cocok untuk kerja, kuliah, dan desain ringan. Garansi resmi 1 tahun.", 
+                price: 4250000, 
+                originalPrice: 5500000, 
+                discount: 22, 
+                image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&auto=format",
+                images: [
+                    "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&auto=format"
+                ],
+                badge: "Best", 
+                category: "Elektronik",
+                platform: "🛒"
+            },
+            { 
+                id: 5, 
+                name: "Pulsa 50rb", 
+                fullDesc: "Pulsa all operator 50.000. Bisa untuk Telkomsel, Indosat, XL, Tri, Axis. Proses cepat dan otomatis.", 
+                price: 50000, 
+                originalPrice: 52000, 
+                discount: 4, 
+                image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&auto=format",
+                images: [
+                    "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&auto=format"
+                ],
+                badge: "Promo", 
+                category: "Pulsa",
+                platform: "🎵"
+            },
+            { 
+                id: 6, 
+                name: "Sepatu Sneakers", 
+                fullDesc: "Sepatu sneakers trendi, nyaman dipakai untuk santai atau olahraga ringan. Bahan berkualitas, sol empuk. Tersedia berbagai ukuran.", 
+                price: 199000, 
+                originalPrice: 299000, 
+                discount: 33, 
+                image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&auto=format",
+                images: [
+                    "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&auto=format",
+                    "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&auto=format"
+                ],
+                badge: "Best", 
+                category: "Pakaian",
+                platform: "📱"
+            }
+        ];
+
+        // Gabungkan produk baru (di atas) dengan produk lama (di bawah)
+        const products = [...newProducts, ...oldProducts];
+
+        const adminWA = "6285218483129";
+        let selectedProduct = null;
+        let selectedQty = 1;
+        let currentFilter = 'all';
+        let visibleProducts = 8; // Jumlah produk yang ditampilkan awal
+        let followCount = 1200;
+
+        // Data form
+        let customerName = "";
+        let customerAddress = "";
+        let customerPhone = "";
+
+        // Update waktu real-time
+        function updateTime() {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            
+            const timeStr = now.toLocaleTimeString('id-ID', { hour12: false });
+            const dayName = days[now.getDay()];
+            const date = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            
+            document.getElementById('liveTime').textContent = timeStr;
+            document.getElementById('liveDate').textContent = `${dayName}, ${date} ${month} ${year}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark';
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light';
+            }
+        }
+
+        // Follow counter
+        function incrementFollow() {
+            followCount++;
+            if (followCount >= 1000) {
+                document.getElementById('followCount').textContent = (followCount/1000).toFixed(1) + 'K';
+            } else {
+                document.getElementById('followCount').textContent = followCount;
+            }
+            
+            // Animasi sederhana
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Filter produk berdasarkan kategori
+        function filterProducts(category) {
+            currentFilter = category;
+            
+            // Update active class pada tombol kategori
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.includes('Semua') && category === 'all') {
+                    btn.classList.add('active');
+                } else if (btn.textContent.includes(category)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Reset visible products
+            visibleProducts = 8;
+            renderProducts();
+        }
+
+        // Tampilkan semua produk
+        function showAllProducts() {
+            visibleProducts = getFilteredProducts().length;
+            renderProducts();
+            document.getElementById('btnMoreProducts').classList.add('hidden');
+        }
+
+        // Mendapatkan produk yang sudah difilter
+        function getFilteredProducts() {
+            if (currentFilter === 'all') {
+                return products;
+            } else {
+                return products.filter(p => p.category === currentFilter);
+            }
+        }
+
+        // Render produk
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            
+            const filteredProducts = getFilteredProducts();
+            const productsToShow = filteredProducts.slice(0, visibleProducts);
+            
+            productsToShow.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => openProductModal(product.id);
+                
+                const discountHtml = product.discount > 0 ? `<span class="discount-badge">-${product.discount}%</span>` : '';
+                const originalPriceHtml = product.originalPrice > 0 ? `<span class="original-price">Rp ${product.originalPrice.toLocaleString('id-ID')}</span>` : '';
+                
+                card.innerHTML = `
+                    <div class="product-badge">${product.badge}</div>
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    </div>
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-desc">${product.fullDesc.substring(0, 40)}...</div>
+                    <div class="price-container">
+                        ${originalPriceHtml}
+                        ${discountHtml}
+                        <div class="current-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            // Tampilkan atau sembunyikan tombol "Produk Lainnya"
+            const btnMore = document.getElementById('btnMoreProducts');
+            if (filteredProducts.length <= visibleProducts) {
+                btnMore.classList.add('hidden');
+            } else {
+                btnMore.classList.remove('hidden');
+            }
+        }
+
+        // Slideshow
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[slideIndex].classList.add('active');
+            dots[slideIndex].classList.add('active');
+        }
+
+        function nextSlide() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slideIndex = index;
+                showSlide(slideIndex);
+            });
+        });
+
+        setInterval(nextSlide, 5000);
+
+        // Format pesan WhatsApp
+        function formatWAMessage(product, qty, name, address, phone) {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const total = product.price * qty;
+            
+            const message = 
+`*┅═•❃✽༊°°🍀🌻🍀°°༊✽❃•═┅*
+*════ ◎•❀•◎﷽◎•❀•◎ ════*
+
+*_Assalamualaikum Warahmatullahi Wabarakatuh_*
+
+==========================
+*Halo Admin saya Anggota Koperasi "Asmara Tani" Saya Mau Beli Barang ini*
+==========================
+*DATA ANGGOTA*
+
+*Nama :* ${name}
+*Nomor HP :* ${phone}
+*Alamat :* ${address}
+
+==========================
+*Belanja Barang/Produk*
+
+*Hari :* ${days[now.getDay()]}
+*Tanggal :* ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}
+*Jam :* ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}
+*Nama Barang :* ${product.name}
+*Jumlah/Qty :* ${qty}
+*Total Harga :* Rp ${total.toLocaleString('id-ID')}
+________________________________
+*Transfer Via :*
+*Bank BRI - 4098 01 019526 53 3 A/n Eldi Sugianto*
+*DANA : 085218483129*
+*Gopay/E-Wallet : 085218483129*
+===========================
+*Mohon Segera Di Respon dan Di Follow Up Admin*
+
+===========================
+*Catatan :* Silahkan Kirim Bukti Transfe/Pembayaran Anda.!
+===========================
+
+*┅═•❃✽༊°°🍀🌻🍀°°༊✽❃•═┅*`;
+
+            return encodeURIComponent(message);
+        }
+
+        // Modal functions dengan slideshow
+        function openProductModal(productId) {
+            selectedProduct = products.find(p => p.id === productId);
+            selectedQty = 1;
+            customerName = "";
+            customerAddress = "";
+            customerPhone = "";
+            
+            // Set gambar produk
+            document.getElementById('modalProductImgSrc').src = selectedProduct.image;
+            document.getElementById('modalProductImgSrc').alt = selectedProduct.name;
+            
+            // Set platform icon
+            document.getElementById('platformIcon').textContent = selectedProduct.platform;
+            document.getElementById('modalProductName').textContent = selectedProduct.name;
+            
+            const modal = document.getElementById('orderModal');
+            const content = document.getElementById('modalContent');
+            
+            // Buat slideshow untuk gambar-gambar
+            let slideshowHtml = '';
+            if (selectedProduct.images && selectedProduct.images.length > 0) {
+                slideshowHtml = `
+                    <div class="modal-product-slideshow">
+                        <div class="modal-slide-container" id="modalSlideContainer">
+                            ${selectedProduct.images.map((img, idx) => `
+                                <div class="modal-slide ${idx === 0 ? 'active' : ''}" style="background-image: url('${img}')"></div>
+                            `).join('')}
+                        </div>
+                        <div class="modal-slide-dots" id="modalSlideDots">
+                            ${selectedProduct.images.map((_, idx) => `
+                                <span class="modal-dot ${idx === 0 ? 'active' : ''}" onclick="changeModalSlide(${idx})"></span>
+                            `).join('')}
+                        </div>
+                        <div class="modal-slide-nav modal-slide-prev" onclick="prevModalSlide()">‹</div>
+                        <div class="modal-slide-nav modal-slide-next" onclick="nextModalSlide()">›</div>
+                    </div>
+                `;
+            } else {
+                slideshowHtml = `
+                    <div class="modal-product-slideshow">
+                        <div class="modal-slide-container">
+                            <div class="modal-slide active" style="background-image: url('${selectedProduct.image}')"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = `
+                ${slideshowHtml}
+                
+                <!-- Info Diskon -->
+                <div class="modal-discount-info">
+                    ${selectedProduct.discount > 0 ? `<span class="discount-badge-large">-${selectedProduct.discount}%</span>` : ''}
+                    <div class="price-info">
+                        ${selectedProduct.originalPrice > 0 ? `<span class="original-price-large">Rp ${selectedProduct.originalPrice.toLocaleString('id-ID')}</span>` : ''}
+                        <span class="current-price-large">Rp ${selectedProduct.price.toLocaleString('id-ID')}</span>
+                    </div>
                 </div>
-                <div class="price-old">${p.old}</div>
-                <div class="price-current">${p.current}</div>
-                <button class="detail-button-product" onclick="event.stopPropagation(); openDetailModal(${idx})">LIHAT DETAIL</button>
+                
+                <!-- Deskripsi -->
+                <div class="modal-description">
+                    <h4>Deskripsi Produk</h4>
+                    <p>${selectedProduct.fullDesc}</p>
+                </div>
+                
+                <!-- Form Pemesanan -->
+                <div class="order-form">
+                    <h4>Pesan Sekarang :</h4>
+                    
+                    <div class="form-group">
+                        <input type="text" class="modal-input" id="customerName" placeholder="Nama Lengkap" value="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" class="modal-input" id="customerAddress" placeholder="Alamat Lengkap" value="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="tel" class="modal-input" id="customerPhone" placeholder="No WhatsApp" value="">
+                    </div>
+                </div>
+                
+                <!-- Quantity Selector -->
+                <div class="quantity-section">
+                    <span class="quantity-label">Jumlah :</span>
+                    <div class="quantity-controls">
+                        <button class="qty-btn-modal" onclick="updateQtyModal(-1)">−</button>
+                        <input type="number" class="qty-input-modal" id="modalQtyInput" value="1" min="1" readonly>
+                        <button class="qty-btn-modal" onclick="updateQtyModal(1)">+</button>
+                    </div>
+                </div>
+                
+                <!-- Total Harga -->
+                <div class="total-section">
+                    <span class="total-label">Total Harga :</span>
+                    <span class="total-value" id="modalTotalValue">Rp ${selectedProduct.price.toLocaleString('id-ID')}</span>
+                </div>
+                
+                <!-- Tombol Beli -->
+                <button class="btn-beli-modal" onclick="checkoutModal()">
+                    <span>🛒</span> Beli Sekarang
+                </button>
             `;
-            grid.appendChild(card);
-        });
-
-        // Video iframe
-        const vids = ['dQw4w9WgXcQ','3JZ_D3ELwOQ','kJQP7kiw5Fk','ZZ5LpwO-An4'];
-        const videoGrid = document.getElementById('videoGrid');
-        vids.forEach(src => {
-            const vc = document.createElement('div');
-            vc.className = 'video-card';
-            vc.innerHTML = `<div class="video-frame"><iframe src="https://www.youtube.com/embed/B0gcv-y31VA" allowfullscreen></iframe></div>
-                <button class="detail-button-video" onclick="window.open('https://youtu.be/${src}','_blank')">LIHAT DEMO</button>`;
-            videoGrid.appendChild(vc);
-        });
-
-        // Modal detail logic
-        let currentProduct = null;
-        let qty = 1;
-        const modalLink = document.getElementById('sendWAFromModal');
-
-        function openDetailModal(index) {
-            currentProduct = products[index];
-            qty = 1;
-            updateModalDisplay();
-            // Set link tombol sesuai produk
-            modalLink.href = currentProduct.link;
-            document.getElementById('modalDetail').style.display = 'flex';
+            
+            modal.style.display = 'flex';
+            
+            // Inisialisasi slideshow index
+            window.currentModalSlide = 0;
         }
 
-        function updateModalDisplay() {
-            if (!currentProduct) return;
-            document.getElementById('modalDetailImg').src = currentProduct.img;
-            document.getElementById('modalDetailName').innerText = currentProduct.name;
-            document.getElementById('modalDetailLabel').innerText = currentProduct.label || 'Terbatas';
-            document.getElementById('modalDetailOld').innerText = currentProduct.old;
-            document.getElementById('modalDetailCurrent').innerText = currentProduct.current;
-            document.getElementById('qtyDisplay').innerText = qty;
-
-            // Hitung total (ambil angka dari current)
-            let priceNum = parseInt(currentProduct.current.replace(/[^0-9]/g, '')) || 0;
-            if (currentProduct.current.includes('Bervariasi')) priceNum = 150000;
-            if (currentProduct.current.includes('Project')) priceNum = 150000;
-            if (currentProduct.current.includes('Video')) priceNum = 200000;
-            const total = priceNum * qty;
-            document.getElementById('totalPriceModal').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        // Fungsi untuk slideshow modal
+        let currentModalSlide = 0;
+        
+        function changeModalSlide(index) {
+            const slides = document.querySelectorAll('.modal-slide');
+            const dots = document.querySelectorAll('.modal-dot');
+            
+            if (slides.length > 0) {
+                slides.forEach(s => s.classList.remove('active'));
+                dots.forEach(d => d.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentModalSlide = index;
+            }
+        }
+        
+        function nextModalSlide() {
+            const slides = document.querySelectorAll('.modal-slide');
+            if (slides.length > 0) {
+                const nextIndex = (currentModalSlide + 1) % slides.length;
+                changeModalSlide(nextIndex);
+            }
+        }
+        
+        function prevModalSlide() {
+            const slides = document.querySelectorAll('.modal-slide');
+            if (slides.length > 0) {
+                const prevIndex = (currentModalSlide - 1 + slides.length) % slides.length;
+                changeModalSlide(prevIndex);
+            }
         }
 
-        document.getElementById('incrQty').addEventListener('click', (e) => { e.stopPropagation(); qty++; updateModalDisplay(); });
-        document.getElementById('decrQty').addEventListener('click', (e) => { e.stopPropagation(); if (qty>1) qty--; updateModalDisplay(); });
-
-        function closeDetailModal() {
-            document.getElementById('modalDetail').style.display = 'none';
+        function updateQtyModal(change) {
+            const input = document.getElementById('modalQtyInput');
+            if (input) {
+                selectedQty = Math.max(1, selectedQty + change);
+                input.value = selectedQty;
+                updateTotalModal();
+            }
         }
 
-        window.closeDetailModal = closeDetailModal;
-        window.openDetailModal = openDetailModal;
+        function updateTotalModal() {
+            const totalEl = document.getElementById('modalTotalValue');
+            if (totalEl && selectedProduct) {
+                const total = selectedProduct.price * selectedQty;
+                totalEl.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            }
+        }
+
+        function checkoutModal() {
+            if (!selectedProduct) return;
+            
+            // Get form values
+            const name = document.getElementById('customerName')?.value || "";
+            const address = document.getElementById('customerAddress')?.value || "";
+            const phone = document.getElementById('customerPhone')?.value || "";
+            
+            // Validate form
+            if (!name || !address || !phone) {
+                alert("Mohon lengkapi data Nama Lengkap, Alamat Lengkap, dan No WhatsApp terlebih dahulu!");
+                return;
+            }
+            
+            const message = formatWAMessage(selectedProduct, selectedQty, name, address, phone);
+            const waUrl = `https://wa.me/${adminWA}?text=${message}`;
+            window.open(waUrl, '_blank');
+            closeModal();
+        }
+
+        function openCategoryModal(category) {
+            filterProducts(category);
+        }
+
+        function openWAModal() {
+            alert('Silakan pilih produk terlebih dahulu');
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Initialize
+        renderProducts();
+        showSlide(0);
     </script>
 </body>
 </html>
