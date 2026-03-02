@@ -302,9 +302,10 @@
             color: #ccc;
         }
 
-        /* Action Buttons - Follow Us dengan counter like */
+        /* Action Buttons - 3 Tombol dengan desain seragam */
         .action-buttons {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             margin-top: 16px;
         }
@@ -322,6 +323,7 @@
             justify-content: center;
             gap: 6px;
             flex: 1;
+            min-width: 120px;
             box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
             transition: all 0.3s ease;
             border: none;
@@ -347,6 +349,7 @@
             justify-content: center;
             gap: 6px;
             flex: 1;
+            min-width: 120px;
             box-shadow: 0 4px 10px rgba(24, 119, 242, 0.3);
             transition: all 0.3s ease;
             border: none;
@@ -365,6 +368,38 @@
             border-radius: 20px;
             font-size: 11px;
             margin-left: 4px;
+        }
+
+        /* Tombol Produk Digital BARU - Warna ungu */
+        .btn-digital {
+            background: linear-gradient(135deg, #9c27b0, #6a1b9a);
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 120px;
+            box-shadow: 0 4px 10px rgba(156, 39, 176, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-digital:hover {
+            background: linear-gradient(135deg, #8e24aa, #4a148c);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+        }
+
+        .btn-digital:active {
+            transform: translateY(0);
         }
 
         /* Promo Slideshow */
@@ -1252,7 +1287,7 @@
                 </div>
             </div>
 
-            <!-- Action Buttons dengan Follow Counter -->
+            <!-- Action Buttons dengan 3 tombol -->
             <div class="action-buttons">
                 <button class="btn-wa" onclick="openWAModal()">
                     <span>📱</span> WhatsApp
@@ -1262,6 +1297,11 @@
                     <span class="follow-count" id="followCount">1.2K</span>
                 </button>
             </div>
+            
+            <!-- Tombol Produk Digital BARU - Posisi di tengah -->
+            <a href="selamat-datang.html" class="btn-digital" onclick="window.open('#', '_blank')">
+                <span>💻</span> Produk Digital
+            </a>
         </div>
 
         <!-- Promo Slideshow -->
