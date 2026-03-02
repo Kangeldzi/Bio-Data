@@ -137,7 +137,74 @@
             border-radius: 4px;
         }
 
-        /* Menu Utama */
+        /* JUDUL BARU "Demo Foto & Video" di atas VIDEO DEMO */
+        .demo-photo-title {
+            text-align: center;
+            font-size: 2rem;
+            margin: 2rem 0 0.5rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #ffe68f, #ffa07a, #b0c4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        .demo-photo-title::after {
+            content: '';
+            display: block;
+            width: 90px;
+            height: 3px;
+            background: linear-gradient(90deg, #f5b342, #708dff, #f5b342);
+            margin: 0.6rem auto 0;
+            border-radius: 4px;
+        }
+
+        /* NAVBAR GRID 2x3 — tombol kecil dengan border, shadow, hover, animasi */
+        .navbar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 480px;
+            margin: 0 auto 2.5rem;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            background: rgba(20, 30, 55, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(130, 180, 255, 0.5);
+            border-radius: 5px;          /* border kecil 5px */
+            padding: 0.7rem 0.5rem;
+            color: #f0f4ff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 6px 14px rgba(0, 30, 70, 0.5);
+            animation: btnGlow 3s infinite alternate;
+        }
+        .nav-btn i {
+            font-size: 1.2rem;
+            min-width: 1.6rem;
+            text-align: center;
+            color: #ffdb8e;
+        }
+        /* efek hover + bayangan */
+        .nav-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: #ffcd7e;
+            background: #1f2f4e;
+            box-shadow: 0 18px 28px -6px #80aaff, 0 0 0 1px #ffdb8e inset;
+        }
+        /* animasi lembut */
+        @keyframes btnGlow {
+            0% { box-shadow: 0 4px 12px rgba(90, 160, 255, 0.3); }
+            100% { box-shadow: 0 8px 22px #3f7eff, 0 0 8px #ffbb4a; }
+        }
+
+        /* Menu Utama (kelas) */
         .menu-buttons {
             display: flex;
             flex-direction: column;
@@ -285,7 +352,6 @@
             margin-bottom: 8px;
         }
 
-        /* Tombol Lihat Detail (Produk) */
         .detail-button-product {
             background: #2d4379;
             border: 1px solid #5f9eff;
@@ -307,7 +373,6 @@
             box-shadow: 0 5px 15px #0055ff80;
         }
 
-        /* Tombol Lihat Demo (Video) */
         .detail-button-video {
             background: #2d4379;
             border: 1px solid #5f9eff;
@@ -610,6 +675,20 @@
         <div class="section-title">Katalog Produk & Kelas AI</div>
         <div class="product-grid" id="productGrid"></div>
 
+        <!-- ******************* PERMINTAAN KHUSUS ******************* -->
+        <!-- Judul "Demo Foto & Video" di atas "VIDEO DEMO" -->
+        <div class="demo-photo-title">Demo Foto & Video</div>
+
+        <!-- Tombol Navbar grid 2x3 (ukuran kecil, border 5px, ikon, efek shadow/hover) -->
+        <div class="navbar-grid">
+            <a href="#" target="_blank" class="nav-btn"><i class="fas fa-file-powerpoint"></i> Video PPT</a>
+            <a href="#" target="_blank" class="nav-btn"><i class="fas fa-cubes"></i> Video Animasi</a>
+            <a href="#" target="_blank" class="nav-btn"><i class="fas fa-robot"></i> Video Karakter</a>
+            <a href="#" target="_blank" class="nav-btn"><i class="fas fa-camera"></i> Generate Foto</a>
+            <a href="#" target="_blank" class="nav-btn"><i class="fas fa-cart-shopping"></i> Toko Online</a>
+            <a href="#" target="_blank" class="nav-btn"><i class="fas fa-globe"></i> Website</a>
+        </div>
+
         <!-- Video Grid dengan 4 video berbeda -->
         <div class="section-title">Video Demo</div>
         <div class="video-grid" id="videoGrid"></div>
@@ -640,7 +719,6 @@
             
             <div class="total-price">Total: <span id="totalPriceModal"></span></div>
             
-            <!-- Tombol Pesan Sekarang di modal - link akan diisi oleh JavaScript -->
             <a href="#" target="_blank" class="send-wa-btn" id="sendWAFromModal" style="text-decoration:none;">📲 Pesan Sekarang</a>
             <button class="close-modal" onclick="closeDetailModal()">Tutup</button>
         </div>
@@ -728,7 +806,6 @@
         });
 
         // ===== VIDEO GRID DENGAN 4 VIDEO BERBEDA =====
-        // Daftar video dengan ID dan URL tonton yang berbeda
         const videos = [
             { 
                 embedId: 'dQw4w9WgXcQ',  // Rick Astley - Never Gonna Give You Up
@@ -777,7 +854,6 @@
             currentProduct = products[index];
             qty = 1;
             updateModalDisplay();
-            // Set link tombol sesuai produk
             modalLink.href = currentProduct.link;
             document.getElementById('modalDetail').style.display = 'flex';
         }
@@ -791,7 +867,6 @@
             document.getElementById('modalDetailCurrent').innerText = currentProduct.current;
             document.getElementById('qtyDisplay').innerText = qty;
 
-            // Hitung total (ambil angka dari current)
             let priceNum = parseInt(currentProduct.current.replace(/[^0-9]/g, '')) || 0;
             if (currentProduct.current.includes('Bervariasi')) priceNum = 150000;
             if (currentProduct.current.includes('Project')) priceNum = 150000;
