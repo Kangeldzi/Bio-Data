@@ -2642,11 +2642,9 @@
             }
         }
 
-        // MUSIC PLAYER FUNCTIONALITY
+        // MUSIC PLAYER FUNCTIONALITY - DIPERBAIKI
         const playlist = [
-            "https://cdn.jsdelivr.net/gh/Kangeldzi/Bio-Data@main/Music/TeslaSmart.mp3",
-            "https://cdn.jsdelivr.net/gh/Kangeldzi/Bio-Data@main/Music/TeslaSmart2.mp3", // Tambahkan lagu lain jika ada
-            "https://cdn.jsdelivr.net/gh/Kangeldzi/Bio-Data@main/Music/TeslaSmart3.mp3"  // Tambahkan lagu lain jika ada
+            "https://cdn.jsdelivr.net/gh/Kangeldzi/Bio-Data@main/Music/TeslaSmart%20(Promosi%20%26%20Iklan)%20Produk%20Digital%20(1).mp3"
         ];
 
         let currentTrack = 0;
@@ -2669,6 +2667,8 @@
             }).catch((error) => {
                 console.log("Autoplay prevented:", error);
                 playBtn.innerHTML = "▶️";
+                // Beberapa browser memblokir autoplay, jadi kita tampilkan pesan
+                alert("Klik tombol play untuk memulai musik");
             });
         });
 
