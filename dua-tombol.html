@@ -89,7 +89,7 @@
             margin: 0 auto;
         }
         
-        /* REVISI: Tombol persegi panjang dengan border radius */
+        /* Tombol persegi panjang dengan border radius */
         .menu-button {
             position: relative;
             width: 100%;
@@ -239,7 +239,7 @@
             }
         }
         
-        /* REVISI: Warna untuk tombol Profil Saya */
+        /* Warna untuk tombol Profil Saya */
         .profile-btn {
             --primary-color: #3498db;
             --primary-glow: rgba(52, 152, 219, 0.6);
@@ -258,7 +258,7 @@
             color: #7f8c8d;
         }
         
-        /* REVISI: Warna untuk tombol Foto Saya */
+        /* Warna untuk tombol Foto Saya */
         .photo-btn {
             --primary-color: #e74c3c;
             --primary-glow: rgba(231, 76, 60, 0.6);
@@ -377,23 +377,27 @@
     <div class="container">
         <div class="title">
             <h1><span class="highlight">Profil</span> Saya</h1>
-            <p>Informasi diri dan foto profil Saya</p>
+            <p>Informasi diri dan foto profil Saya.</p>
         </div>
         
         <!-- Grid 2 tombol horizontal -->
         <div class="menu-grid">
-            <!-- REVISI: Profil Saya -->
-            <a href="https://drive.google.com/drive/folders/1obffcqYNCLqVV9_SkSF4SCxTX5Uslzus" target="_blank" class="menu-button profile-btn">
+            <!-- REVISI: Tombol Profil Saya dengan link Google Drive -->
+            <a href="https://drive.google.com/drive/folders/1obffcqYNCLqVV9_SkSF4SCxTX5Uslzus" 
+               target="_blank" 
+               class="menu-button profile-btn">
                 <i class="icon fas fa-user-circle"></i>
-                <div class="button-text">Profil Saya</div>
-                <div class="sub-text">Lihat Profil Saya</div>
+                <div class="button-text">CV & Profil Saya</div>
+                <div class="sub-text">Lihat & Edit Profil</div>
             </a>
             
-            <!-- REVISI: Tombol Foto Saya -->
-            <a href="galeri-foto.html" target="_blank" class="menu-button photo-btn">
+            <!-- REVISI: Tombol Foto Saya dengan link galeri-foto.html -->
+            <a href="galeri-foto.html" 
+               target="_blank" 
+               class="menu-button photo-btn">
                 <i class="icon fas fa-image"></i>
                 <div class="button-text">Foto Saya</div>
-                <div class="sub-text">Lihat Foto Profil</div>
+                <div class="sub-text">Foto Profil</div>
             </a>
         </div>
         
@@ -585,7 +589,77 @@
                 }
             `;
             document.head.appendChild(lightStyle);
+            
+            // Tambahkan efek notifikasi saat tombol diklik
+            document.querySelectorAll('.menu-button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const link = this.getAttribute('href');
+                    const text = this.querySelector('.button-text').textContent;
+                    
+                    // Tampilkan notifikasi
+                    showNotification(`Membuka ${text}...`);
+                });
+            });
         });
+
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+            // Hapus notifikasi sebelumnya
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) existingNotification.remove();
+
+            // Buat notifikasi
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>${message}</span>
+            `;
+            
+            // Style notifikasi
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(20, 20, 40, 0.9);
+                backdrop-filter: blur(10px);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 12px;
+                z-index: 1000;
+                animation: slideUp 0.3s ease, slideDown 0.3s ease 2.7s;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+                font-weight: 600;
+                border-left: 4px solid #3498db;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                max-width: 350px;
+            `;
+
+            document.body.appendChild(notification);
+
+            // Hapus notifikasi setelah 3 detik
+            setTimeout(() => {
+                if (notification.parentNode) notification.remove();
+            }, 3000);
+        }
+
+        // Tambahkan style untuk animasi notifikasi
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideUp {
+                from { transform: translateX(-50%) translateY(50px); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            
+            @keyframes slideDown {
+                from { transform: translateX(-50%) translateY(0); opacity: 1; }
+                to { transform: translateX(-50%) translateY(50px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
     </script>
 </body>
 </html>
