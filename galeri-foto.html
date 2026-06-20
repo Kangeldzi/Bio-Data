@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Galeri Foto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #00bcd4;
+            --text-color: #333;
+            --text-light: #777;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f7ff;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            width: 100%;
+        }
+
+        /* ========== GALERI STYLES ========== */
+        .gallery-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: 48px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid rgba(26, 35, 126, 0.3);
+        }
+
+        .section-title i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* GRID 3x2 - 3 kolom horizontal, 2 baris vertikal */
+        .grid-3x2 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            width: 100%;
+        }
+
+        .thumbnail-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #ffffffdd;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            animation: borderGlow 3s infinite alternate;
+            animation-play-state: paused;
+        }
+
+        .thumbnail-card:hover {
+            transform: scale(1.03) translateY(-8px);
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.35), 0 0 0 2px var(--secondary-color) inset;
+            animation-play-state: running;
+        }
+
+        .media-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #e0f2fe;
+        }
+
+        .thumb-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease-out, filter 0.4s;
+            will-change: transform;
+        }
+
+        .thumbnail-card:hover .thumb-img {
+            transform: scale(1.12) translateX(4%) translateY(3%);
+            filter: brightness(1.05) contrast(1.08);
+        }
+
+        .card-info {
+            padding: 0.9rem 1rem 1rem;
+            background: linear-gradient(135deg, #f8fafc, #eef2f8);
+            border-top: 1px solid rgba(26, 35, 126, 0.2);
+        }
+
+        .card-info h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            background: var(--secondary-color)20;
+            padding: 3px 10px;
+            border-radius: 40px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .card-info p {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* TOMBOL KEMBALI KE ATAS */
+        .back-to-top {
+            display: inline-block;
+            margin-top: 2rem;
+            text-align: center;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--primary-color), #0a0e2a);
+            border-radius: 60px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-to-top i {
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+
+        .back-to-top:hover {
+            background: linear-gradient(135deg, var(--secondary-color), #0097a7);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+
+        .back-to-top:hover i {
+            transform: translateY(-4px);
+        }
+
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 0 0px var(--secondary-color)40; }
+            100% { box-shadow: 0 0 0 3px var(--secondary-color)80; }
+        }
+
+        .thumbnail-card {
+            animation: borderGlow 3s infinite alternate;
+            animation-play-state: paused;
+        }
+
+        .thumbnail-card:hover {
+            animation-play-state: running;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .grid-3x2 .thumbnail-card {
+            animation: fadeInUp 0.5s ease backwards;
+        }
+
+        .grid-3x2 .thumbnail-card:nth-child(1) { animation-delay: 0.05s; }
+        .grid-3x2 .thumbnail-card:nth-child(2) { animation-delay: 0.1s; }
+        .grid-3x2 .thumbnail-card:nth-child(3) { animation-delay: 0.15s; }
+        .grid-3x2 .thumbnail-card:nth-child(4) { animation-delay: 0.2s; }
+        .grid-3x2 .thumbnail-card:nth-child(5) { animation-delay: 0.25s; }
+        .grid-3x2 .thumbnail-card:nth-child(6) { animation-delay: 0.3s; }
+
+        /* Modal Lightbox untuk Galeri */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; backdrop-filter: blur(0); }
+            to { opacity: 1; backdrop-filter: blur(12px); }
+        }
+
+        .gallery-modal-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            background: transparent;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-media-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #0f2c3c;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 235, 170, 0.6);
+            padding: 20px;
+        }
+
+        .close-gallery-modal {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            color: white;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-gallery-modal:hover {
+            background: #ff4757;
+            transform: scale(1.08);
+            border-color: white;
+        }
+
+        .modal-media {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 70vh;
+            display: block;
+            margin: 0 auto;
+            border-radius: 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-3x2 {
+                gap: 1rem;
+            }
+            
+            .card-info h3 {
+                font-size: 0.85rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.4rem;
+            }
+            
+            .gallery-section {
+                padding: 1.5rem 1rem;
+            }
+            
+            .close-gallery-modal {
+                width: 38px;
+                height: 38px;
+                font-size: 1.5rem;
+                top: 12px;
+                right: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-3x2 {
+                gap: 0.8rem;
+            }
+            
+            .card-info {
+                padding: 0.6rem;
+            }
+            
+            .badge {
+                font-size: 0.55rem;
+            }
+            
+            .back-to-top {
+                font-size: 0.9rem;
+                padding: 10px 16px;
+            }
+            
+            .close-gallery-modal {
+                width: 34px;
+                height: 34px;
+                font-size: 1.3rem;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ========== GALERI FOTO GRID 3x2 ========== -->
+        <div class="gallery-section" id="gallerySection">
+            <div class="section-title">
+                <i class="fas fa-camera-retro"></i>
+                <h2>📸   Galeri Foto</h2>
+            </div>
+            <div class="grid-3x2" id="photoGrid">
+                <!-- Foto 1 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjUFlNUswDJgrsifO9EO4f7ABkoeB9gqwWDUJE3367KMJ-Pf1x2cD6Lk2O507BQziGSyENAK8vbKN54rtDPpFZep9vatbYVEceeK57RnEe7MpY6T0ZAsy1Y9lzhsCxHcTH6KUGOs14kBWK5aiBm-bncDdTXVjyx2r7txS7b4pFaLRS4lvxVIf9G2ojqfh0/s1280/1000852870.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjUFlNUswDJgrsifO9EO4f7ABkoeB9gqwWDUJE3367KMJ-Pf1x2cD6Lk2O507BQziGSyENAK8vbKN54rtDPpFZep9vatbYVEceeK57RnEe7MpY6T0ZAsy1Y9lzhsCxHcTH6KUGOs14kBWK5aiBm-bncDdTXVjyx2r7txS7b4pFaLRS4lvxVIf9G2ojqfh0/s1280/1000852870.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #1</p>
+                    </div>
+                </div>
+                <!-- Foto 2 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDh0fLKXzb4Uj3kU6AgbMAgiKz8omXCJ73jKzl7hAXJ19IxQv2Gn3eBpUdrrF6WkXg5AImCBow8Uwa3irRVV5-zlEwLRF2kotvN7rdoUs5t7AOLXRtq0CCSrdLagJ06V_mLKZ3BgpCxLfVOzQuOhcPyixf_wJt3OLAe2EkvIWqVj_7obDI0C_6RvvzwGw/s1280/1000839041.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDh0fLKXzb4Uj3kU6AgbMAgiKz8omXCJ73jKzl7hAXJ19IxQv2Gn3eBpUdrrF6WkXg5AImCBow8Uwa3irRVV5-zlEwLRF2kotvN7rdoUs5t7AOLXRtq0CCSrdLagJ06V_mLKZ3BgpCxLfVOzQuOhcPyixf_wJt3OLAe2EkvIWqVj_7obDI0C_6RvvzwGw/s1280/1000839041.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #2</p>
+                    </div>
+                </div>
+                <!-- Foto 3 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUqnZ5M-BhW7sifufq3YrgBgevigPLMKZXvCKwPCKsFYxt8pQqg5Jk6i2meW-eYB0o81AL8JoRsgqsv9SIEMzdfxx8fsyonGJFhKm9vbx9MlBXkE-eK4RqqNaUtmCoY1ajRPhKyi2bJxxcfLxlOkYVWeIDDTwJta4fuISwXmVqRkJk_vt4dzN0wCO-7bQ/s1280/1000839044.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgUqnZ5M-BhW7sifufq3YrgBgevigPLMKZXvCKwPCKsFYxt8pQqg5Jk6i2meW-eYB0o81AL8JoRsgqsv9SIEMzdfxx8fsyonGJFhKm9vbx9MlBXkE-eK4RqqNaUtmCoY1ajRPhKyi2bJxxcfLxlOkYVWeIDDTwJta4fuISwXmVqRkJk_vt4dzN0wCO-7bQ/s1280/1000839044.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #3</p>
+                    </div>
+                </div>
+                <!-- Foto 4 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIEmPMAh6knFKU7v3XVisTNZjfm7YnOpjQNboSrLjwEDqo2vUQ93jNGeKyN9XhmM-dOVlAUkPrSVU3iC0JDs-DspeTfSZ1UhtdhwGWyPzhqkLpOEVVezNjzHNA6ViLjbL3QtFroIcO91IDCHHs1YwHWuwwyq8VCzq7slOz-nsh935k2ch36RLHkyz7u1g/s1280/1000839038.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgIEmPMAh6knFKU7v3XVisTNZjfm7YnOpjQNboSrLjwEDqo2vUQ93jNGeKyN9XhmM-dOVlAUkPrSVU3iC0JDs-DspeTfSZ1UhtdhwGWyPzhqkLpOEVVezNjzHNA6ViLjbL3QtFroIcO91IDCHHs1YwHWuwwyq8VCzq7slOz-nsh935k2ch36RLHkyz7u1g/s1280/1000839038.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #4</p>
+                    </div>
+                </div>
+                <!-- Foto 5 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhJu7G5Z3ac2iKjJrfyD60p7LNHI5HY_Q4aJFPtBghOBkrQGCoi3UYLuqnyJ32EXdO4CScZY5c2qigSqZDuB85T03aVu369TuaDDhkeKuy6YykWn9mxt4zf1pr6ECvNyAAMi1cqWQ-MJ4sk8RtnbErYcMdyXQ_s2OR2jc3G5FjQG82-VtBCqg1D1NAsJ3g/s1280/1000839037.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhJu7G5Z3ac2iKjJrfyD60p7LNHI5HY_Q4aJFPtBghOBkrQGCoi3UYLuqnyJ32EXdO4CScZY5c2qigSqZDuB85T03aVu369TuaDDhkeKuy6YykWn9mxt4zf1pr6ECvNyAAMi1cqWQ-MJ4sk8RtnbErYcMdyXQ_s2OR2jc3G5FjQG82-VtBCqg1D1NAsJ3g/s1280/1000839037.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #5</p>
+                    </div>
+                </div>
+                <!-- Foto 6 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQtj-EckbKFixXoGWp8Xj_Wju8Q0zdq5phD7CPPHyVWH50SXcody5JhrRXRISuZg9UaLsUylpifu7I8mETmcCSUKY6UMcGu_VJn8nwqq72SGJrr0ZY0bBaC7VcJgGJTc5UCwFRf5reAhX6rhO8R6J61U99Hp8XrzeKejvgH7-NWMrHPFvxblnZmJZHmD0/s1280/1000839043.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiQtj-EckbKFixXoGWp8Xj_Wju8Q0zdq5phD7CPPHyVWH50SXcody5JhrRXRISuZg9UaLsUylpifu7I8mETmcCSUKY6UMcGu_VJn8nwqq72SGJrr0ZY0bBaC7VcJgGJTc5UCwFRf5reAhX6rhO8R6J61U99Hp8XrzeKejvgH7-NWMrHPFvxblnZmJZHmD0/s1280/1000839043.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #6</p>
+                    </div>
+                </div>
+                <!-- Foto 7 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivoFWoD4YMNpJRv94R2-zNCx1DAwRXrrEgZsvfzQVXEr4VlhkjofXJAsFdng2h9Ysfj5lbFFBciLCw_oDmRVr9I77EzXw2Hwu-duPWqbJ9XmrjWj9UWUCXbKYjxfzuWjHCvA4ZdJtSQ0JaxyaIcjpxuRoEJi33ItKcKAIH5hLsl5Z32Qga5JXKPuXtGyI/s1280/1000852859.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivoFWoD4YMNpJRv94R2-zNCx1DAwRXrrEgZsvfzQVXEr4VlhkjofXJAsFdng2h9Ysfj5lbFFBciLCw_oDmRVr9I77EzXw2Hwu-duPWqbJ9XmrjWj9UWUCXbKYjxfzuWjHCvA4ZdJtSQ0JaxyaIcjpxuRoEJi33ItKcKAIH5hLsl5Z32Qga5JXKPuXtGyI/s1280/1000852859.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #7</p>
+                    </div>
+                </div>
+                <!-- Foto 8 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipXP1nG7JGigFn8F-csbrJdjEEP6c4jOeNPMSJ991do1J1e7EilCv1VlUZ5g-fhj0d1KI2nzacJmaWADvUKf2wNWuvrXm3BrLYIMUaHoI8ZWVAKEAOs8prsmaQwNvn6vhS3cPkdFqZ4iYLev_P7ApbG0NKTCo9eygUvyFFaOpZMkQEYKU1vBGbGr-k98o/s1280/1000851900.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipXP1nG7JGigFn8F-csbrJdjEEP6c4jOeNPMSJ991do1J1e7EilCv1VlUZ5g-fhj0d1KI2nzacJmaWADvUKf2wNWuvrXm3BrLYIMUaHoI8ZWVAKEAOs8prsmaQwNvn6vhS3cPkdFqZ4iYLev_P7ApbG0NKTCo9eygUvyFFaOpZMkQEYKU1vBGbGr-k98o/s320/1000851900.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #8</p>
+                    </div>
+                </div>
+                <!-- Foto 9 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixLtkOEVhlsUttWnbhtlVTYyzkj3LGdOd9utu3ePd5IWFYH3HVYf5Dmaxhyphenhyphen8Lzi7sD5LdbE-cM_GNGZKxe1bhshs3iRRILdl4oS8M67um_ro23nvJRuevcjFq9aNvQpHkA6S8glJpkQOMNJSgG0Tk28-byoPgf3PArSbDxL9Kiq9pIOJArRAPMw2mcRx4/s1280/1000851413.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEixLtkOEVhlsUttWnbhtlVTYyzkj3LGdOd9utu3ePd5IWFYH3HVYf5Dmaxhyphenhyphen8Lzi7sD5LdbE-cM_GNGZKxe1bhshs3iRRILdl4oS8M67um_ro23nvJRuevcjFq9aNvQpHkA6S8glJpkQOMNJSgG0Tk28-byoPgf3PArSbDxL9Kiq9pIOJArRAPMw2mcRx4/s1280/1000851413.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #9</p>
+                    </div>
+                </div>
+                <!-- Foto 10 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHfiIZLmUYRIgXCIov-8iePmsyoC_IzxkuZllFD2msAYGHMVn7_LusaIyI78djv39ZCN2ozfjr4pgOZBUKtie1Tjga52QdDYd5tLzjCLPDjtw8hL187GVSbjLEnP203Sw4TMqcBpwS69KVkQ51qvSAgWThI5tTlgMGU7EW3GhKvxc88yGz6Ditp5hNRyY/s1280/1000852806.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjHfiIZLmUYRIgXCIov-8iePmsyoC_IzxkuZllFD2msAYGHMVn7_LusaIyI78djv39ZCN2ozfjr4pgOZBUKtie1Tjga52QdDYd5tLzjCLPDjtw8hL187GVSbjLEnP203Sw4TMqcBpwS69KVkQ51qvSAgWThI5tTlgMGU7EW3GhKvxc88yGz6Ditp5hNRyY/s1280/1000852806.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #10</p>
+                    </div>
+                </div>
+                <!-- Foto 11 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-xI2fOBTxLLcy-jRirg5EcFDCfm_5Od8cSmxpHp26yEP-4sUieHjdHuD8hyphenhyphenPhcvZadbLtMghG3Y7Jmge2h3BFHlyGtYe3BgSfLI_siGQ8vkgLZX_pOPJv777M5S7U8OBxP2U_Jqq4pkapICqd5phH2G5SnBWGvabwWMF2t6ZUp_NfC3Kgau-VaGhMXSw/s1280/1000850698.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi-xI2fOBTxLLcy-jRirg5EcFDCfm_5Od8cSmxpHp26yEP-4sUieHjdHuD8hyphenhyphenPhcvZadbLtMghG3Y7Jmge2h3BFHlyGtYe3BgSfLI_siGQ8vkgLZX_pOPJv777M5S7U8OBxP2U_Jqq4pkapICqd5phH2G5SnBWGvabwWMF2t6ZUp_NfC3Kgau-VaGhMXSw/s1280/1000850698.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #11</p>
+                    </div>
+                </div>
+                <!-- Foto 12 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-KOPEpr0YdPA8-_-Fs-wYOgTv221cZ4df8wlHYhlG3p6tllKhf7pQDebR6RwYy3tliUc0x9bb6GvNsnH0GAUuYUHHLDYKiajgfB5yHB6Wjlju_oeEi8pKkrFPtlgf_Jbk0p9N00p99Abg4BuaQfCO8kvPayOXDhUwcaBiPT2h0VaNfsLM-tpMSK5aQCU/s1280/1000849834.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-KOPEpr0YdPA8-_-Fs-wYOgTv221cZ4df8wlHYhlG3p6tllKhf7pQDebR6RwYy3tliUc0x9bb6GvNsnH0GAUuYUHHLDYKiajgfB5yHB6Wjlju_oeEi8pKkrFPtlgf_Jbk0p9N00p99Abg4BuaQfCO8kvPayOXDhUwcaBiPT2h0VaNfsLM-tpMSK5aQCU/s1280/1000849834.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #12</p>
+                    </div>
+                </div>
+                    <!-- Foto 13 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiPV_pXCeH4ptHJ_UKdAMApM6eqyOm240Ya24hdbpsfdJGutn4pq7fJXQQsBztGrSPz6C3IFRkB5_-x7rJZBi8RGYF0_gTrStuJuWHpPzBKrNRBiSeTM63qQt3EAiU6ApGeFnybdcUvir7s0Gbo3Y-PCrxWNYg5cdvjESWQXJLgjf1TgRV52uadxq6-Zf8/s1280/1000852869.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiPV_pXCeH4ptHJ_UKdAMApM6eqyOm240Ya24hdbpsfdJGutn4pq7fJXQQsBztGrSPz6C3IFRkB5_-x7rJZBi8RGYF0_gTrStuJuWHpPzBKrNRBiSeTM63qQt3EAiU6ApGeFnybdcUvir7s0Gbo3Y-PCrxWNYg5cdvjESWQXJLgjf1TgRV52uadxq6-Zf8/s1280/1000852869.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #13</p>
+                    </div>
+                </div>
+                <!-- Foto 14 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqQmemgAQoKwprI43eKPIwsrHCkBT8DBoLsgGdZNEPi_whFCzmMX0Wuu4H5P6a3M7B82RmE4JNTySb1PhkK0-aDBFEBZ6RovRjGBmwqaRomSYeECzWnqT1_zbsWWNb_EVrWw34II-XhxpT-hJbzpUTqX_ol3dwjq7VIDd8HgERqBiLr9GWacwQwinB4hc/s1280/1000849833.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqQmemgAQoKwprI43eKPIwsrHCkBT8DBoLsgGdZNEPi_whFCzmMX0Wuu4H5P6a3M7B82RmE4JNTySb1PhkK0-aDBFEBZ6RovRjGBmwqaRomSYeECzWnqT1_zbsWWNb_EVrWw34II-XhxpT-hJbzpUTqX_ol3dwjq7VIDd8HgERqBiLr9GWacwQwinB4hc/s1280/1000849833.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #14</p>
+                    </div>
+                </div>
+                <!-- Foto 15 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggMlXy7pvLjx47Xc9cqGV35cSL3z1Lo5P2pwABmojUw0tPAdRM-F3HQ8fDPVmlbE2h15qlrA0r7denurqAdpI7X7BCwU7IwaK7sBMXg66vsPa-8QFl-2mqY33HlMDrKIutWg5dO0DAdwNyffcLjK9pEg9Bd9Hkaw7HX0X5x2mJiH0Bd0SQbtrZblPtx-s/s1280/1000849832.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEggMlXy7pvLjx47Xc9cqGV35cSL3z1Lo5P2pwABmojUw0tPAdRM-F3HQ8fDPVmlbE2h15qlrA0r7denurqAdpI7X7BCwU7IwaK7sBMXg66vsPa-8QFl-2mqY33HlMDrKIutWg5dO0DAdwNyffcLjK9pEg9Bd9Hkaw7HX0X5x2mJiH0Bd0SQbtrZblPtx-s/s1280/1000849832.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #15</p>
+                    </div>
+                </div>
+                <!-- Foto 16 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFTt0luTb1yQodmhNC2GxxQOWySKHgZoxPHGlKpfYsKVigKDTgYNGl8yrx6KdVVMpb2mefxGoiNUslOHokZNBp2lQ1sJgbhOd6fvTtNGlsmV441hkpqOqusSNXXYXfG7jdXokA21EiM0Od4iPJRqerdf0z1MSs-S-m_O_YNtqSjOyOCNao17Z9fD31W2s/s1280/1000849835.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjFTt0luTb1yQodmhNC2GxxQOWySKHgZoxPHGlKpfYsKVigKDTgYNGl8yrx6KdVVMpb2mefxGoiNUslOHokZNBp2lQ1sJgbhOd6fvTtNGlsmV441hkpqOqusSNXXYXfG7jdXokA21EiM0Od4iPJRqerdf0z1MSs-S-m_O_YNtqSjOyOCNao17Z9fD31W2s/s1280/1000849835.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #16</p>
+                    </div>
+                </div>
+                <!-- Foto 17 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwQvbBuOb4B6n41Q4BendfQAIVaQhflZIYGxJzO3i9ZKOXBK8Grcb1X5M7cQf7FIbGQj3QwYzAZyGue8CC1HJhuuItFQpqoZbf2RoAs3SKts-Nduvgg2xQjlsZ2vrWHppKndNiB_A5FOs5IUOCmokjunah4_dQf5D-M11Bb_tswK1RnQS0boHbwNrrm08/s1280/1000845648.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwQvbBuOb4B6n41Q4BendfQAIVaQhflZIYGxJzO3i9ZKOXBK8Grcb1X5M7cQf7FIbGQj3QwYzAZyGue8CC1HJhuuItFQpqoZbf2RoAs3SKts-Nduvgg2xQjlsZ2vrWHppKndNiB_A5FOs5IUOCmokjunah4_dQf5D-M11Bb_tswK1RnQS0boHbwNrrm08/s1280/1000845648.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #17</p>
+                    </div>
+                </div>
+                <!-- Foto 18 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGZGhoCnPlKkMVnG71hk3X1ij9v0P8FCXgPGDzRLumotMjwTXVFaA2cha33leuaVh4t_ABEz2IltCN4ER2ArxSWHy6NCrvH7CpVCN0A3BBqr0nO_XfuulL6kseUHiXb75KgPzFg1A6CBrFYsvVx0DikB8Vs_IRHSWEdNMTEHxBkC7jTWR6ELobvD1LdSQ/s1280/1000845647.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGZGhoCnPlKkMVnG71hk3X1ij9v0P8FCXgPGDzRLumotMjwTXVFaA2cha33leuaVh4t_ABEz2IltCN4ER2ArxSWHy6NCrvH7CpVCN0A3BBqr0nO_XfuulL6kseUHiXb75KgPzFg1A6CBrFYsvVx0DikB8Vs_IRHSWEdNMTEHxBkC7jTWR6ELobvD1LdSQ/s1280/1000845647.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #18</p>
+                    </div>
+                </div>
+                <!-- Foto 19 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhooOz4AV_7WTJAiFDcf6qgkRuU0O3auxFRuGhEyNeODdsoCtZOBht5pwlMabxN_LgzVYeR2ZakkS6M9JLr4NSIx0kKSbXLRvGKh76j-RcxTCiY71_C6jZJqKyARQr2_dp8LNiarVaxLtQv1Egmd3Be035KZO1cmBdnM075rxsr-y4tdbNRAM7onA1B1Jk/s1280/1000845646.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhooOz4AV_7WTJAiFDcf6qgkRuU0O3auxFRuGhEyNeODdsoCtZOBht5pwlMabxN_LgzVYeR2ZakkS6M9JLr4NSIx0kKSbXLRvGKh76j-RcxTCiY71_C6jZJqKyARQr2_dp8LNiarVaxLtQv1Egmd3Be035KZO1cmBdnM075rxsr-y4tdbNRAM7onA1B1Jk/s1280/1000845646.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #19</p>
+                    </div>
+                </div>
+                <!-- Foto 20 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmH8fxwaIUaiSEmOpzU191XZGJSdLFg7ZHHO5BaUToy0tcoO0PGO2gOLVFeXJSQx6DjOiIhRmNfn-fs9omkuMIRLpJVRxQcSHlVtxMGzh0WDdQYWLaHnzrC7Wtf5atmMDCHAPI-ghkimjgY-wrKPox-Piq6E56ro5_LUQx8rceN8r2TlNC-Ji9aHNK_XY/s1280/1000845645.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmH8fxwaIUaiSEmOpzU191XZGJSdLFg7ZHHO5BaUToy0tcoO0PGO2gOLVFeXJSQx6DjOiIhRmNfn-fs9omkuMIRLpJVRxQcSHlVtxMGzh0WDdQYWLaHnzrC7Wtf5atmMDCHAPI-ghkimjgY-wrKPox-Piq6E56ro5_LUQx8rceN8r2TlNC-Ji9aHNK_XY/s1280/1000845645.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #20</p>
+                    </div>
+                </div>
+                <!-- Foto 21 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivs3LrZYfYQjXjnyUshNYIzZkB24qlQk8DgLjWOZ-bTzWRBbIkYA1hzh0kzGI3aoWbOeLCQM4BVFLrvEse5H4jF6xiFLz5FyDKD-CsKr4DYyf7dIUvVe8LkP1rT6wd7L5vkp9p-pREkDhqIUJVdPZNvjex212wQU0LX5o0w_QRvLFjwc9dQtoTX_RfPTk/s1280/1000845644.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivs3LrZYfYQjXjnyUshNYIzZkB24qlQk8DgLjWOZ-bTzWRBbIkYA1hzh0kzGI3aoWbOeLCQM4BVFLrvEse5H4jF6xiFLz5FyDKD-CsKr4DYyf7dIUvVe8LkP1rT6wd7L5vkp9p-pREkDhqIUJVdPZNvjex212wQU0LX5o0w_QRvLFjwc9dQtoTX_RfPTk/s1280/1000845644.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #21</p>
+                    </div>
+                </div>
+                <!-- Foto 22 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjezpzZpxBVyk3gSuqsdt1TJyU43B4vT6hzBojMU6fr7gN_B4G96-aiAvACttmuZCFw5J4tpmfTASL56SU_nUHQzvg0r5cfkfk0KyXxhvhBSDcxZuSrJnfwstQ2Th16JD4SwuO1hha1rkAMAkUIyijn7T0_pE4HaVjJNJArFReh4aYBh6_gktw_isbNAM/s1280/1000845643.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhjezpzZpxBVyk3gSuqsdt1TJyU43B4vT6hzBojMU6fr7gN_B4G96-aiAvACttmuZCFw5J4tpmfTASL56SU_nUHQzvg0r5cfkfk0KyXxhvhBSDcxZuSrJnfwstQ2Th16JD4SwuO1hha1rkAMAkUIyijn7T0_pE4HaVjJNJArFReh4aYBh6_gktw_isbNAM/s1280/1000845643.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #22</p>
+                    </div>
+                </div>
+                <!-- Foto 23 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigiClieYgXiBGQnBjs-BoKD9weIfLC2BlpXrvI7matU771dS3fCATHS_s1GjO0Cx4Y20EOp0ly2n9F9Ehb_-PiPI6RTTg-XDdRe5oXp6sJ0yrsNpM4Winu7d45-bCaKmb_ZsoqgdKv21vwggnvhgbKF4KzDBSOSpwobgfK2GR0OVrXNoVfOgeyyo1rh8U/s1280/1000842125.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigiClieYgXiBGQnBjs-BoKD9weIfLC2BlpXrvI7matU771dS3fCATHS_s1GjO0Cx4Y20EOp0ly2n9F9Ehb_-PiPI6RTTg-XDdRe5oXp6sJ0yrsNpM4Winu7d45-bCaKmb_ZsoqgdKv21vwggnvhgbKF4KzDBSOSpwobgfK2GR0OVrXNoVfOgeyyo1rh8U/s1280/1000842125.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #23</p>
+                    </div>
+                </div>
+                <!-- Foto 24 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEidcwhn2XyMRSyufhGI39wQGaI0kQWU7-1LWEhf8e5Kf53g0ujLGSegDwTNFkoalbuqKPWTfNXUqwzowDT9RosOCbx4uUl61NndN39Yi5X-Qnm1gZS6ZR9sxldlQcOIQVpPuNl8ZfeLBJJr7La135UJE__cJuXqT0m2Me4WWBXI2-JIfGjUxoMVH1lGQbk/s1280/1000841997.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEidcwhn2XyMRSyufhGI39wQGaI0kQWU7-1LWEhf8e5Kf53g0ujLGSegDwTNFkoalbuqKPWTfNXUqwzowDT9RosOCbx4uUl61NndN39Yi5X-Qnm1gZS6ZR9sxldlQcOIQVpPuNl8ZfeLBJJr7La135UJE__cJuXqT0m2Me4WWBXI2-JIfGjUxoMVH1lGQbk/s1280/1000841997.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #24</p>
+                    </div>
+                </div>
+                <!-- Foto 25 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-HWDgaUgvkfl7leVMPzjCAObGaySnUFHIj4FMRB91E32PmQZaF6ySYfQjypqCYbn1W9A19Y8aZYwRhOoDKcxM1STj1jary4Z16M8pODg3RC0IYyFhOinyEU5gTt3kDKVitQb5Z7qmoC5DI_NLTUPp_LYOGT8OS6amxTviUHS5D5ibE0p8sVjyIO4ERNg/s1280/1000840344.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-HWDgaUgvkfl7leVMPzjCAObGaySnUFHIj4FMRB91E32PmQZaF6ySYfQjypqCYbn1W9A19Y8aZYwRhOoDKcxM1STj1jary4Z16M8pODg3RC0IYyFhOinyEU5gTt3kDKVitQb5Z7qmoC5DI_NLTUPp_LYOGT8OS6amxTviUHS5D5ibE0p8sVjyIO4ERNg/s1280/1000840344.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #25</p>
+                    </div>
+                </div>
+                <!-- Foto 26 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrOnJ7AUWFchW3cXfiba4VJJY3XVU6CEwkfSiZe7EfUz1w88JJuTo3qFeAqoA9lCUVg0VepAiKwaJ0W_QcpSyPOl17BjmvhPqcFY1XhKBMmcocz4d6HY_2vy_c7CXe19FeTAum8ENZNmSKWR25rrEe_6s597PL3IHNtYJD4tT5XPeX54l0dGjRm7rsGNw/s1280/1000840343.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrOnJ7AUWFchW3cXfiba4VJJY3XVU6CEwkfSiZe7EfUz1w88JJuTo3qFeAqoA9lCUVg0VepAiKwaJ0W_QcpSyPOl17BjmvhPqcFY1XhKBMmcocz4d6HY_2vy_c7CXe19FeTAum8ENZNmSKWR25rrEe_6s597PL3IHNtYJD4tT5XPeX54l0dGjRm7rsGNw/s1280/1000840343.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #26</p>
+                    </div>
+                </div>
+                <!-- Foto 27 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpVIejtfjYnPdD1YsFhfWrOT-111mRtsRxFk2xG6qqx1GtwarNYwlUE92AANeBoIi72QKyGCZ8-jQcBUPg7aVzvSifEMUd9MkSq15kvUcXSn8mOFGiu2nIUTwUkpqbbneyq68lQIFqTPLjPZQZuHKoFwiv8MnmeLm-RboVOmfcb4V4mSDDg8ZLDKTV6wk/s1280/1000840342.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpVIejtfjYnPdD1YsFhfWrOT-111mRtsRxFk2xG6qqx1GtwarNYwlUE92AANeBoIi72QKyGCZ8-jQcBUPg7aVzvSifEMUd9MkSq15kvUcXSn8mOFGiu2nIUTwUkpqbbneyq68lQIFqTPLjPZQZuHKoFwiv8MnmeLm-RboVOmfcb4V4mSDDg8ZLDKTV6wk/s1280/1000840342.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #27</p>
+                    </div>
+                </div>
+                <!-- Foto 28 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJe2GluQaWETCHONArni_wk692tZ18cG0ErJiHvkMdDVGlkaI_xkeF2XDVm1J9DcJw98l0sRuukYFNMlUUNQuQWKSyPN7bxmFKVE374NWs7Zg-cCd8F8dkoKSB2D7_IdiQPj_Rw4DdrLzVH3JYqE_bONzvOwzPngvEYoYzNLIp4O7jAw3tQq4d6qMhqeQ/s1280/1000840341.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJe2GluQaWETCHONArni_wk692tZ18cG0ErJiHvkMdDVGlkaI_xkeF2XDVm1J9DcJw98l0sRuukYFNMlUUNQuQWKSyPN7bxmFKVE374NWs7Zg-cCd8F8dkoKSB2D7_IdiQPj_Rw4DdrLzVH3JYqE_bONzvOwzPngvEYoYzNLIp4O7jAw3tQq4d6qMhqeQ/s1280/1000840341.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #28</p>
+                    </div>
+                </div>
+                <!-- Foto 29 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxOt0iqIsdfyh_vCzDtd44DwfeWwvfe_FiFC2gpIFzAwhN3ONZIK1Iep8TXFBOsYn3jpumwvDKsaJJ7Dc6BSdthrQTjngLV64Y7WXAYDEcKwNcchyphenhyphenl2dGk2bCoi_PY-BwyEa1BBWNiGQwjNnsVYpNwFRQeML1yOHHJDJ1nvjI4qVXD4IcTWOYkdLdADco/s1280/1000839672.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxOt0iqIsdfyh_vCzDtd44DwfeWwvfe_FiFC2gpIFzAwhN3ONZIK1Iep8TXFBOsYn3jpumwvDKsaJJ7Dc6BSdthrQTjngLV64Y7WXAYDEcKwNcchyphenhyphenl2dGk2bCoi_PY-BwyEa1BBWNiGQwjNnsVYpNwFRQeML1yOHHJDJ1nvjI4qVXD4IcTWOYkdLdADco/s1280/1000839672.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #29</p>
+                    </div>
+                </div>
+                <!-- Foto 30 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_57Hnt-Y2YEpr8lVwLgmAahbmexcgpYPAGZDNfIP9sKgld84lKNSkZh9uZgsQjYEshova7TVRfLYbCpv5_RGoS54SrhnQrmqxeJjzEp-gqllzSGlmlMHic0-r9D3pTX0mhZ8z2yD0yc3TJkhw086ESqEKJhN44ybigk5X9EReA6EJnhLRU1OxTNsX2Xc/s1280/1000840340.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_57Hnt-Y2YEpr8lVwLgmAahbmexcgpYPAGZDNfIP9sKgld84lKNSkZh9uZgsQjYEshova7TVRfLYbCpv5_RGoS54SrhnQrmqxeJjzEp-gqllzSGlmlMHic0-r9D3pTX0mhZ8z2yD0yc3TJkhw086ESqEKJhN44ybigk5X9EReA6EJnhLRU1OxTNsX2Xc/s1280/1000840340.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #30</p>
+                    </div>
+                </div>
+                <!-- Foto 31 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT6p7ynUFx8RS3dMtEU1OTpz6j463NJB9T1v-KCXvypfc_9_dbYhyphenhyphen82K7Qyb2E6Jj7yZSZ63yQ7KjJCZYGANhi39jr8oUh5SNxVn_O7xQtRfEi2JpY6SNcv8lbtWj_UtDl8hjj7-cIsyYfOZU8QiRPXYSyo2fWUYUtUD1Y-PWu70tr3nPsH769nOZt_do/s1280/1000839169.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgT6p7ynUFx8RS3dMtEU1OTpz6j463NJB9T1v-KCXvypfc_9_dbYhyphenhyphen82K7Qyb2E6Jj7yZSZ63yQ7KjJCZYGANhi39jr8oUh5SNxVn_O7xQtRfEi2JpY6SNcv8lbtWj_UtDl8hjj7-cIsyYfOZU8QiRPXYSyo2fWUYUtUD1Y-PWu70tr3nPsH769nOZt_do/s1280/1000839169.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #31</p>
+                    </div>
+                </div>
+                <!-- Foto 32 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilA2WAuyvD0Kh-YB85YDvBw42mPIPar5uS-8nUj6P4F1oqCgQ5tBtkzIRF-5oYetudstAw1o7frDxBiDNdes73m0EyvXuE2842oIPBkitlJoCTBWbh-MLoOqGQj1o6AuojwCRtn0nZzNKsl_fPSViJSAxos7K7GZ1F-fP3foXVA7QNB_LKt4wYWuWV6O4/s1280/1000839167.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEilA2WAuyvD0Kh-YB85YDvBw42mPIPar5uS-8nUj6P4F1oqCgQ5tBtkzIRF-5oYetudstAw1o7frDxBiDNdes73m0EyvXuE2842oIPBkitlJoCTBWbh-MLoOqGQj1o6AuojwCRtn0nZzNKsl_fPSViJSAxos7K7GZ1F-fP3foXVA7QNB_LKt4wYWuWV6O4/s1280/1000839167.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #32</p>
+                    </div>
+                </div>
+                <!-- Foto 33 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwrm78SBLipnh-Njf_42L7d_DE1IHHXJ4KoFt3NFCotSV82CmUm0_NL0lMnm0Db7l78_LFzqcy2Ajwx9qmx0tCl8s7XaqXUBXaqRSxefuZGc2DKLDQhxBMml2K2II01fkEVmeMvrRAfBEqwirdwXZj76o2Ep1ACMMFzCfbs2vZZjhihHGmmAxQUyOpHKs/s1280/1000839165.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwrm78SBLipnh-Njf_42L7d_DE1IHHXJ4KoFt3NFCotSV82CmUm0_NL0lMnm0Db7l78_LFzqcy2Ajwx9qmx0tCl8s7XaqXUBXaqRSxefuZGc2DKLDQhxBMml2K2II01fkEVmeMvrRAfBEqwirdwXZj76o2Ep1ACMMFzCfbs2vZZjhihHGmmAxQUyOpHKs/s1280/1000839165.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #33</p>
+                    </div>
+                </div>
+                <!-- Foto 34 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiy09WKUeMoBtpEgRb1CHJcqTlCLQRttFx52vE8vUcDEKBALuaTXqMBdMmZ7P2AYb5dlDNIso5pbLfyWWCrLQofoCy2HcNiFKN8AyHmBgkyac0cMltnvrEYM5fvEryz8-MAiBItQ8QF8x3e8IhiJsXNgE2E3SReajxlcLCgmEBcHD-gqoyqafMSMVq2nj4/s1280/1000839166.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiy09WKUeMoBtpEgRb1CHJcqTlCLQRttFx52vE8vUcDEKBALuaTXqMBdMmZ7P2AYb5dlDNIso5pbLfyWWCrLQofoCy2HcNiFKN8AyHmBgkyac0cMltnvrEYM5fvEryz8-MAiBItQ8QF8x3e8IhiJsXNgE2E3SReajxlcLCgmEBcHD-gqoyqafMSMVq2nj4/s1280/1000839166.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #34</p>
+                    </div>
+                </div>
+                <!-- Foto 35 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEglLHsOGnyXyfkfKx8AwQZWIoYPoblQfm09rBj8SDZvzgsujSTG7CQoSxRaASsL0ru-9_vz1EFk7gNN44SD2ULxVfWT8v9jfNVxHoH7i-rXCnb9MqAZKdo4wh_TBJPbdWynfNIbli_Mhq3JqSgGb6w-TERBIBfw8nCgu3L1qmG2XaoXakeHwPTGBhpyuUg/s1280/1000839164.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEglLHsOGnyXyfkfKx8AwQZWIoYPoblQfm09rBj8SDZvzgsujSTG7CQoSxRaASsL0ru-9_vz1EFk7gNN44SD2ULxVfWT8v9jfNVxHoH7i-rXCnb9MqAZKdo4wh_TBJPbdWynfNIbli_Mhq3JqSgGb6w-TERBIBfw8nCgu3L1qmG2XaoXakeHwPTGBhpyuUg/s1280/1000839164.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #35</p>
+                    </div>
+                </div>
+                <!-- Foto 36 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGCxMOjwpnEybwdXdxDzVF4fEOr_KPcVn8jeCnQtXB05Y_RlLs5PADJ9MEk6tfAxYyBGXjDjoXRxSGdgo76-hK3KV4avFFu2F2BzgNqFgtaCG9thaqpITd7Sqz4lPxmxWs7g9f4q3362I_eDu0SnFkmFCQwYQXcyJJL3UR-eZGAGI5rbfPmrAdO6oC-e8/s1280/1000839161.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGCxMOjwpnEybwdXdxDzVF4fEOr_KPcVn8jeCnQtXB05Y_RlLs5PADJ9MEk6tfAxYyBGXjDjoXRxSGdgo76-hK3KV4avFFu2F2BzgNqFgtaCG9thaqpITd7Sqz4lPxmxWs7g9f4q3362I_eDu0SnFkmFCQwYQXcyJJL3UR-eZGAGI5rbfPmrAdO6oC-e8/s1280/1000839161.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #36</p>
+                    </div>
+                </div>
+                <!-- Foto 37 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnmzA21GNbfwytWnBMHfNoduPPuyZEAIkoRGV26TcudkS3fBQTGanM8PcIg0NmptiVhy1NapgozvHg2AwFjdPgxxF_dcA2dTltuiKmd_p-fYV41_CgsLgsuLpm2CrumKbqCposOo2CVpNDl6xhJNvlqWWF8Ldao8Tf2yhFE0gwD3LXz26HPR_tIK4lVWE/s1280/1000839160.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhnmzA21GNbfwytWnBMHfNoduPPuyZEAIkoRGV26TcudkS3fBQTGanM8PcIg0NmptiVhy1NapgozvHg2AwFjdPgxxF_dcA2dTltuiKmd_p-fYV41_CgsLgsuLpm2CrumKbqCposOo2CVpNDl6xhJNvlqWWF8Ldao8Tf2yhFE0gwD3LXz26HPR_tIK4lVWE/s1280/1000839160.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #37</p>
+                    </div>
+                </div>
+                <!-- Foto 38 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0TNcPfSs8mZwiqeBAxyBCxfpmm-RXCNYcTP6Y4t0XscexVgguy7IxrpletHKxlR-egPFlXYwNnl7RM4bHVkwSvVgSI838BGbgCrwMinrHXYmASZRncBPjVWzGABVXfs3lRFFSc3GzM1QMSNL1xDZiZ5VrazDN73sbNv8NPMJfrsJzK2pd7m91U_tN658/s1280/1000839159.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0TNcPfSs8mZwiqeBAxyBCxfpmm-RXCNYcTP6Y4t0XscexVgguy7IxrpletHKxlR-egPFlXYwNnl7RM4bHVkwSvVgSI838BGbgCrwMinrHXYmASZRncBPjVWzGABVXfs3lRFFSc3GzM1QMSNL1xDZiZ5VrazDN73sbNv8NPMJfrsJzK2pd7m91U_tN658/s1280/1000839159.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #38</p>
+                    </div>
+                </div>
+                <!-- Foto 39 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0QHjsfnInAKEb8dSvcBrFJnRf0Kg_zCJgivSETFwyrGTiOBDw5rTOGEmTR2JVNxwLkOyp-EoLzDUE4r1L30rFli761A8sn9QUE0wkOFnqBKdoQalajwDoy8zbZN97gysglW_XDZD_EXxoxyCEI5KT-AqAOrvgknmy6ybAY77s8Osx9yxX94kW6TkMOCk/s1280/1000839158.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0QHjsfnInAKEb8dSvcBrFJnRf0Kg_zCJgivSETFwyrGTiOBDw5rTOGEmTR2JVNxwLkOyp-EoLzDUE4r1L30rFli761A8sn9QUE0wkOFnqBKdoQalajwDoy8zbZN97gysglW_XDZD_EXxoxyCEI5KT-AqAOrvgknmy6ybAY77s8Osx9yxX94kW6TkMOCk/s1280/1000839158.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #39</p>
+                    </div>
+                </div>
+                <!-- Foto 40 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEim1b0Epr5m5-Z2xOIhyphenhyphenqKeJ4maZm4zJMsL1VsgbtexXirVFKTvlA0b846D5bP5Ya-UWBBoTT_yo5AjwmvapzMW-m0DM23zNuynvTTlZCG87QHWwwwRtvInZhH7Oq2HxBsA1gyMHTBRFx9gFWpthyJbwSoQEL5ri5cCooUzaxq5hH90u1aqtPDh6mHYwpc/s1280/1000839155.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEim1b0Epr5m5-Z2xOIhyphenhyphenqKeJ4maZm4zJMsL1VsgbtexXirVFKTvlA0b846D5bP5Ya-UWBBoTT_yo5AjwmvapzMW-m0DM23zNuynvTTlZCG87QHWwwwRtvInZhH7Oq2HxBsA1gyMHTBRFx9gFWpthyJbwSoQEL5ri5cCooUzaxq5hH90u1aqtPDh6mHYwpc/s1280/1000839155.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #40</p>
+                    </div>
+                </div>
+                <!-- Foto 41 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfArJsls-cKwCENdMRbSQ1G2oYm7WWqna4Qj32xhvews9jxwCxol1vcxZlnsvNeZ9-EfioOdBzkHOAPwTqoXy3xyYfs2AkjjauD07xgtGN6DHobn4b2VLjkBlzlo5qCNN2G5WZU4JQr2DX_8U5y2xfxS8K6J6ic0GJqFAXbCgwCuCbJW52Gh-QPY7P2mU/s1280/1000839151.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfArJsls-cKwCENdMRbSQ1G2oYm7WWqna4Qj32xhvews9jxwCxol1vcxZlnsvNeZ9-EfioOdBzkHOAPwTqoXy3xyYfs2AkjjauD07xgtGN6DHobn4b2VLjkBlzlo5qCNN2G5WZU4JQr2DX_8U5y2xfxS8K6J6ic0GJqFAXbCgwCuCbJW52Gh-QPY7P2mU/s1280/1000839151.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #41</p>
+                    </div>
+                </div>
+                <!-- Foto 42 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipTR56oiQ9X1faPlRWC17fGO_5_-0ijGV9sVvi-6VhFYNb-rOjW3aCcRIRJS6IAorrmnuMfCJ8wMv-6qTqMzRCB2ykwH9NFA1DacJIxmGxE_77Sij_T94BQc30pehacIRQ1EyEh4kk62eVSgkvyIQxFBV369mjZnLm_HVNJmWi7NaKTG7udHE2naK6EV8/s1280/1000839147.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEipTR56oiQ9X1faPlRWC17fGO_5_-0ijGV9sVvi-6VhFYNb-rOjW3aCcRIRJS6IAorrmnuMfCJ8wMv-6qTqMzRCB2ykwH9NFA1DacJIxmGxE_77Sij_T94BQc30pehacIRQ1EyEh4kk62eVSgkvyIQxFBV369mjZnLm_HVNJmWi7NaKTG7udHE2naK6EV8/s1280/1000839147.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #42</p>
+                    </div>
+                </div>
+               <!-- Foto 43 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhFZBr7IHJCW_s51eqUYhPOpx9Fa7E2ZxE6yPEyhwaBltK-uzuALSxkKj_CflPkPw18IKjfFBQGS0RxRunfwsbtWdoLDu7275mTXXL5FLxGoIa84cBE5sTx44tRGq2rKQQ9gNk9ul2OYBtxOLf4-txaoHn-M_ppsIJTDyIdAAQLxtpHrHvaYQdMUp4wf0I/s1280/1000839148.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhFZBr7IHJCW_s51eqUYhPOpx9Fa7E2ZxE6yPEyhwaBltK-uzuALSxkKj_CflPkPw18IKjfFBQGS0RxRunfwsbtWdoLDu7275mTXXL5FLxGoIa84cBE5sTx44tRGq2rKQQ9gNk9ul2OYBtxOLf4-txaoHn-M_ppsIJTDyIdAAQLxtpHrHvaYQdMUp4wf0I/s1280/1000839148.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #43</p>
+                    </div>
+                </div>
+                <!-- Foto 44 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkNfk1m15U09ufgqyyW5uORUyxRvIkuXKj8tiU87rDRF4-3pCxqDA2VoB3J7K8-qBWz3X0sFvpvZ5syjdznkDjkyWe2v2yheFA1kJsgnHMufQqx40tjKn9vAsbvg8aibbOEH_XiIYcUcFUsAag6EmPXqS2vSdbK9aUQ6cP5_Ve_rKS8rsEcDv7um-up_w/s1280/1000839146.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkNfk1m15U09ufgqyyW5uORUyxRvIkuXKj8tiU87rDRF4-3pCxqDA2VoB3J7K8-qBWz3X0sFvpvZ5syjdznkDjkyWe2v2yheFA1kJsgnHMufQqx40tjKn9vAsbvg8aibbOEH_XiIYcUcFUsAag6EmPXqS2vSdbK9aUQ6cP5_Ve_rKS8rsEcDv7um-up_w/s1280/1000839146.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #44</p>
+                    </div>
+                </div>
+                <!-- Foto 45 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiM8qQhr_To2J9ba8sUx47LihtQEIrjKeZ4UghMkZ91DknKkMkbE4h7tlBkc3VVQ6kcquFe7mPsUexeYmv_Ltr8T7X2TGgeLF19i8hMwAQhYiQQp1KT4pO3_T0dhs9C7FjTcm0A7Jt9ZhNyKICV5q4O-YWNlaD1jeqXgAH8HENqz1WstdXyr_z-bmBKmes/s1280/1000839145.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiM8qQhr_To2J9ba8sUx47LihtQEIrjKeZ4UghMkZ91DknKkMkbE4h7tlBkc3VVQ6kcquFe7mPsUexeYmv_Ltr8T7X2TGgeLF19i8hMwAQhYiQQp1KT4pO3_T0dhs9C7FjTcm0A7Jt9ZhNyKICV5q4O-YWNlaD1jeqXgAH8HENqz1WstdXyr_z-bmBKmes/s1280/1000839145.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #45</p>
+                    </div>
+                </div>
+                <!-- Foto 46 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiOahLcrO8P_Xj6CRfCsrzYxITTgNLHYrC1Jgo_Jj715BVynIInB6yyaUnfgi8T8mQpFIvCgRcuHbQ2sLODfVzDce2g6uDd5GofBetr9Hd3zAPSSTFaczHLKA2lABskXrhLXbLqKkVXnJ5ecbaZwxx0ZeELUQFLew8V1TgfVE-c-ysif08PuQppemO7cnQ/s1280/1000839144.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiOahLcrO8P_Xj6CRfCsrzYxITTgNLHYrC1Jgo_Jj715BVynIInB6yyaUnfgi8T8mQpFIvCgRcuHbQ2sLODfVzDce2g6uDd5GofBetr9Hd3zAPSSTFaczHLKA2lABskXrhLXbLqKkVXnJ5ecbaZwxx0ZeELUQFLew8V1TgfVE-c-ysif08PuQppemO7cnQ/s1280/1000839144.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #46</p>
+                    </div>
+                </div>
+                <!-- Foto 47 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwys4gkCKVR-BLVENxv2PiJFjP74Bx2_Z57_iCvRfIOkEgJlJkiB2jL625DzeuiKMUU7TMJCCt5gJJ8nGpdX2BRP8hhp-X32c6eRBR5tF7LJQ3O1uSzZ7jLNzAorLQX-RmSrpFSqgO1pruA1I-NZtR6UzHLS_U3Xr3HByuKjlq2oagwNCkCbZWHnKrvMA/s1280/1000839143.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiwys4gkCKVR-BLVENxv2PiJFjP74Bx2_Z57_iCvRfIOkEgJlJkiB2jL625DzeuiKMUU7TMJCCt5gJJ8nGpdX2BRP8hhp-X32c6eRBR5tF7LJQ3O1uSzZ7jLNzAorLQX-RmSrpFSqgO1pruA1I-NZtR6UzHLS_U3Xr3HByuKjlq2oagwNCkCbZWHnKrvMA/s1280/1000839143.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #47</p>
+                    </div>
+                </div>
+                <!-- Foto 48 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwUpDwlERQYFYwVX3QDCRaEiAxW3VNAgKxS9wLpg5BT5OEHb2e1Hx_WNjcXELQ7XnWDsSBZSKbbDS-pHICpu0us_eKGYebFzKuWOOF2WoZsgHyIN6TMXzf-iTK8UwKU5FsqFsfFkCmy9Dx4tzCYdrynsDYh2ipk_erZIzS1ya7u4MOWFLG5AuSuPL733M/s1280/1000839142.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwUpDwlERQYFYwVX3QDCRaEiAxW3VNAgKxS9wLpg5BT5OEHb2e1Hx_WNjcXELQ7XnWDsSBZSKbbDS-pHICpu0us_eKGYebFzKuWOOF2WoZsgHyIN6TMXzf-iTK8UwKU5FsqFsfFkCmy9Dx4tzCYdrynsDYh2ipk_erZIzS1ya7u4MOWFLG5AuSuPL733M/s1280/1000839142.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #48</p>
+                    </div>
+                </div> 
+                <!-- Foto 49 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy65UqAxWJRttd3cXl0loWzU9ClbNQXjDPUHfkESwNV9iY9U6Se4C9djDB6iYG_WTp2bIw97_MkVuiJlD90LjTAEhY_RtWqKJt34Usdspq8HnuBmVtuXp1PcLLOrkkrkZn0CRVXJH4WEC5kzuBoPCjdVulYHuKFIAu4_9lmA0iDxKp4zQv6jg_Lahn5uM/s1280/1000839141.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhy65UqAxWJRttd3cXl0loWzU9ClbNQXjDPUHfkESwNV9iY9U6Se4C9djDB6iYG_WTp2bIw97_MkVuiJlD90LjTAEhY_RtWqKJt34Usdspq8HnuBmVtuXp1PcLLOrkkrkZn0CRVXJH4WEC5kzuBoPCjdVulYHuKFIAu4_9lmA0iDxKp4zQv6jg_Lahn5uM/s1280/1000839141.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #49</p>
+                    </div>
+                </div>
+                <!-- Foto 50 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiM63PEuErfpk5rTeymK5rK8gWbxnue4nJYA39FtZvjHqSLY7LJpKST7mw4XSnrdLcG7B25mjRleDI-juPooVQ879LSnTYG421ydx8yrGoYO_NPu7unwimkg11HWXsZb9VVU8k9M5lgaewkMs4JSIzDkQjet6EKYgu3DdFgXD-of1KXatrOCKEC8gXDnv0/s1280/1000839140.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiM63PEuErfpk5rTeymK5rK8gWbxnue4nJYA39FtZvjHqSLY7LJpKST7mw4XSnrdLcG7B25mjRleDI-juPooVQ879LSnTYG421ydx8yrGoYO_NPu7unwimkg11HWXsZb9VVU8k9M5lgaewkMs4JSIzDkQjet6EKYgu3DdFgXD-of1KXatrOCKEC8gXDnv0/s1280/1000839140.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #50</p>
+                    </div>
+                </div>
+                <!-- Foto 51 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhs9QqRmtoHx8x_vlk7dDrKjdU6-Ty6EKSyLmuqLNzFQq67kGVlQUSBgB5Of3wN_skWAeanR0UJ-ofIoe0OUU1CQtVZitP7Y9t0SpcH_9Ge9vvigRqEyWo8iTf5tqr7Du73liCZJDGlayyrrcDE_YGQa8W3j60TGxK9SjhuFdqQMKXufG4lyV9qaYCZkY/s1280/1000839139.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhhs9QqRmtoHx8x_vlk7dDrKjdU6-Ty6EKSyLmuqLNzFQq67kGVlQUSBgB5Of3wN_skWAeanR0UJ-ofIoe0OUU1CQtVZitP7Y9t0SpcH_9Ge9vvigRqEyWo8iTf5tqr7Du73liCZJDGlayyrrcDE_YGQa8W3j60TGxK9SjhuFdqQMKXufG4lyV9qaYCZkY/s1280/1000839139.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #51</p>
+                    </div>
+                </div>
+                <!-- Foto 52 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXXraoXOCEbOOluugZ5YQuAYVegNRQEN2dU3Jsocu9r18RihW0afsWurmzpLnlDhRtISdtlsWbVVgPrC8TJRNerf9ZipxNjKon2ipl3taqFT4UOYXtIMhjGR0JEJ44p6t9FavE1L8R10IpjE5EYIh2zHIfV8a02OjPY5LenRvFSE_9_tJkd06uxr-bJgc/s1280/1000839138.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXXraoXOCEbOOluugZ5YQuAYVegNRQEN2dU3Jsocu9r18RihW0afsWurmzpLnlDhRtISdtlsWbVVgPrC8TJRNerf9ZipxNjKon2ipl3taqFT4UOYXtIMhjGR0JEJ44p6t9FavE1L8R10IpjE5EYIh2zHIfV8a02OjPY5LenRvFSE_9_tJkd06uxr-bJgc/s1280/1000839138.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #52</p>
+                    </div>
+                </div>
+                <!-- Foto 53 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkRRvN501xHk0SY_zBMosOXArAH7_JQtxtcF09B-tXCcjZ7kunYitREv-O3yJLJEhrH6caO5GOarLzSiPeEwJloSV-OBarzufcL41gsCQI2wYiLEP06OK4by52joXx79ZEoiTzSW3hx4REH0nkycC6oYxoSHgS5cQHQwIFfZURi_9z1DPLmtxqaj_nSO4/s1280/1000839137.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhkRRvN501xHk0SY_zBMosOXArAH7_JQtxtcF09B-tXCcjZ7kunYitREv-O3yJLJEhrH6caO5GOarLzSiPeEwJloSV-OBarzufcL41gsCQI2wYiLEP06OK4by52joXx79ZEoiTzSW3hx4REH0nkycC6oYxoSHgS5cQHQwIFfZURi_9z1DPLmtxqaj_nSO4/s1280/1000839137.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #53</p>
+                    </div>
+                </div>
+                <!-- Foto 54 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqRSFNPTt9LUTmsPN09T0ojkmvxbiHTyl4OtH4o2Z8fk_z2QgjX-Jay8Yw9DL95GCIL1ZRDa7dAV5sHF8aHt0G3lWiqkrnD8FICwp7pX_U7XVXbS3UiPAfe4EqH36ZxXtaLPF_Zv5tS-ADKxo4GC1bCla43rgWfSFpLYrpvMCA2Xt5h-KujVV4G8yxh8A/s1280/1000839136.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqRSFNPTt9LUTmsPN09T0ojkmvxbiHTyl4OtH4o2Z8fk_z2QgjX-Jay8Yw9DL95GCIL1ZRDa7dAV5sHF8aHt0G3lWiqkrnD8FICwp7pX_U7XVXbS3UiPAfe4EqH36ZxXtaLPF_Zv5tS-ADKxo4GC1bCla43rgWfSFpLYrpvMCA2Xt5h-KujVV4G8yxh8A/s1280/1000839136.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #54</p>
+                    </div>
+                </div> 
+               <!-- Foto 55 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhG36gwdMGC3jVeEOj5mzK7l92XU8AQrDeNhZanIScpIju9WYdF_WG-eHQU-indZO5MbeHSGdkB5tAs9M8b0PABLeiP4glN0jGysVkSiQom9di_-RBv7rYALXNSidM_LJrkIiCu6-7vm1yAGo0C5wrkHba3ksIjScnMFMzy6IqIgDK4yl_VhOmQN7DtCrk/s1280/1000839135.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhG36gwdMGC3jVeEOj5mzK7l92XU8AQrDeNhZanIScpIju9WYdF_WG-eHQU-indZO5MbeHSGdkB5tAs9M8b0PABLeiP4glN0jGysVkSiQom9di_-RBv7rYALXNSidM_LJrkIiCu6-7vm1yAGo0C5wrkHba3ksIjScnMFMzy6IqIgDK4yl_VhOmQN7DtCrk/s1280/1000839135.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #55</p>
+                    </div>
+                </div>
+                <!-- Foto 56 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgztsNmA6t_GB0sPu7et7uLIBe89Ft-JKzXuv1QgVUOHGu9T8xFa7ZzbehC5qoTaDyAd_cEFU5t_dcmmqlmD1skUuLNxRLL7yAbtEV7dyfPC4-wvGbxCNtkILYhKC87BoIC8xjJO3wVUsJdR99JJiGfDzo6lsmIXw-XrWnDqALjfz144YHKGp0BF-yrkw8/s1280/1000839134.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgztsNmA6t_GB0sPu7et7uLIBe89Ft-JKzXuv1QgVUOHGu9T8xFa7ZzbehC5qoTaDyAd_cEFU5t_dcmmqlmD1skUuLNxRLL7yAbtEV7dyfPC4-wvGbxCNtkILYhKC87BoIC8xjJO3wVUsJdR99JJiGfDzo6lsmIXw-XrWnDqALjfz144YHKGp0BF-yrkw8/s1280/1000839134.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #56</p>
+                    </div>
+                </div>
+                <!-- Foto 57 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWm3yS3p4U1jDYe9-6PrzMlrEDuKHSAH0f-gJ69ua3n3nnQcV_xdUVCNctkuPCcDTVuJA4av5FBH-qaPBe1xbimvxhFuLneCmhqbDjA2ZINou3SAoAn6HkRbZwaLTUwPMdJlaSCs0q0S9POA1KL0l8vvWsGHFkeCFUqitrZj28JnBZNJ3jD4o-hkbMStU/s1280/1000839133.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWm3yS3p4U1jDYe9-6PrzMlrEDuKHSAH0f-gJ69ua3n3nnQcV_xdUVCNctkuPCcDTVuJA4av5FBH-qaPBe1xbimvxhFuLneCmhqbDjA2ZINou3SAoAn6HkRbZwaLTUwPMdJlaSCs0q0S9POA1KL0l8vvWsGHFkeCFUqitrZj28JnBZNJ3jD4o-hkbMStU/s1280/1000839133.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #57</p>
+                    </div>
+                </div>
+                <!-- Foto 58 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_0XGeo_BAMDXxJQ9BKNXS2dPnqIF_OsrxYPD-JVPxcHjWxaaR5FOaWrhhMana1WGscJCB6iV56_Ghg0wj69LTifvR4n8DDy0xhafIDs3O1D18wv297-m806HMET5zOO8BXSBsOc-jaJKgc9jkkOPqUc5jeW2ZLHDDEwUcWM6y9NxZ3I6cDSBcGMif-MA/s1280/1000839132.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh_0XGeo_BAMDXxJQ9BKNXS2dPnqIF_OsrxYPD-JVPxcHjWxaaR5FOaWrhhMana1WGscJCB6iV56_Ghg0wj69LTifvR4n8DDy0xhafIDs3O1D18wv297-m806HMET5zOO8BXSBsOc-jaJKgc9jkkOPqUc5jeW2ZLHDDEwUcWM6y9NxZ3I6cDSBcGMif-MA/s1280/1000839132.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #58</p>
+                    </div>
+                </div>
+                <!-- Foto 59 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9NDktw-nZnOXpJvP7C4oiT_QpPTq-nQkMMfRIez_gzP_ru1Czm_5iuuEgHCGZ7in1cuH4IJujmq8HUJOvnp4iV6NylC6XW7GKdeOZtXk3wfwtM8FeO39qRyCHSTEYtES61wcFDIOq1h5ZHqP41QoFUsCMsy4wQxdq2men6M9u1SznsnDHRN0siC9VN1Q/s1280/1000839131.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh9NDktw-nZnOXpJvP7C4oiT_QpPTq-nQkMMfRIez_gzP_ru1Czm_5iuuEgHCGZ7in1cuH4IJujmq8HUJOvnp4iV6NylC6XW7GKdeOZtXk3wfwtM8FeO39qRyCHSTEYtES61wcFDIOq1h5ZHqP41QoFUsCMsy4wQxdq2men6M9u1SznsnDHRN0siC9VN1Q/s1280/1000839131.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #59</p>
+                    </div>
+                </div>
+                <!-- Foto 60 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpZkcu8bnMG5g9JVk9gX9oXB20Kr2eEGxo4yXOUFiqDc9IKIOHyBOap0-EpdMlVMuI9pAVtMtcoRmbHvZ9MtiE4V_3GCPEbxELUv5yQyBL4UWLvNKRd7fJhxxz3pGwMLX17wmnAAjiEy1M3BvjX3TDUPKokyi7HRHDanrBZjCNZgDmzlTpQhSymnsA0A0/s1280/1000839130.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpZkcu8bnMG5g9JVk9gX9oXB20Kr2eEGxo4yXOUFiqDc9IKIOHyBOap0-EpdMlVMuI9pAVtMtcoRmbHvZ9MtiE4V_3GCPEbxELUv5yQyBL4UWLvNKRd7fJhxxz3pGwMLX17wmnAAjiEy1M3BvjX3TDUPKokyi7HRHDanrBZjCNZgDmzlTpQhSymnsA0A0/s1280/1000839130.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #60</p>
+                    </div>
+                </div>  
+                <!-- Foto 61 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhn9ePNr_8P7a1RHCTMl5NHjBKplNQnV6ExwNrNIdKjZoiL0ijo2yxOAdLNEMcIZdySWf1gaZWhK7-V4qCMwCcEFTADvA5D-0Ud9MFJE0by-ehzKznxziBsKY6fCtIjMaZCao2HxzEXYbaWMa0qc4lssHRsuQB2jxFEi9zWrXgX0M_rboLfDLqFxJ4nK-Q/s1280/1000839129.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhn9ePNr_8P7a1RHCTMl5NHjBKplNQnV6ExwNrNIdKjZoiL0ijo2yxOAdLNEMcIZdySWf1gaZWhK7-V4qCMwCcEFTADvA5D-0Ud9MFJE0by-ehzKznxziBsKY6fCtIjMaZCao2HxzEXYbaWMa0qc4lssHRsuQB2jxFEi9zWrXgX0M_rboLfDLqFxJ4nK-Q/s1280/1000839129.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #61</p>
+                    </div>
+                </div>
+                <!-- Foto 62 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGMJ6_tHRJx4j8VOnKU0d_CDbtHzVKCTCVC44I6nUTXKZTfR5ikjc1unBW-602AUFf3WcEC00adnaeGZpRGR0tsItFvDmNo7mPSy8WVgBv41UWZ0Kzl1lA5Y5S3vpoWh64C3lPBm40zLI9F8YBU_7j4YEiDTTeGhdh2mi2uhDISZUEipjwpXxotL3-GaE/s1280/1000839128.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgGMJ6_tHRJx4j8VOnKU0d_CDbtHzVKCTCVC44I6nUTXKZTfR5ikjc1unBW-602AUFf3WcEC00adnaeGZpRGR0tsItFvDmNo7mPSy8WVgBv41UWZ0Kzl1lA5Y5S3vpoWh64C3lPBm40zLI9F8YBU_7j4YEiDTTeGhdh2mi2uhDISZUEipjwpXxotL3-GaE/s1280/1000839128.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #62</p>
+                    </div>
+                </div>
+                <!-- Foto 63 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBlHwFJARZz3JgIIpRmkQ0NF46L2T0HKQSKNso531J6EEOW-jkGsAKWspaol2Bio8KcTpa10QZ2G7UN8GBe-KzofH3M30hlFuO83E4IWTWCpaML8d3ikyTzaHwcgzKOZ42SUGK3NKlB1WwWzvQPJTQMycwXeSDei1_yGerVQaN6D09d8QbB_L0BfLbeic/s1280/1000839127.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBlHwFJARZz3JgIIpRmkQ0NF46L2T0HKQSKNso531J6EEOW-jkGsAKWspaol2Bio8KcTpa10QZ2G7UN8GBe-KzofH3M30hlFuO83E4IWTWCpaML8d3ikyTzaHwcgzKOZ42SUGK3NKlB1WwWzvQPJTQMycwXeSDei1_yGerVQaN6D09d8QbB_L0BfLbeic/s1280/1000839127.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #63</p>
+                    </div>
+                </div>
+                <!-- Foto 64 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhauxErrXZyBQTI81eJjP4bLkb_Rq5JGFndY0okUiHSJAP9sxBkZiitHWzkWuVXYrwZIulyozEEFGpHOz5D87Ce3r-ItjeLph4K0h8HISP9_1SVFtF6K-Jt2XPte4xU7MvTKLeKNlBOfJVLllc4INngzNWfOacy2zSaXpjC3PFLrPb0pMNv-AV-myyEvgg/s1280/1000839126.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhauxErrXZyBQTI81eJjP4bLkb_Rq5JGFndY0okUiHSJAP9sxBkZiitHWzkWuVXYrwZIulyozEEFGpHOz5D87Ce3r-ItjeLph4K0h8HISP9_1SVFtF6K-Jt2XPte4xU7MvTKLeKNlBOfJVLllc4INngzNWfOacy2zSaXpjC3PFLrPb0pMNv-AV-myyEvgg/s1280/1000839126.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #64</p>
+                    </div>
+                </div>
+                <!-- Foto 65 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiII7JBwIuTYrJJRKK4BVMOsx55xiXeBcHy0g-0Zq1POUMiqdaBB7h315tQp_PXXpAQOKSsgfcFTYP10nFeT0Pbb8vDzffFL7aAHYS_GZAlZ0WYE_UvjEc-i5756qkZFEdtatf1QTfsI9IuyOQmInqPLG3LbFSUUV_oJGh0ARn9cDaSOw_Mi1n6Is0qAM4/s1280/1000839125.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiII7JBwIuTYrJJRKK4BVMOsx55xiXeBcHy0g-0Zq1POUMiqdaBB7h315tQp_PXXpAQOKSsgfcFTYP10nFeT0Pbb8vDzffFL7aAHYS_GZAlZ0WYE_UvjEc-i5756qkZFEdtatf1QTfsI9IuyOQmInqPLG3LbFSUUV_oJGh0ARn9cDaSOw_Mi1n6Is0qAM4/s1280/1000839125.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #65</p>
+                    </div>
+                </div>
+                <!-- Foto 66 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiObrpKyX3-PpLsNTJsv2RJrF-wpBJyA2RQ1bZTZuBMmR-g9m4_tCVWUHdtq079s05RCPYKh6rCU1JUiy2fMeoj1ghii7JXhPHQuUsKi9cATxgDD7nxlhgwenasptDk5yQj9mblFms517w7zmUL1BxcENOk04VPAJndYAKOz8ZwZjo7dGG6fxJOA9ywYpI/s1280/1000839124.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiObrpKyX3-PpLsNTJsv2RJrF-wpBJyA2RQ1bZTZuBMmR-g9m4_tCVWUHdtq079s05RCPYKh6rCU1JUiy2fMeoj1ghii7JXhPHQuUsKi9cATxgDD7nxlhgwenasptDk5yQj9mblFms517w7zmUL1BxcENOk04VPAJndYAKOz8ZwZjo7dGG6fxJOA9ywYpI/s1280/1000839124.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #66</p>
+                    </div>
+                </div>
+                <!-- Foto 67 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYULcYUboORe74yUpIMEc01Lb1AXwXFwoBX-VpHNigO7V-_Tiwg8a0pKYGXbdxXt7g2LFdHPaAeRro3bV4EeI01wBLZIrPglI4SebBjgvl2QMh9vfSbkRdpGlLqMPJqD1aMZrA5cGtCfW3Y1r1dKsaraf0ZW8fzsgAlH37ZrkdxG_GyeUkpoHgNETSUJ4/s1280/1000839123.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYULcYUboORe74yUpIMEc01Lb1AXwXFwoBX-VpHNigO7V-_Tiwg8a0pKYGXbdxXt7g2LFdHPaAeRro3bV4EeI01wBLZIrPglI4SebBjgvl2QMh9vfSbkRdpGlLqMPJqD1aMZrA5cGtCfW3Y1r1dKsaraf0ZW8fzsgAlH37ZrkdxG_GyeUkpoHgNETSUJ4/s1280/1000839123.jpg" alt="Foto 1" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #67</p>
+                    </div>
+                </div>
+                <!-- Foto 68 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtu5P0r1w2Ab7hr2cDIjI3_iBQ8UBLv8bS7qUPogXrEPmxTPulKhpRprDNm0hsRhx_s4PtFkhyphenhyphenALNv9vbngTNUrN447VKdMRb6tlsYqSW2x5ry2AAq7d6BOBP-SSiiWYjJcM1pz6S_7aKkZ7sdrNmFwt9l3qMVotU4WGL1i3a64PGSAzWhVDymqdyzh34/s1280/1000839121.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtu5P0r1w2Ab7hr2cDIjI3_iBQ8UBLv8bS7qUPogXrEPmxTPulKhpRprDNm0hsRhx_s4PtFkhyphenhyphenALNv9vbngTNUrN447VKdMRb6tlsYqSW2x5ry2AAq7d6BOBP-SSiiWYjJcM1pz6S_7aKkZ7sdrNmFwt9l3qMVotU4WGL1i3a64PGSAzWhVDymqdyzh34/s1280/1000839121.jpg" alt="Foto 2" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #68</p>
+                    </div>
+                </div>
+                <!-- Foto 69 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgh7YY_NKPAFeyshtQN_8wEh0VpX5eV1F4mDLDphamDv54ReZpqLAFtVShMNZyebi-1zqOuiWWXZCJUfUbtYqp1VlaLRKncRq_y5Wlin3FuDPijejj1T08u4XSP3pi0BO6FleyxGFvpIqe77CoU3I7soknJOk_ZJJozhS3nHdcwpR8D9uPztVxGIV3m9To/s1280/1000839120.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgh7YY_NKPAFeyshtQN_8wEh0VpX5eV1F4mDLDphamDv54ReZpqLAFtVShMNZyebi-1zqOuiWWXZCJUfUbtYqp1VlaLRKncRq_y5Wlin3FuDPijejj1T08u4XSP3pi0BO6FleyxGFvpIqe77CoU3I7soknJOk_ZJJozhS3nHdcwpR8D9uPztVxGIV3m9To/s1280/1000839120.jpg" alt="Foto 3" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #69</p>
+                    </div>
+                </div>
+                <!-- Foto 70 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL_fHDM6R603ZAHwGS96ITzOBgaGDEdkym_pA0HQ5agqkodziIdAex1kUgzsMeBYvpOgQYi9ymyUq4Yn1aCaUIUY2ontkm0Re-_7s3V5uSdJwJfm-tG9mt-rkXEilCox7h_NPpv0Z_3xvLt4G-23NHxmU_RvBLt2tLb-Hw1OhUafQ-66p5mB1NGZWA2HA/s1280/1000839122.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL_fHDM6R603ZAHwGS96ITzOBgaGDEdkym_pA0HQ5agqkodziIdAex1kUgzsMeBYvpOgQYi9ymyUq4Yn1aCaUIUY2ontkm0Re-_7s3V5uSdJwJfm-tG9mt-rkXEilCox7h_NPpv0Z_3xvLt4G-23NHxmU_RvBLt2tLb-Hw1OhUafQ-66p5mB1NGZWA2HA/s1280/1000839122.jpg" alt="Foto 4" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #70</p>
+                    </div>
+                </div>
+                <!-- Foto 71 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhC3ak6EkEKh_gN5UnEIIRRoGqoDRhxGqCwUiHWNVkZJyyvSyayySoDXhS2pLrEWu9q3cQyPg0mSJ7wBAMshjc11HlF8dvrzbQVzgWBk84DulTvrLjBXyvc0Q5-1OQA9uxcCatqnEULqoFKRjRoGCxyeb1px3GkIxOIFxzG-qawCHQbaqKjeoB1lBYOWQo/s1280/1000839118.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhC3ak6EkEKh_gN5UnEIIRRoGqoDRhxGqCwUiHWNVkZJyyvSyayySoDXhS2pLrEWu9q3cQyPg0mSJ7wBAMshjc11HlF8dvrzbQVzgWBk84DulTvrLjBXyvc0Q5-1OQA9uxcCatqnEULqoFKRjRoGCxyeb1px3GkIxOIFxzG-qawCHQbaqKjeoB1lBYOWQo/s1280/1000839118.jpg" alt="Foto 5" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #71</p>
+                    </div>
+                </div>
+                <!-- Foto 72 -->
+                <div class="thumbnail-card" onclick="openGalleryImage('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0rfm27Zd6xt9sS55VylJzd6DwM_599GPGJIhz5909iVNmHAA2kK4CJwZUZzXzc5-g7sy21bAmHonEFNBLgGjbSzV9dJzNNbDJ1jRwPScjQogLQJ2E67q9bC1iP6exRBIA-MZm_tHYRp1LYqurhZLyEC2VsQO5wX5vmPV2R2O4HTz-5qhtgwacSJsThkw/s1280/1000839117.jpg')">
+                    <div class="media-wrapper">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0rfm27Zd6xt9sS55VylJzd6DwM_599GPGJIhz5909iVNmHAA2kK4CJwZUZzXzc5-g7sy21bAmHonEFNBLgGjbSzV9dJzNNbDJ1jRwPScjQogLQJ2E67q9bC1iP6exRBIA-MZm_tHYRp1LYqurhZLyEC2VsQO5wX5vmPV2R2O4HTz-5qhtgwacSJsThkw/s1280/1000839117.jpg" alt="Foto 6" class="thumb-img" loading="lazy">
+                    </div>
+                    <div class="card-info">
+                        <h3><span>Kang L</span><span class="badge">Galeri Foto</span></h3>
+                        <p><i class="fas fa-camera"></i> Foto #72</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TOMBOL KEMBALI KE ATAS -->
+            <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                KEMBALI KEATAS <i class="fas fa-arrow-up"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Lightbox untuk Galeri -->
+    <div id="galleryModal" class="gallery-modal">
+        <div class="gallery-modal-content">
+            <div class="gallery-media-container" id="galleryMediaContainer">
+                <div id="galleryModalMedia"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== GALERI FUNGSI ==========
+        const galleryModal = document.getElementById('galleryModal');
+        const galleryModalMedia = document.getElementById('galleryModalMedia');
+        const galleryMediaContainer = document.getElementById('galleryMediaContainer');
+
+        function addCloseButtonToContainer() {
+            let closeBtn = document.querySelector('#galleryMediaContainer .close-gallery-modal');
+            if (!closeBtn) {
+                closeBtn = document.createElement('div');
+                closeBtn.className = 'close-gallery-modal';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = () => {
+                    galleryModal.style.display = 'none';
+                    galleryModalMedia.innerHTML = '';
+                    document.body.style.overflow = 'auto';
+                };
+                galleryMediaContainer.appendChild(closeBtn);
+            }
+        }
+
+        function openGalleryImage(imageUrl) {
+            galleryModalMedia.innerHTML = `<img src="${imageUrl}" class="modal-media" style="max-width:100%; max-height:70vh;">`;
+            galleryModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            addCloseButtonToContainer();
+        }
+
+        // Tutup modal jika klik di luar area konten
+        galleryModal.onclick = (e) => {
+            if (e.target === galleryModal) {
+                galleryModal.style.display = 'none';
+                galleryModalMedia.innerHTML = '';
+                document.body.style.overflow = 'auto';
+            }
+        };
+    </script>
+</body>
+</html>
