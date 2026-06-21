@@ -1,0 +1,6 @@
+{
+  "name": "Portfolio",
+  "description": "A modern futuristic portfolio showcasing creative design and photography.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
