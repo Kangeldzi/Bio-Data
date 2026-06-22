@@ -27,7 +27,7 @@
             padding-bottom: 40px;
         }
 
-        /* --- ANIMASI --- */
+        /* --- ANIMASI DASAR --- */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
@@ -271,7 +271,7 @@
             border-radius: 2px;
         }
 
-        /* --- CARDS --- */
+        /* --- CARDS (Umum) --- */
         .card-box {
             background: #000;
             border: 2px solid #444;
@@ -403,26 +403,165 @@
         }
         .cert-img:hover { transform: scale(1.02); }
 
-        /* --- TESTIMONI --- */
+
+        /* ============================================================ */
+        /* === STATS CARDS (Graphic Design, UI/UX, Frontend) === */
+        /* ============================================================ */
+        .stats-card {
+            background: #aaa;
+            border: none;
+            color: #fff;
+            padding: 18px 15px;
+            border-radius: 12px;
+            margin-bottom: 6px; /* Jarak antar card sedikit lebih renggang */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 480px; /* Ukuran card dibatasi agar tidak terlalu lebar di HP */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Efek Hover: Mengambang (float) + Shadow warna + Scale */
+        .stats-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(251, 192, 45, 0.25), 0 0 30px rgba(251, 192, 45, 0.1);
+            z-index: 10;
+        }
+
+        /* --- EFEK BUIH / SERBUK EMAS KELUAR DARI BORDER SAAT HOVER --- */
+        .stats-card::before {
+            content: '✦ ✦ ✦ ✦ ✦';
+            position: absolute;
+            top: -15px;
+            left: -30px;
+            font-size: 0.8rem;
+            color: #fbc02d;
+            opacity: 0;
+            transition: all 0.6s ease;
+            transform: scale(0.5);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .stats-card::after {
+            content: '✦ ✦ ✦ ✦ ✦';
+            position: absolute;
+            bottom: -15px;
+            right: -30px;
+            font-size: 0.8rem;
+            color: #fbc02d;
+            opacity: 0;
+            transition: all 0.6s ease;
+            transform: scale(0.5);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .stats-card:hover::before {
+            opacity: 1;
+            transform: scale(1) translate(20px, 10px) rotate(15deg);
+        }
+        .stats-card:hover::after {
+            opacity: 1;
+            transform: scale(1) translate(-20px, -10px) rotate(-15deg);
+        }
+
+        .stats-card i {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .stats-card h3 {
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+        }
+        .stats-card p {
+            color: #fff;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+
+        /* ============================================================ */
+        /* === SKILL CHECKLIST HOVER EFEK (BORDER EMAS) === */
+        /* ============================================================ */
+        .skill-card-hover {
+            border: 2px solid #666;
+            border-radius: 24px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            background: #000;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .skill-card-hover:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: #fbc02d;
+            box-shadow: 0 15px 40px rgba(251, 192, 45, 0.2), inset 0 0 30px rgba(251, 192, 45, 0.05);
+        }
+
+
+        /* ============================================================ */
+        /* === TESTIMONI CAROUSEL (SLIDE + DOT) === */
+        /* ============================================================ */
+        /* Memberikan jarak 5px antara judul dengan carousel */
+        .testimoni-header-gap {
+            margin-bottom: 5px;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            padding-top: 15px; /* Ruang ekstra agar foto tidak terpotong bagian atas */
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 300%; /* 3 slide x 100% */
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .carousel-slide {
+            width: 33.333%;
+            flex-shrink: 0;
+            padding: 10px;
+        }
+
         .testimoni-card {
             background: #888;
             border-radius: 20px;
-            padding: 20px;
+            padding: 20px 20px 30px;
             text-align: center;
             color: #fff;
             position: relative;
-            margin-bottom: 20px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            height: 100%;
+            margin-top: 30px; /* Geser ke bawah agar foto tidak menabrak batas atas */
         }
+        
+        /* --- PERBAIKAN FOTO CUSTOMER AGAR FULL TIDAK TERPOTONG --- */
         .testimoni-img {
-            width: 80px;
-            height: 80px;
+            width: 110px; 
+            height: 110px;
             border-radius: 50%;
-            object-fit: cover;
-            margin-top: -50px;
-            border: 3px solid #1a1a1a;
+            object-fit: cover; /* Memastikan gambar penuh dan tidak gepeng */
+            margin-top: -75px; /* Dinaikkan ke atas agar menempel border card */
+            border: 5px solid #1a1a1a;
             background: #ccc;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
         }
+        
         .testimoni-name { font-size: 1.3rem; font-weight: 700; margin: 10px 0 5px; }
         .testimoni-label { font-weight: 600; margin-bottom: 10px; }
         .testimoni-review {
@@ -438,6 +577,36 @@
         }
         .testimoni-review::before { content: '"'; font-size: 2rem; color: #fbc02d; font-family: serif; }
         .testimoni-review::after { content: '"'; font-size: 2rem; color: #fbc02d; font-family: serif; float: right; }
+
+        /* --- DOT INDICATOR --- */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            padding-bottom: 20px;
+        }
+
+        .carousel-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .carousel-dot.active {
+            background: #fbc02d;
+            border-color: #fff;
+            box-shadow: 0 0 15px rgba(251, 192, 45, 0.6);
+            transform: scale(1.2);
+        }
+        .carousel-dot:hover {
+            background: #fbc02d;
+            transform: scale(1.1);
+        }
+
 
         /* --- FOOTER --- */
         .footer-social {
@@ -466,6 +635,9 @@
             .footer-social { font-size: 1rem; gap: 8px; }
             .header-title { font-size: 2.2rem; }
             .header-title::after { font-size: 1.4rem; top: -15px; }
+            .stats-card { padding: 15px 12px; }
+            .stats-card h3 { font-size: 1.2rem; }
+            .stats-card i { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -648,7 +820,7 @@
         </div>
 
 
-        <!-- ==================== WORK SERVICE (DIPERBAIKI) ==================== -->
+        <!-- ==================== WORK SERVICE ==================== -->
         <div class="section-header fade-in">
             <small>WHAT I AM DOING</small>
             <h2>WORK SERVICE</h2>
@@ -736,7 +908,7 @@
 
 
         <!-- ==================== SKILLS (PIL + CENTANG HIJAU) ==================== -->
-        <div class="card-box fade-in" style="border: 2px solid #666; border-radius: 24px; padding: 20px;">
+        <div class="skill-card-hover fade-in">
             
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
                 <div style="border: 2px solid #999; border-radius: 50px; padding: 8px 20px; flex: 1; text-align: center; font-weight: 700; color: #fff; font-size: 0.95rem;">Design Grafis</div>
@@ -812,7 +984,7 @@
         <div class="card-box fade-in">
             <div class="project-item">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEisd1KJ2txWXyNH8LSZNri0SBzqTBAXgGXzvOoO_Vg1K_gMHTzqjf1mg8vmi2ahuvkcyNXQe3hJ0DeYD_jiMRCWqpfwsnSsYKFx4NdZcgUHMI0WSG_NisS4PXe2SdxEn_TiH_PF6SYFRYNgAtKZg8B_Opj76EcyQoB21hQXYA3s83lukYHQi2XiFE9dprQ/s1280/1000725537.png" alt="Video Editing">
-                <p>Jasa Editing Video</p>
+                <p>Jasa Video & Editing</p>
             </div>
             <div class="project-item" style="margin-top:20px;">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwXoHvr1z9OKJme3yjr5Z1okFme6sg8T4Ran1JbpCDFeZkX7vPktVObCgOxTmWImWl23Yx_x_Nxowunt77zRoAa2JyWVvPgffatyg3w-4RRSNbgDckqbIMzTqmVHjhBeXfAYfRIR_BBKMRA9t5cm9AX9P-UuNVj2FQwXi_cQIQAn-UREYn5ckuU22rGGo/s320/1000000559.jpg" alt="Konstruksi">
@@ -823,7 +995,7 @@
         <div class="card-box fade-in">
             <div class="project-grid">
                 <div class="project-item">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhb3KL4cwXq9W7Z7h1I_d3thqCLtMvqOUqBEsJNu3fNoPfWyaQQunHPXyRRhwl1SuHPT2-CqVnWxiYKfZQpdiMaGBO0JxsmKd2P2VhNtwrYlz_MvxVGXpmZbA2mKXRO0FDwh7nP2KQ24uVLYw-6teaKtcdPY2k-7opXQh7nbpxChUHgt4oMbv7P6pSeJAc/s1498/1000596488.jpg" alt="Aplikasi Mobile">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgjWgvSr2Pd6JDexs3mx4qvc-6S5zg58qfvgNXpz9Z6MFR1dFIrgi1VFcZeDabki06lJ40QYxER5wOFV717LoFS0MZvvdXclYIIY4zcOtToKMJ8vvDNZ6bA2XUd2kgnvnMrMrOvbRtb4cPSh23igU2iHSnaIJqEX4ROdDlOD4e6L5q8SmaGJzd2cqSPIG0/s320/1000713724.png" alt="Aplikasi Mobile">
                     <p>Apk. Mobile</p>
                 </div>
                 <div class="project-item">
@@ -845,6 +1017,11 @@
                 <div class="project-item">
                     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuVuYlYZefgmfmi7jDhBRCmQhAw_s-vVWBJfkJKhyphenhyphenj8-uZWY6ZO4INX8jyoI0_a9vglx3jgElypROq55RKvMm0hy8qtUc20O5GEiIBCwtRGeuYcRLbKC2eqb_62oVd2lduOWxkoM2YEQCqiuOq0qLwrFrZOtx6DFzBd6Df_QFLhpZDzaEi7SratkO0dU0/s320/1000008639.jpg" alt="Fotografer">
                     <p>Foto & Videographer</p>
+                </div>
+                <!-- TAMBAHAN ITEM BARU: Edit Foto -->
+                <div class="project-item">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjme4d5kqjg7pYySpT_U31cl5uYGHncsRBOnUEb1jNXz1FyY9lrc0NSnTb5sfd38dzvyDylX5Ynm-vHGMsnhKK69ILgm38sT78-r659ZLFRnElEZoO1ZLgZQVBg1OBj8jJc3aKU81lsxCZQHL0UHdaYlB-qLBSesY_TTA9RuWLWVuJvxpaqqC1LPbOHUtA/s1280/1000001154.jpg" alt="Edit Foto">
+                    <p>Edit Foto</p>
                 </div>
             </div>
         </div>
@@ -874,20 +1051,35 @@
         </div>
 
 
-        <!-- ==================== UI/UX ==================== -->
-        <div class="card-box fade-in" style="background:#aaa; border:none; color:#000; padding:0; overflow:hidden;">
-            <div style="padding:20px;">
-                <i class="fas fa-laptop-code" style="font-size:3rem; color:#fff; margin-bottom:10px;"></i>
-                <h3 style="color:#fff; font-weight:800;">UI UX<br>Design</h3>
-                <p style="color:#fff;">Freelancer UI UX Design memikirkan bagaimana membuat Apps yang User Friendly dan Problem Solved</p>
-            </div>
+        <!-- ========================================================= -->
+        <!-- ==================== STATS CARDS BARU ==================== -->
+        <!-- ========================================================= -->
+        
+        <!-- Stats 1: Graphic Design -->
+        <div class="stats-card fade-in">
+            <i class="fas fa-paint-brush"></i>
+            <h3>Graphic Design</h3>
+            <p>
+                5 Tahun bekerja sebagai<br>
+                Graphic Design, Profesional<br>
+                dalam bekerja sebagai<br>
+                Video & Fotografer, Editing<br>
+                Foto/Video, dan Jasa Lainya.
+            </p>
         </div>
-        <div class="card-box fade-in" style="background:#aaa; border:none; color:#000; padding:0; overflow:hidden; margin-top:-15px;">
-            <div style="padding:20px;">
-                <i class="fas fa-code" style="font-size:3rem; color:#fff; margin-bottom:10px;"></i>
-                <h3 style="color:#fff; font-weight:800;">Frontend<br>Developer</h3>
-                <p style="color:#fff;">Memiliki fondasi HTML, CSS, PHP, JavaScript, MySQL, mampu melakukan Slicing Design dengan baik</p>
-            </div>
+
+        <!-- Stats 2: UI UX Design -->
+        <div class="stats-card fade-in">
+            <i class="fas fa-laptop-code"></i>
+            <h3>UI UX<br>Design</h3>
+            <p>Freelancer UI UX Design memikirkan bagaimana membuat Apps yang User Friendly dan Problem Solved</p>
+        </div>
+
+        <!-- Stats 3: Frontend Developer -->
+        <div class="stats-card fade-in">
+            <i class="fas fa-code"></i>
+            <h3>Frontend<br>Developer</h3>
+            <p>Memiliki fondasi HTML, CSS, PHP, JavaScript, MySQL, mampu melakukan Slicing Design dengan baik</p>
         </div>
 
 
@@ -906,37 +1098,61 @@
         </div>
 
 
-        <!-- ==================== TESTIMONI ==================== -->
-        <div class="section-header fade-in">
+        <!-- ========================================================= -->
+        <!-- =============== TESTIMONI CAROUSEL ======================= -->
+        <!-- ========================================================= -->
+        <div class="section-header fade-in testimoni-header-gap">
             <h2>TESTIMONI KLIEN</h2>
             <div class="dash-line"></div>
         </div>
 
-        <div class="testimoni-card fade-in">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgS1GhyphenhyphenHiRurbCprmNanHsi3V2zYtPRF-WdZVXRcyA9Mttg916G7CujLaN23bnCpMEXHaMl3tra8YYAYVWulyidzYpx6Y3INslU8tVhyJ_Fd4AXqk0Inx0IoaT1fPFx1b0NBWrb5_ZqqtsZs2uwXt9l91Uqz02TEy715UoDOMnTw8CdhbqgLcdPbq6fp9s/s320/1000858003.png" alt="Klien" class="testimoni-img">
-            <div class="testimoni-name">Nden</div>
-            <div class="testimoni-label">Jasa Design Rumah</div>
-            <div class="testimoni-review">
-                "Sangat profesional dalam pengerjaan desain rumah. Hasilnya sesuai dengan keinginan saya dan prosesnya cepat. Sangat recommended!"
+        <div class="carousel-container fade-in">
+            <div class="carousel-track" id="testimoniTrack">
+                
+                <!-- Slide 1 -->
+                <div class="carousel-slide">
+                    <div class="testimoni-card">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgS1GhyphenhyphenHiRurbCprmNanHsi3V2zYtPRF-WdZVXRcyA9Mttg916G7CujLaN23bnCpMEXHaMl3tra8YYAYVWulyidzYpx6Y3INslU8tVhyJ_Fd4AXqk0Inx0IoaT1fPFx1b0NBWrb5_ZqqtsZs2uwXt9l91Uqz02TEy715UoDOMnTw8CdhbqgLcdPbq6fp9s/s320/1000858003.png" alt="Klien" class="testimoni-img">
+                        <div class="testimoni-name">Nden</div>
+                        <div class="testimoni-label">Jasa Design Rumah</div>
+                        <div class="testimoni-review">
+                            "Sangat profesional dalam pengerjaan desain rumah. Hasilnya sesuai dengan keinginan saya dan prosesnya cepat. Sangat recommended!"
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-slide">
+                    <div class="testimoni-card">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGDW4iOiFdKatEKfGKgYNYgRXZG6s-7eOCfgi0gEAo305fTtNF00c64zGX29gYWKO_FWYBJOmJXfOqHfVvCXUjBdkZocd0LJkgQzmdZHcAlP3QlJcKxwjr3OJdAEIYPDelBOtq8NnOULGWz_4YsRJzrb12m5lzF7w2-bSvoa0VUixVCcctXDkT5U8LTZg/s1152/1000258078.jpg" alt="Klien" class="testimoni-img">
+                        <div class="testimoni-name">Desi</div>
+                        <div class="testimoni-label">Jasa Design Spanduk</div>
+                        <div class="testimoni-review">
+                            "Desain spanduknya sangat menarik dan kreatif. Komunikasi dengan admin sangat baik, harga juga bersahabat. Terima kasih!"
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="carousel-slide">
+                    <div class="testimoni-card">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLhYPG6wWwaAQCVBGmEJ5U8jKfFJljM4JhgeEejfVg_d8gY0fYBqk5LiCx5T9Zq-WhY5vL6iUGj4zXglbPe5udqIdYYq3l16rXXrBdn5TZQk_xGJYH-5R7NOSNZ_BUu39rr2J0Hky3iSZfSVILrjRQ90cZ-no0pKjZs1mYzL9bCF0TGyd8OmXFp9H7gpQ/s612/1000857990.jpg" alt="Klien" class="testimoni-img">
+                        <div class="testimoni-name">Endang</div>
+                        <div class="testimoni-label">Jasa Design Dan Cetak Nota</div>
+                        <div class="testimoni-review">
+                            "Pembuatan nota dagang sangat rapi dan berkualitas. Desainnya modern dan sesuai dengan brand usaha saya. Puas sekali!"
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="testimoni-card fade-in">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGDW4iOiFdKatEKfGKgYNYgRXZG6s-7eOCfgi0gEAo305fTtNF00c64zGX29gYWKO_FWYBJOmJXfOqHfVvCXUjBdkZocd0LJkgQzmdZHcAlP3QlJcKxwjr3OJdAEIYPDelBOtq8NnOULGWz_4YsRJzrb12m5lzF7w2-bSvoa0VUixVCcctXDkT5U8LTZg/s1152/1000258078.jpg" alt="Klien" class="testimoni-img">
-            <div class="testimoni-name">Desi</div>
-            <div class="testimoni-label">Jasa Design Spanduk</div>
-            <div class="testimoni-review">
-                "Desain spanduknya sangat menarik dan kreatif. Komunikasi dengan admin sangat baik, harga juga bersahabat. Terima kasih!"
-            </div>
-        </div>
-
-        <div class="testimoni-card fade-in">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhLhYPG6wWwaAQCVBGmEJ5U8jKfFJljM4JhgeEejfVg_d8gY0fYBqk5LiCx5T9Zq-WhY5vL6iUGj4zXglbPe5udqIdYYq3l16rXXrBdn5TZQk_xGJYH-5R7NOSNZ_BUu39rr2J0Hky3iSZfSVILrjRQ90cZ-no0pKjZs1mYzL9bCF0TGyd8OmXFp9H7gpQ/s612/1000857990.jpg" alt="Klien" class="testimoni-img">
-            <div class="testimoni-name">Endang</div>
-            <div class="testimoni-label">Jasa Design Dan Cetak Nota</div>
-            <div class="testimoni-review">
-                "Pembuatan nota dagang sangat rapi dan berkualitas. Desainnya modern dan sesuai dengan brand usaha saya. Puas sekali!"
-            </div>
+        <!-- DOT INDICATOR -->
+        <div class="carousel-dots" id="carouselDots">
+            <span class="carousel-dot active" data-index="0"></span>
+            <span class="carousel-dot" data-index="1"></span>
+            <span class="carousel-dot" data-index="2"></span>
         </div>
 
 
@@ -958,5 +1174,49 @@
         </div>
 
     </div>
+
+    <!-- JAVASCRIPT UNTUK CAROUSEL BERJALAN OTOMATIS + DOT CLICK -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('testimoniTrack');
+            const dots = document.querySelectorAll('.carousel-dot');
+            let currentIndex = 0;
+            const totalSlides = dots.length;
+            let autoSlideInterval;
+
+            function goToSlide(index) {
+                if (index >= totalSlides) index = 0;
+                if (index < 0) index = totalSlides - 1;
+                
+                track.style.transform = `translateX(-${index * 33.333}%)`;
+                
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[index].classList.add('active');
+                
+                currentIndex = index;
+            }
+
+            function startAutoSlide() {
+                autoSlideInterval = setInterval(() => {
+                    goToSlide(currentIndex + 1);
+                }, 3000);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    stopAutoSlide();
+                    goToSlide(index);
+                    startAutoSlide();
+                });
+            });
+
+            startAutoSlide();
+        });
+    </script>
+
 </body>
 </html>
