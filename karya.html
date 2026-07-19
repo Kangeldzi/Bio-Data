@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>KARYA TERBAIK — File Explorer</title>
+    <!-- Bootstrap 5 & Font Awesome 6 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+        .mobile-frame {
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            height: 100dvh;
+            background: #f5f7fc;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            position: relative;
+            padding: 0px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0;
+        }
+        /* Shimmer tetap seperti sebelumnya */
+        .shimmer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .shimmer-overlay.active {
+            opacity: 1;
+        }
+        .shimmer-overlay .shimmer-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 25%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .shimmer-overlay.active .shimmer-layer {
+            opacity: 1;
+        }
+        @keyframes shimmerLeftToRight {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        @keyframes shimmerSlideUp {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+        @keyframes shimmerSlideDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        }
+        @keyframes shimmerZoomIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+        @keyframes shimmerZoomOut {
+            0% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+        }
+        @keyframes shimmerSwipeTLBR {
+            0% {
+                transform: translate(-100%, -100%) scale(0.5);
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(100%, 100%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        @keyframes shimmerSwipeTRBL {
+            0% {
+                transform: translate(100%, -100%) scale(0.5);
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-100%, 100%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        .shimmer-overlay .shimmer-layer.anim-left-right {
+            animation: shimmerLeftToRight 1.2s ease-in-out forwards;
+        }
+        .shimmer-overlay .shimmer-layer.anim-slide-up {
+            animation: shimmerSlideUp 1.2s ease-in-out forwards;
+        }
+        .shimmer-overlay .shimmer-layer.anim-slide-down {
+            animation: shimmerSlideDown 1.2s ease-in-out forwards;
+        }
+        .shimmer-overlay .shimmer-layer.anim-zoom-in {
+            animation: shimmerZoomIn 1.2s ease-in-out forwards;
+        }
+        .shimmer-overlay .shimmer-layer.anim-zoom-out {
+            animation: shimmerZoomOut 1.2s ease-in-out forwards;
+        }
+        .shimmer-overlay .shimmer-layer.anim-swipe-tlbr {
+            animation: shimmerSwipeTLBR 1.2s ease-in-out forwards;
+        }
+        .shimmer-overlay .shimmer-layer.anim-swipe-trbl {
+            animation: shimmerSwipeTRBL 1.2s ease-in-out forwards;
+        }
+
+        .scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 14px 20px 14px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            position: relative;
+            z-index: 1;
+            -webkit-overflow-scrolling: touch;
+            background: #f5f7fc;
+        }
+        .scroll-area::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .popup-overlay.show {
+            display: flex;
+        }
+        .popup-box {
+            background: #fff;
+            border-radius: 32px;
+            padding: 32px 28px;
+            max-width: 340px;
+            width: 90%;
+            border: none;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn {
+            0% {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .popup-box h4 {
+            color: #0b1a33;
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 18px;
+        }
+        .popup-box p {
+            color: #4a5a72;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        .popup-box .btn-close-popup {
+            background: #0b1a33;
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.25s;
+        }
+        .popup-box .btn-close-popup:hover {
+            background: #1d3557;
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(11, 26, 51, 0.25);
+        }
+
+        @media (min-width: 431px) {
+            body {
+                padding: 20px;
+                background: #0a0a0a;
+            }
+            .mobile-frame {
+                height: 95vh;
+                height: 95dvh;
+                max-height: 850px;
+                border-radius: 32px;
+                box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
+            }
+        }
+        @media (max-width: 430px) {
+            .mobile-frame {
+                border-radius: 0;
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .scroll-area {
+                padding: 6px 12px 20px 12px;
+            }
+        }
+
+        /* ===== FILE EXPLORER MODERN ===== */
+        .club-wrapper {
+            padding: 6px 0 10px;
+            animation: fadeInUp 0.7s ease forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* HEADER premium */
+        .club-header {
+            text-align: center;
+            padding: 20px 16px 16px;
+            margin-bottom: 20px;
+            background: linear-gradient(145deg, #0b1a33, #1d3557);
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(11, 26, 51, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .club-header::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.06), transparent 70%);
+            pointer-events: none;
+        }
+        .club-header h2 {
+            color: #fff;
+            font-size: clamp(16px, 3.5vw, 22px);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            margin: 0 0 4px;
+        }
+        .club-header h3 {
+            color: #f1c40f;
+            font-size: clamp(13px, 2.2vw, 17px);
+            font-weight: 700;
+            margin: 0 0 6px;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+        .club-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            position: relative;
+            z-index: 1;
+            margin: 0 0 8px;
+            font-weight: 400;
+        }
+        .club-header .badge-count {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.15);
+            color: #f1c40f;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 11px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+        }
+
+        /* GRID — 3 kolom */
+        .club-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            padding: 0 0 4px;
+        }
+
+        /* Folder item — premium card */
+        .folder-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px 8px 14px;
+            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            cursor: pointer;
+            min-height: 130px;
+            backdrop-filter: blur(2px);
+        }
+        .folder-item:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(11, 26, 51, 0.10), 0 4px 12px rgba(0, 0, 0, 0.04);
+            border-color: #0b1a33;
+            background: #fafbff;
+        }
+        .folder-item:active {
+            transform: scale(0.96);
+        }
+
+        /* Ikon folder di atas */
+        .folder-icon-top {
+            font-size: 28px;
+            color: #2d4373;
+            margin-bottom: 2px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
+            transition: all 0.3s ease;
+            line-height: 1;
+            opacity: 0.7;
+        }
+        .folder-item:hover .folder-icon-top {
+            transform: scale(1.05);
+            opacity: 1;
+            color: #0b1a33;
+        }
+
+        /* Logo tim bulat */
+        .folder-logo-wrapper {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2px auto 6px;
+            border: 2px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            background: #ffffff;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .folder-item:hover .folder-logo-wrapper {
+            border-color: #0b1a33;
+            transform: scale(1.04);
+            box-shadow: 0 6px 20px rgba(11, 26, 51, 0.08);
+        }
+        .folder-logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Nama folder */
+        .folder-name {
+            font-weight: 700;
+            font-size: 10px;
+            color: #1d2b3f;
+            line-height: 1.3;
+            margin-top: 2px;
+            letter-spacing: 0.2px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .folder-number {
+            font-size: 7px;
+            color: rgba(0, 0, 0, 0.18);
+            font-weight: 600;
+            margin-top: 1px;
+        }
+
+        /* Warna background folder — soft pastel modern */
+        .folder-bg-1 {
+            background: linear-gradient(145deg, #f0f5ff, #e8eeff);
+        }
+        .folder-bg-2 {
+            background: linear-gradient(145deg, #f0faf5, #e4f5eb);
+        }
+        .folder-bg-3 {
+            background: linear-gradient(145deg, #f5f0ff, #ede6ff);
+        }
+        .folder-bg-4 {
+            background: linear-gradient(145deg, #fff8ee, #fff0dc);
+        }
+        .folder-bg-5 {
+            background: linear-gradient(145deg, #fcf0f5, #f8e4ec);
+        }
+        .folder-bg-6 {
+            background: linear-gradient(145deg, #f0f9fc, #e2f0f5);
+        }
+
+        .scroll-hint {
+            text-align: center;
+            font-size: 10px;
+            color: #9aaec2;
+            padding: 10px 0 2px;
+            letter-spacing: 0.3px;
+        }
+        .scroll-hint i {
+            color: #0b1a33;
+            animation: bounceDown 2s ease-in-out infinite;
+            opacity: 0.5;
+        }
+        @keyframes bounceDown {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(4px);
+            }
+        }
+
+        /* ===== DESKRIPSI BAWAH ===== */
+        .description-section {
+            margin-top: 24px;
+            padding: 16px 14px 14px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        .description-section .desc-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0b1a33;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .description-section .desc-title i {
+            color: #2d4373;
+            font-size: 14px;
+        }
+        .desc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 14px;
+        }
+        .desc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 11px;
+            color: #2d3f5a;
+            line-height: 1.4;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+        }
+        .desc-item .desc-label {
+            font-weight: 600;
+            color: #0b1a33;
+            min-width: 52px;
+            font-size: 10px;
+            letter-spacing: 0.2px;
+        }
+        .desc-item .desc-text {
+            color: #3f5675;
+            font-weight: 400;
+            font-size: 10.5px;
+        }
+        .desc-item .desc-icon {
+            color: #2d4373;
+            font-size: 12px;
+            width: 18px;
+            text-align: center;
+            margin-top: 1px;
+        }
+
+        /* Tombol Back */
+        .btn-back-wrapper {
+            margin-top: 16px;
+            text-align: center;
+        }
+        .btn-back {
+            display: inline-block;
+            background: #0b1a33;
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 12px 28px;
+            border-radius: 40px;
+            border: none;
+            box-shadow: 0 4px 16px rgba(11, 26, 51, 0.15);
+            transition: all 0.25s ease;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            width: 100%;
+            max-width: 200px;
+            backdrop-filter: blur(4px);
+        }
+        .btn-back:hover {
+            background: #1d3557;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(11, 26, 51, 0.2);
+            color: #fff;
+        }
+        .btn-back i {
+            margin-right: 8px;
+        }
+
+        /* modal nonaktif */
+        .modal-club {
+            display: none !important;
+        }
+
+        /* responsif kecil */
+        @media (max-width: 400px) {
+            .folder-item {
+                min-height: 110px;
+                padding: 12px 4px 10px;
+            }
+            .folder-logo-wrapper {
+                width: 48px;
+                height: 48px;
+            }
+            .folder-name {
+                font-size: 8px;
+            }
+            .desc-grid {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- POPUP NOTIF -->
+    <div class="popup-overlay" id="popupNotif">
+        <div class="popup-box text-center">
+            <div style="font-size:44px; margin-bottom:8px;">📊</div>
+            <h4>Real-time</h4>
+            <p id="popupMessage">Total Viewer aktif: <strong id="viewerCount">1.284</strong> orang</p>
+            <button class="btn-close-popup" onclick="closePopup()">Tutup</button>
+        </div>
+    </div>
+
+    <div class="mobile-frame">
+        <!-- Shimmer -->
+        <div class="shimmer-overlay" id="shimmerOverlay">
+            <div class="shimmer-layer" id="shimmerLayer"></div>
+        </div>
+
+        <div class="scroll-area">
+
+            <div class="club-wrapper">
+                <!-- HEADER -->
+                <div class="club-header">
+                    <h2>📁 FILE EXPLORER</h2>
+                    <h3>⭐ KARYA TERBAIK ⭐</h3>
+                    <p>Klik folder untuk membuka</p>
+                    <span class="badge-count"><i class="fas fa-folder-open"></i> 6 Folder</span>
+                </div>
+
+                <!-- GRID -->
+                <div class="club-grid" id="clubGrid"></div>
+
+                <div class="scroll-hint">
+                    <i class="fas fa-chevron-down"></i> gulir untuk detail
+                </div>
+
+                <!-- ===== DESKRIPSI 6 TOMBOL ===== -->
+                <div class="description-section" id="descSection">
+                    <div class="desc-title">
+                        <i class="fas fa-info-circle"></i> Deskripsi Folder
+                    </div>
+                    <div class="desc-grid" id="descGrid">
+                        <!-- akan diisi JS -->
+                    </div>
+                    <!-- Tombol Back -->
+                    <div class="btn-back-wrapper">
+                        <a href="#" class="btn-back" onclick="window.history.back(); return false;">
+                            <i class="fas fa-arrow-left"></i> Kembali
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="height:4px;"></div>
+        </div>
+    </div>
+
+    <!-- modal nonaktif -->
+    <div class="modal-club" id="modalClub"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js">
+    </script>
+    <script>
+        // ===== SHIMMER =====
+        const shimmerTypes = [
+            'anim-left-right', 'anim-slide-up', 'anim-slide-down',
+            'anim-zoom-in', 'anim-zoom-out', 'anim-swipe-tlbr', 'anim-swipe-trbl'
+        ];
+
+        function triggerShimmer() {
+            const overlay = document.getElementById('shimmerOverlay');
+            const layer = document.getElementById('shimmerLayer');
+            const randomIndex = Math.floor(Math.random() * shimmerTypes.length);
+            const selectedAnim = shimmerTypes[randomIndex];
+            layer.className = 'shimmer-layer';
+            overlay.classList.remove('active');
+            void overlay.offsetHeight;
+            layer.classList.add(selectedAnim);
+            overlay.classList.add('active');
+            setTimeout(() => { overlay.classList.remove('active'); }, 1500);
+        }
+        setInterval(triggerShimmer, 5000);
+        document.addEventListener('DOMContentLoaded', function() { setTimeout(triggerShimmer, 300); });
+
+        // ===== NOTIFIKASI =====
+        let viewerCount = 1284;
+
+        function updateViewer() {
+            viewerCount += Math.floor(Math.random() * 10) - 3;
+            if (viewerCount < 1000) viewerCount = 1000 + Math.floor(Math.random() * 500);
+            document.getElementById('viewerCount').textContent = viewerCount.toLocaleString();
+        }
+        setInterval(updateViewer, 3000);
+
+        function openNotif() {
+            const currentViewer = document.getElementById('viewerCount').textContent;
+            document.getElementById('popupMessage').innerHTML =
+                'Total Viewer aktif: <strong>' + currentViewer + '</strong> orang';
+            document.getElementById('popupNotif').classList.add('show');
+        }
+
+        function closePopup() {
+            document.getElementById('popupNotif').classList.remove('show');
+        }
+
+        // ===== DATA 6 FOLDER + DESKRIPSI =====
+        const folderData = [{
+            id: 1,
+            nama: 'Aplikasi Turnamen',
+            logo: 'https://img.icons8.com/fluency/96/000000/trophy.png',
+            link: 'https://humas-pamijahan-soccer-hbq3-git-main-kang-ls-projects.vercel.app/',
+            desc: 'Manajemen turnamen sepak bola dengan fitur live score & jadwal.'
+        }, {
+            id: 2,
+            nama: 'Toko Online',
+            logo: 'https://img.icons8.com/fluency/96/000000/shopping-cart.png',
+            link: 'https://www.teslasmart.my.id/',
+            desc: 'E-commerce modern dengan sistem pembayaran terintegrasi.'
+        }, {
+            id: 3,
+            nama: 'Website Berita',
+            logo: 'https://img.icons8.com/fluency/96/000000/news.png',
+            link: 'https://www.detikhumas.my.id/',
+            desc: 'Portal berita terkini dengan kategori dan fitur pencarian.'
+        }, {
+            id: 4,
+            nama: 'Aplikasi Koperasi',
+            logo: 'https://img.icons8.com/fluency/96/000000/office.png',
+            link: 'https://koperasi-asmara-tani.vercel.app/',
+            desc: 'Sistem koperasi simpan pinjam dan laporan keuangan.'
+        }, {
+            id: 5,
+            nama: 'Aplikasi "SALINK 🔔"',
+            logo: 'https://img.icons8.com/fluency/96/000000/alarm.png',
+            link: 'https://salink-iota.vercel.app/',
+            desc: 'Aplikasi Notifikasi Kebakaran, Kematian, Kriminal & Bencana (Emergency Alert System).'
+        }, {
+            id: 6,
+            nama: 'Company Profil',
+            logo: 'https://img.icons8.com/fluency/96/000000/company.png',
+            link: '#',
+            desc: 'Profil perusahaan modern dengan galeri dan tim.'
+        }];
+
+        // ===== RENDER GRID =====
+        function renderGrid() {
+            const grid = document.getElementById('clubGrid');
+            grid.innerHTML = '';
+
+            folderData.forEach((folder, index) => {
+                const bgClass = 'folder-bg-' + ((index % 6) + 1);
+                const a = document.createElement('a');
+                a.className = `folder-item ${bgClass}`;
+                a.href = folder.link;
+                a.target = '_blank';
+                a.setAttribute('data-id', folder.id);
+
+                const iconFolder = document.createElement('div');
+                iconFolder.className = 'folder-icon-top';
+                iconFolder.innerHTML = '<i class="fas fa-folder"></i>';
+
+                const logoWrapper = document.createElement('div');
+                logoWrapper.className = 'folder-logo-wrapper';
+                const img = document.createElement('img');
+                img.src = folder.logo;
+                img.alt = folder.nama;
+                img.loading = 'lazy';
+                logoWrapper.appendChild(img);
+
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'folder-name';
+                nameSpan.textContent = folder.nama;
+
+                const numSpan = document.createElement('span');
+                numSpan.className = 'folder-number';
+                numSpan.textContent = '#' + (index + 1);
+
+                a.appendChild(iconFolder);
+                a.appendChild(logoWrapper);
+                a.appendChild(nameSpan);
+                a.appendChild(numSpan);
+                grid.appendChild(a);
+            });
+        }
+
+        // ===== RENDER DESKRIPSI =====
+        function renderDescriptions() {
+            const container = document.getElementById('descGrid');
+            container.innerHTML = '';
+            folderData.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = 'desc-item';
+                div.innerHTML = `
+                    <span class="desc-icon"><i class="fas fa-folder-open"></i></span>
+                    <span class="desc-label">${item.nama}</span>
+                    <span class="desc-text">${item.desc}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGrid();
+            renderDescriptions();
+            console.log('✅ File Explorer + Deskripsi loaded.');
+        });
+
+        // nonaktif modal
+        document.getElementById('modalClub').style.display = 'none';
+    </script>
+</body>
+</html>
